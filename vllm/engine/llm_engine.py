@@ -445,6 +445,9 @@ class LLMEngine:
             if distributed_executor_backend.uses_ray:  # type: ignore
                 initialize_ray_cluster(engine_config.parallel_config)
             executor_class = distributed_executor_backend
+        elif distributed_executor_backend == "sim":
+            from vllm.executor.sim_executor import SimExecutor
+            executor_class = SimExecutor
         elif engine_config.device_config.device_type == "neuron":
             from vllm.executor.neuron_executor import NeuronExecutor
             executor_class = NeuronExecutor

@@ -1324,13 +1324,18 @@ class ParallelConfig:
         from vllm.executor.executor_base import ExecutorBase
 
         if self.distributed_executor_backend not in (
-                "ray", "mp", None) and not (isinstance(
+                "ray", "mp", "sim", None) and not (isinstance(
                     self.distributed_executor_backend, type) and issubclass(
                         self.distributed_executor_backend, ExecutorBase)):
             raise ValueError(
                 "Unrecognized distributed executor backend "
                 f"{self.distributed_executor_backend}. Supported "
-                "values are 'ray', 'mp' or custom ExecutorBase subclass.")
+                "values are 'ray', 'mp', 'sim' or custom ExecutorBase "
+                "subclass.")
+        if self.distributed_executor_backend == "sim" and self.world_size > 1:
+            raise ValueError("The 'sim' executor backend only supports "
+                             "tensor_parallel_size=1 and "
+                             "pipeline_parallel_size=1.")
         if self.use_ray:
             from vllm.executor import ray_utils
             ray_utils.assert_ray_available()
@@ -1495,6 +1500,45 @@ class SchedulerConfig:
     @property
     def is_multi_step(self) -> bool:
         return self.num_scheduler_steps > 1
+
+
+@dataclass
+class SimulatorConfig:
+    """Configuration for the trace-driven simulator executor
+    (``distributed_executor_backend="sim"``)."""
+
+    # JSONL/JSON trace with `prompt_token_ids` and `output_token_ids` (or
+    # `output_len`) per entry. If None, every request takes the fallback path.
+    trace_path: Optional[str] = None
+    # Number of tokens to emit before EOS for prompts missing from the trace.
+    default_output_len: int = 128
+    # Token emitted while replaying `output_len`-only entries and fallbacks.
+    filler_token_id: int = 0
+    # Synthetic latency per step:
+    #   prefill_ms_per_token * uncached prefill tokens
+    #   + decode_ms_base + decode_ms_per_seq * decode seqs (if any decode)
+    prefill_ms_per_token: float = 0.0
+    decode_ms_base: float = 0.0
+    decode_ms_per_seq: float = 0.0
+    # Virtual GPU memory reserved for KV cache, used to size the block pool
+    # unless --num-gpu-blocks-override is given.
+    kv_cache_gb: float = 16.0
+
+    def compute_hash(self) -> str:
+        # The simulator does not affect the computation graph.
+        return hashlib.md5(str([]).encode()).hexdigest()
+
+    def __post_init__(self) -> None:
+        if self.default_output_len < 0:
+            raise ValueError("default_output_len must be non-negative, got "
+                             f"{self.default_output_len}.")
+        for name in ("prefill_ms_per_token", "decode_ms_base",
+                     "decode_ms_per_seq"):
+            if getattr(self, name) < 0:
+                raise ValueError(f"{name} must be non-negative.")
+        if self.kv_cache_gb <= 0:
+            raise ValueError(
+                f"kv_cache_gb must be positive, got {self.kv_cache_gb}.")
 
 
 class DeviceConfig:
@@ -2978,6 +3022,7 @@ class VllmConfig:
                                                   init=True)  # type: ignore
     kv_transfer_config: KVTransferConfig = field(default=None,
                                                  init=True)  # type: ignore
+    simulator_config: Optional[SimulatorConfig] = None
     instance_id: str = ""
 
     def compute_hash(self) -> str:

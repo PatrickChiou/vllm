@@ -630,6 +630,9 @@ class AsyncLLMEngine(EngineClient):
                     "distributed_executor_backend must be a subclass of "
                     f"ExecutorAsyncBase. Got {distributed_executor_backend}.")
             executor_class = distributed_executor_backend
+        elif distributed_executor_backend == "sim":
+            from vllm.executor.sim_executor import SimExecutorAsync
+            executor_class = SimExecutorAsync
         elif engine_config.device_config.device_type == "neuron":
             from vllm.executor.neuron_executor import NeuronExecutorAsync
             executor_class = NeuronExecutorAsync

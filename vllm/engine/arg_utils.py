@@ -13,8 +13,8 @@ from vllm.config import (CacheConfig, CompilationConfig, ConfigFormat,
                          KVTransferConfig, LoadConfig, LoadFormat, LoRAConfig,
                          ModelConfig, ObservabilityConfig, ParallelConfig,
                          PoolerConfig, PromptAdapterConfig, SchedulerConfig,
-                         SpeculativeConfig, TaskOption, TokenizerPoolConfig,
-                         VllmConfig)
+                         SimulatorConfig, SpeculativeConfig, TaskOption,
+                         TokenizerPoolConfig, VllmConfig)
 from vllm.executor.executor_base import ExecutorBase
 from vllm.logger import init_logger
 from vllm.model_executor.layers.quantization import QUANTIZATION_METHODS
@@ -198,6 +198,15 @@ class EngineArgs:
     kv_transfer_config: Optional[KVTransferConfig] = None
 
     generation_config: Optional[str] = None
+
+    # Trace-driven simulator (distributed_executor_backend="sim").
+    sim_trace_path: Optional[str] = None
+    sim_default_output_len: int = 128
+    sim_filler_token_id: int = 0
+    sim_prefill_ms_per_token: float = 0.0
+    sim_decode_ms_base: float = 0.0
+    sim_decode_ms_per_seq: float = 0.0
+    sim_kv_cache_gb: float = 16.0
 
     def __post_init__(self):
         if not self.tokenizer:
@@ -389,7 +398,7 @@ class EngineArgs:
         # Parallel arguments
         parser.add_argument(
             '--distributed-executor-backend',
-            choices=['ray', 'mp'],
+            choices=['ray', 'mp', 'sim'],
             default=EngineArgs.distributed_executor_backend,
             help='Backend to use for distributed model '
             'workers, either "ray" or "mp" (multiprocessing). If the product '
@@ -397,7 +406,9 @@ class EngineArgs:
             'or equal to the number of GPUs available, "mp" will be used to '
             'keep processing on a single host. Otherwise, this will default '
             'to "ray" if Ray is installed and fail otherwise. Note that tpu '
-            'and hpu only support Ray for distributed inference.')
+            'and hpu only support Ray for distributed inference. "sim" '
+            'skips model execution and replays tokens from --sim-trace-path '
+            'on the CPU.')
 
         parser.add_argument(
             '--worker-use-ray',
@@ -956,6 +967,50 @@ class EngineArgs:
             "loaded from model. If set to a folder path, the generation config "
             "will be loaded from the specified folder path.")
 
+        sim_group = parser.add_argument_group(
+            'simulator',
+            'Options for --distributed-executor-backend=sim, which replays '
+            'tokens from a trace instead of running the model.')
+        sim_group.add_argument(
+            '--sim-trace-path',
+            type=nullable_str,
+            default=EngineArgs.sim_trace_path,
+            help='JSONL (or JSON list) trace. Each entry has '
+            '"prompt_token_ids" and either "output_token_ids" or '
+            '"output_len".')
+        sim_group.add_argument(
+            '--sim-default-output-len',
+            type=int,
+            default=EngineArgs.sim_default_output_len,
+            help='Tokens to emit before EOS for prompts not in the trace.')
+        sim_group.add_argument(
+            '--sim-filler-token-id',
+            type=int,
+            default=EngineArgs.sim_filler_token_id,
+            help='Token id emitted for "output_len" entries and for prompts '
+            'not in the trace.')
+        sim_group.add_argument(
+            '--sim-prefill-ms-per-token',
+            type=float,
+            default=EngineArgs.sim_prefill_ms_per_token,
+            help='Synthetic prefill latency per uncached prompt token (ms).')
+        sim_group.add_argument(
+            '--sim-decode-ms-base',
+            type=float,
+            default=EngineArgs.sim_decode_ms_base,
+            help='Synthetic latency of a step that has decode sequences (ms).')
+        sim_group.add_argument(
+            '--sim-decode-ms-per-seq',
+            type=float,
+            default=EngineArgs.sim_decode_ms_per_seq,
+            help='Additional synthetic latency per decode sequence (ms).')
+        sim_group.add_argument(
+            '--sim-kv-cache-gb',
+            type=float,
+            default=EngineArgs.sim_kv_cache_gb,
+            help='Virtual GPU memory (GiB) for the KV cache, used to size the '
+            'block pool unless --num-gpu-blocks-override is set.')
+
         return parser
 
     @classmethod
@@ -1039,6 +1094,16 @@ class EngineArgs:
         assert self.cpu_offload_gb >= 0, (
             "CPU offload space must be non-negative"
             f", but got {self.cpu_offload_gb}")
+
+        use_simulator = self.distributed_executor_backend == "sim"
+        if use_simulator:
+            # The simulator never touches an accelerator, so it must work on
+            # hosts where no platform is detected (e.g. macOS).
+            self.device = "cpu"
+            self.disable_async_output_proc = True
+            self.enforce_eager = True
+            if self.block_size is None:
+                self.block_size = 16
 
         device_config = DeviceConfig(device=self.device)
         model_config = self.create_model_config()
@@ -1249,6 +1314,15 @@ class EngineArgs:
             prompt_adapter_config=prompt_adapter_config,
             compilation_config=self.compilation_config,
             kv_transfer_config=self.kv_transfer_config,
+            simulator_config=SimulatorConfig(
+                trace_path=self.sim_trace_path,
+                default_output_len=self.sim_default_output_len,
+                filler_token_id=self.sim_filler_token_id,
+                prefill_ms_per_token=self.sim_prefill_ms_per_token,
+                decode_ms_base=self.sim_decode_ms_base,
+                decode_ms_per_seq=self.sim_decode_ms_per_seq,
+                kv_cache_gb=self.sim_kv_cache_gb,
+            ) if use_simulator else None,
         )
 
         if envs.VLLM_USE_V1:
