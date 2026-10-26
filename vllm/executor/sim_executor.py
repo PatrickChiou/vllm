@@ -49,10 +49,12 @@ class SimExecutor(ExecutorBase):
                            self.sim_config.default_output_len)
             trace = TraceStore()
 
-        self.simulator = Simulator(config=self.sim_config,
-                                   trace=trace,
-                                   block_size=self.cache_config.block_size,
-                                   eos_token_id=self._get_eos_token_id())
+        self.simulator = Simulator(
+            config=self.sim_config,
+            trace=trace,
+            block_size=self.cache_config.block_size,
+            eos_token_id=self._get_eos_token_id(),
+            sliding_window=self.cache_config.sliding_window)
 
     def _get_eos_token_id(self) -> Optional[int]:
         # Must match the id the engine's StopChecker compares against, which

@@ -8,7 +8,8 @@ from transformers import AutoTokenizer
 from vllm import EngineArgs, LLMEngine, SamplingParams
 from vllm.executor.sim_executor import SimExecutor
 from vllm.inputs import TokensPrompt
-from vllm.outputs import CompletionOutput
+from vllm.simulator.trace_builder import TraceBuilder
+from vllm.outputs import CompletionOutput, RequestOutput
 
 MODEL = "Qwen/Qwen2.5-0.5B-Instruct"
 BLOCK_SIZE = 16
@@ -37,17 +38,25 @@ def _make_engine(tmp_path, entries: List[dict], **kwargs) -> LLMEngine:
     return LLMEngine.from_engine_args(engine_args)
 
 
-def _run(engine: LLMEngine, prompts: Dict[str, List[int]],
-         max_tokens: int) -> Dict[str, CompletionOutput]:
+def _run_requests(engine: LLMEngine, prompts: Dict[str, List[int]],
+                  max_tokens: int) -> Dict[str, RequestOutput]:
     for request_id, prompt in prompts.items():
         engine.add_request(request_id, TokensPrompt(prompt_token_ids=prompt),
                            SamplingParams(max_tokens=max_tokens))
-    finished: Dict[str, CompletionOutput] = {}
+    finished: Dict[str, RequestOutput] = {}
     while engine.has_unfinished_requests():
         for output in engine.step():
             if output.finished:
-                finished[output.request_id] = output.outputs[0]
+                finished[output.request_id] = output
     return finished
+
+
+def _run(engine: LLMEngine, prompts: Dict[str, List[int]],
+         max_tokens: int) -> Dict[str, CompletionOutput]:
+    return {
+        rid: output.outputs[0]
+        for rid, output in _run_requests(engine, prompts, max_tokens).items()
+    }
 
 
 def test_uses_sim_executor_without_model(tmp_path):
@@ -152,7 +161,7 @@ def test_replay_survives_recompute_preemption(tmp_path, eos_token_id):
         assert list(finished[rid].token_ids) == response + [eos_token_id]
 
 
-def test_prefix_cache_hit_skips_cached_prefill_tokens(tmp_path):
+def test_partial_prefix_hit_computes_only_the_suffix(tmp_path):
     shared = _tokens(0, 4 * BLOCK_SIZE)
     first, second = shared + _tokens(900, 5), shared + _tokens(950, 10)
     engine = _make_engine(tmp_path, [
@@ -168,13 +177,109 @@ def test_prefix_cache_hit_skips_cached_prefill_tokens(tmp_path):
                           enable_prefix_caching=True)
     stats = engine.model_executor.simulator.stats
 
-    _run(engine, {"first": first}, max_tokens=100)
-    assert stats.num_uncached_prefill_tokens == len(first)
+    out_first = _run_requests(engine, {"first": first}, 100)["first"]
+    assert out_first.num_cached_tokens == 0
+    assert stats.num_computed_prefill_tokens == len(first)
 
-    _run(engine, {"second": second}, max_tokens=100)
+    out_second = _run_requests(engine, {"second": second}, 100)["second"]
+    assert out_second.num_cached_tokens == len(shared)
     assert stats.num_prefill_tokens == len(first) + len(second)
-    assert stats.num_uncached_prefill_tokens == len(first) + len(second) - len(
-        shared)
+    assert stats.num_computed_prefill_tokens == (len(first) + len(second) -
+                                                 len(shared))
+
+
+def test_full_prefix_hit_still_computes_last_token(tmp_path):
+    # A block-aligned prompt is fully cached on its second run; like the
+    # model runner, the simulator still computes the final prompt token.
+    prompt = _tokens(0, 4 * BLOCK_SIZE)
+    engine = _make_engine(tmp_path, [{
+        "prompt_token_ids": prompt,
+        "output_token_ids": _tokens(5000, 3)
+    }],
+                          enable_prefix_caching=True)
+    stats = engine.model_executor.simulator.stats
+
+    _run_requests(engine, {"first": prompt}, 100)
+    computed_before = stats.num_computed_prefill_tokens
+    out = _run_requests(engine, {"second": prompt}, 100)["second"]
+
+    assert out.num_cached_tokens == len(prompt)
+    assert stats.num_computed_prefill_tokens - computed_before == 1
+
+
+def test_multi_turn_prompt_reuses_generated_tokens(tmp_path):
+    builder = TraceBuilder(MODEL)
+    conversation = [
+        {
+            "role": "user",
+            "content": "Give me a long list of colors, please."
+        },
+        {
+            "role": "assistant",
+            "content": ("Red, orange, yellow, green, blue, indigo, violet, "
+                        "black, white, gray, pink, brown, cyan, magenta.")
+        },
+        {
+            "role": "user",
+            "content": "Now sort them alphabetically."
+        },
+        {
+            "role": "assistant",
+            "content": "Black, blue, brown, cyan, gray."
+        },
+    ]
+    first, second = builder.chat_entries(conversation)
+    engine = _make_engine(tmp_path, [first, second],
+                          enable_prefix_caching=True)
+
+    _run_requests(engine, {"turn-1": first["prompt_token_ids"]}, 200)
+    out = _run_requests(engine, {"turn-2": second["prompt_token_ids"]},
+                        200)["turn-2"]
+
+    # Turn 2 reuses every full block of turn 1's prompt plus its generated
+    # reply, not just turn 1's prompt. The final sampled token (EOS) is never
+    # fed back, so its KV is never computed.
+    computed_tokens = (len(first["prompt_token_ids"]) +
+                       len(first["output_token_ids"]))
+    assert out.num_cached_tokens == (computed_tokens // BLOCK_SIZE *
+                                     BLOCK_SIZE)
+    assert out.num_cached_tokens > len(first["prompt_token_ids"])
+
+
+def test_block_filled_by_final_eos_is_not_reused(tmp_path, eos_token_id):
+    # Prompt + reply + EOS fills exactly two blocks. The EOS is sampled but
+    # never computed, so only the first block can be reused.
+    prompt, reply = _tokens(0, 20), _tokens(5000, 2 * BLOCK_SIZE - 21)
+    follow_up = prompt + reply + [eos_token_id] + _tokens(900, 5)
+    engine = _make_engine(tmp_path, [{
+        "prompt_token_ids": prompt,
+        "output_token_ids": reply
+    }],
+                          enable_prefix_caching=True,
+                          sim_default_output_len=1)
+
+    _run_requests(engine, {"turn-1": prompt}, 100)
+    out = _run_requests(engine, {"turn-2": follow_up}, 100)["turn-2"]
+
+    assert out.num_cached_tokens == BLOCK_SIZE
+
+
+def test_aborted_and_finished_requests_release_replay_state(tmp_path):
+    engine = _make_engine(tmp_path, [], sim_default_output_len=50)
+    simulator = engine.model_executor.simulator
+
+    engine.add_request("aborted", TokensPrompt(prompt_token_ids=_tokens(0,
+                                                                        20)),
+                       SamplingParams(max_tokens=50))
+    engine.step()
+    assert simulator.num_active_requests == 1
+    engine.abort_request("aborted")
+    _run(engine, {"a": _tokens(100, 20)}, max_tokens=2)
+    _run(engine, {"b": _tokens(200, 20)}, max_tokens=2)
+
+    # State is dropped when the engine reports a request finished, which
+    # happens on the next step; only the last request is still held.
+    assert simulator.num_active_requests == 1
 
 
 def test_simulated_latency(tmp_path):

@@ -38,8 +38,10 @@ class SimulatorStats:
     num_requests: int = 0
     num_trace_hits: int = 0
     num_trace_misses: int = 0
+    # Prompt tokens scheduled for prefill, and the subset the model would
+    # actually compute after prefix-cache hits.
     num_prefill_tokens: int = 0
-    num_uncached_prefill_tokens: int = 0
+    num_computed_prefill_tokens: int = 0
     num_generated_tokens: int = 0
     simulated_time_s: float = 0.0
 
@@ -64,14 +66,22 @@ class Simulator:
         trace: TraceStore,
         block_size: int,
         eos_token_id: Optional[int],
+        sliding_window: Optional[int] = None,
     ) -> None:
         self.config = config
         self.trace = trace
         self.block_size = block_size
         self.eos_token_id = eos_token_id
+        self.sliding_window = sliding_window
         self.stats = SimulatorStats()
         self._plans: Dict[str, _ReplayPlan] = {}
-        self._warned_miss = False
+        self._next_miss_report = 1
+
+    @property
+    def num_active_requests(self) -> int:
+        """Requests holding replay state (released when the engine reports
+        them finished or aborted)."""
+        return len(self._plans)
 
     def step(
         self, execute_model_req: ExecuteModelRequest
@@ -82,14 +92,14 @@ class Simulator:
             self._plans.pop(request_id, None)
 
         outputs: List[CompletionSequenceGroupOutput] = []
-        prefill_tokens = 0
+        computed_prefill_tokens = 0
         decode_seqs = 0
         for seq_group_metadata in execute_model_req.seq_group_metadata_list:
             assert isinstance(seq_group_metadata, SequenceGroupMetadata), (
                 "The simulator expects full SequenceGroupMetadata, not "
                 "deltas.")
             if seq_group_metadata.is_prompt:
-                prefill_tokens += self._uncached_prefill_tokens(
+                computed_prefill_tokens += self._prefill_step(
                     seq_group_metadata)
             else:
                 decode_seqs += len(seq_group_metadata.seq_data)
@@ -108,9 +118,8 @@ class Simulator:
                 CompletionSequenceGroupOutput(samples=samples,
                                               prompt_logprobs=None))
 
-        latency_s = self._latency_s(prefill_tokens, decode_seqs)
+        latency_s = self._latency_s(computed_prefill_tokens, decode_seqs)
         self.stats.num_steps += 1
-        self.stats.num_uncached_prefill_tokens += prefill_tokens
         self.stats.simulated_time_s += latency_s
         return [SamplerOutput(outputs=outputs)], latency_s
 
@@ -126,13 +135,7 @@ class Simulator:
         entry: Optional[TraceEntry] = self.trace.lookup(prompt_token_ids)
         if entry is None:
             self.stats.num_trace_misses += 1
-            if not self._warned_miss:
-                logger.warning(
-                    "Prompt (%d tokens) not found in the simulator trace; "
-                    "emitting %d filler tokens instead. Further misses are "
-                    "counted silently.", len(prompt_token_ids),
-                    self.config.default_output_len)
-                self._warned_miss = True
+            self._report_misses(len(prompt_token_ids))
             entry = TraceEntry(output_token_ids=None,
                                output_len=self.config.default_output_len)
         else:
@@ -142,17 +145,47 @@ class Simulator:
                            filler_token_id=self.config.filler_token_id,
                            eos_token_id=self.eos_token_id)
 
-    def _uncached_prefill_tokens(
-            self, seq_group_metadata: SequenceGroupMetadata) -> int:
-        """Prompt tokens in this chunk that are not served by prefix cache."""
-        chunk = seq_group_metadata.token_chunk_size or 0
+    def _report_misses(self, prompt_len: int) -> None:
+        # Report on the 1st, 10th, 100th, ... miss so a mismatched trace is
+        # loud without flooding the log.
+        misses = self.stats.num_trace_misses
+        if misses < self._next_miss_report:
+            return
+        self._next_miss_report *= 10
+        logger.warning(
+            "Simulator trace misses: %d of %d requests (latest prompt: %d "
+            "tokens). Missed prompts emit %d filler tokens. A miss means the "
+            "server tokenized the prompt differently from the trace; build "
+            "traces with vllm.simulator.trace_builder.", misses,
+            self.stats.num_requests, prompt_len,
+            self.config.default_output_len)
+
+    def _prefill_step(self, seq_group_metadata: SequenceGroupMetadata) -> int:
+        """Returns how many prompt tokens of this chunk the model computes.
+
+        Mirrors ModelRunner._compute_lens and _compute_for_prefix_cache_hit,
+        including recording the prefix-cache hit on the sequence, which is
+        what RequestOutput.num_cached_tokens reports.
+        """
         seq_data = next(iter(seq_group_metadata.seq_data.values()))
-        num_computed = seq_data.get_num_computed_tokens()
-        cached = len(seq_group_metadata.computed_block_nums
-                     or []) * self.block_size
-        reused = min(max(cached - num_computed, 0), chunk)
-        self.stats.num_prefill_tokens += chunk
-        return chunk - reused
+        context_len = seq_data.get_num_computed_tokens()
+        seq_len = min(seq_data.get_len(),
+                      context_len + (seq_group_metadata.token_chunk_size or 0))
+        query_len = seq_len - context_len
+        self.stats.num_prefill_tokens += query_len
+
+        computed_block_nums = seq_group_metadata.computed_block_nums
+        if computed_block_nums and self.sliding_window is None:
+            prefix_cache_len = len(computed_block_nums) * self.block_size
+            seq_data.update_num_cached_tokens(prefix_cache_len)
+            if context_len < prefix_cache_len < seq_len:
+                query_len = seq_len - prefix_cache_len
+            elif seq_len <= prefix_cache_len:
+                # Full hit: the model runner still computes the last token.
+                query_len = 1
+
+        self.stats.num_computed_prefill_tokens += query_len
+        return query_len
 
     def _latency_s(self, prefill_tokens: int, decode_seqs: int) -> float:
         cfg = self.config
