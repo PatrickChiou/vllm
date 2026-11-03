@@ -1,0 +1,3 @@
+# Optional plotting dependency for the COMP536 prefix-sharing study.
+# Other study dependencies are already in requirements-common.txt.
+matplotlib >= 3.7, < 4
