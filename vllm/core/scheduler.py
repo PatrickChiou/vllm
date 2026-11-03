@@ -358,7 +358,10 @@ class Scheduler:
             num_gpu_blocks=num_gpu_blocks,
             num_cpu_blocks=num_cpu_blocks,
             sliding_window=self.cache_config.sliding_window,
-            enable_caching=self.cache_config.enable_prefix_caching)
+            enable_caching=self.cache_config.enable_prefix_caching,
+            **({"eviction_policy":
+                self.cache_config.prefix_cache_eviction_policy}
+               if version == "selfattn" else {}))
 
         # Sequence groups in the WAITING state.
         # Contain new prefill or preempted requests.

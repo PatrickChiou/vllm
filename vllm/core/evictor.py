@@ -9,12 +9,22 @@ class EvictionPolicy(enum.Enum):
        Evictor subclass.
     """
     LRU = enum.auto()
+    LFU = enum.auto()
+    FIFO = enum.auto()
 
 
 class Evictor(ABC):
     """The Evictor subclasses should be used by the BlockAllocator class to
     handle eviction of freed Blocks.
     """
+
+    def on_insert(self, block_id: int) -> None:
+        """A new immutable block starts a cache residency."""
+        return
+
+    def on_access(self, block_id: int) -> None:
+        """An immutable block is reused, possibly while still active."""
+        return
 
     @abstractmethod
     def __init__(self):
@@ -147,8 +157,91 @@ class LRUEvictor(Evictor):
         return len(self.free_table)
 
 
+class OrderedEvictor(Evictor):
+    """FIFO or LFU over eligible blocks, retaining history while referenced.
+
+    A block leaving the free table is being pinned, not evicted. Its insertion
+    order and frequency survive this transition. LFU counts allocator reuse
+    operations and breaks ties by last access, then insertion order.
+    """
+
+    def __init__(self, policy: EvictionPolicy):
+        self.policy = policy
+        self.free_table: Dict[int, BlockMetaData] = {}
+        self._history: Dict[int, Tuple[int, int]] = {}
+        self._serial = 0
+        self._versions: Dict[int, int] = {}
+        self.priority_queue: List[Tuple[float, float, int, int, int]] = []
+
+    def __contains__(self, block_id: int) -> bool:
+        return block_id in self.free_table
+
+    def on_insert(self, block_id: int) -> None:
+        self._serial += 1
+        self._history[block_id] = (self._serial, 1)
+
+    def on_access(self, block_id: int) -> None:
+        if block_id not in self._history:
+            self.on_insert(block_id)
+        order, frequency = self._history[block_id]
+        self._history[block_id] = (order, frequency + 1)
+        if block_id in self.free_table:
+            self._push(block_id)
+
+    def _entry(self, block_id: int) -> Tuple[float, float, int, int, int]:
+        order, frequency = self._history[block_id]
+        block = self.free_table[block_id]
+        if self.policy == EvictionPolicy.FIFO:
+            priority, recency = order, 0.0
+        else:
+            priority, recency = frequency, block.last_accessed
+        return (priority, recency, order, self._versions[block_id], block_id)
+
+    def _push(self, block_id: int) -> None:
+        self._serial += 1
+        self._versions[block_id] = self._serial
+        heapq.heappush(self.priority_queue, self._entry(block_id))
+        if len(self.priority_queue) > 50 * max(len(self.free_table), 1):
+            self.priority_queue = [self._entry(b) for b in self.free_table]
+            heapq.heapify(self.priority_queue)
+
+    def add(self, block_id: int, content_hash: int, num_hashed_tokens: int,
+            last_accessed: float):
+        if block_id not in self._history:
+            self.on_insert(block_id)
+        self.free_table[block_id] = BlockMetaData(content_hash,
+                                                 num_hashed_tokens,
+                                                 last_accessed)
+        self._push(block_id)
+
+    def update(self, block_id: int, last_accessed: float):
+        self.free_table[block_id].last_accessed = last_accessed
+        self._push(block_id)
+
+    def remove(self, block_id: int):
+        self.free_table.pop(block_id)
+        self._versions.pop(block_id, None)
+
+    def evict(self) -> Tuple[int, int]:
+        while self.priority_queue:
+            _, _, _, version, block_id = heapq.heappop(self.priority_queue)
+            if self._versions.get(block_id) != version:
+                continue
+            block = self.free_table[block_id]
+            self.remove(block_id)
+            self._history.pop(block_id)
+            return block_id, block.content_hash
+        raise ValueError("No usable cache memory left")
+
+    @property
+    def num_blocks(self) -> int:
+        return len(self.free_table)
+
+
 def make_evictor(eviction_policy: EvictionPolicy) -> Evictor:
     if eviction_policy == EvictionPolicy.LRU:
         return LRUEvictor()
+    elif eviction_policy in (EvictionPolicy.LFU, EvictionPolicy.FIFO):
+        return OrderedEvictor(eviction_policy)
     else:
         raise ValueError(f"Unknown cache eviction policy: {eviction_policy}")

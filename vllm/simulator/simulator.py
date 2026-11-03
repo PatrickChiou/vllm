@@ -8,6 +8,7 @@ from vllm.sequence import (CompletionSequenceGroupOutput, ExecuteModelRequest,
                            Logprob, SequenceData, SequenceGroupMetadata,
                            SequenceOutput)
 from vllm.simulator.trace_store import TraceEntry, TraceStore
+from vllm.simulator.metrics import PrefixMetrics
 
 logger = init_logger(__name__)
 

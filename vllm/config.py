@@ -978,6 +978,7 @@ class CacheConfig:
         sliding_window: Optional[int] = None,
         enable_prefix_caching: bool = False,
         cpu_offload_gb: float = 0,
+        prefix_cache_eviction_policy: str = "lru",
     ) -> None:
         self.block_size = block_size
         self.gpu_memory_utilization = gpu_memory_utilization
@@ -988,6 +989,10 @@ class CacheConfig:
         self.sliding_window = sliding_window
         self.enable_prefix_caching = enable_prefix_caching
         self.cpu_offload_gb = cpu_offload_gb
+        if prefix_cache_eviction_policy not in ("lru", "lfu", "fifo"):
+            raise ValueError("Unknown prefix cache eviction policy: "
+                             f"{prefix_cache_eviction_policy}")
+        self.prefix_cache_eviction_policy = prefix_cache_eviction_policy
 
         self._verify_args()
         self._verify_cache_dtype()
@@ -1523,6 +1528,8 @@ class SimulatorConfig:
     # Virtual GPU memory reserved for KV cache, used to size the block pool
     # unless --num-gpu-blocks-override is given.
     kv_cache_gb: float = 16.0
+    metrics_path: Optional[str] = None
+    strict_trace: bool = False
 
     def compute_hash(self) -> str:
         # The simulator does not affect the computation graph.

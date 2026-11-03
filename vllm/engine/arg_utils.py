@@ -207,6 +207,9 @@ class EngineArgs:
     sim_decode_ms_base: float = 0.0
     sim_decode_ms_per_seq: float = 0.0
     sim_kv_cache_gb: float = 16.0
+    sim_metrics_path: Optional[str] = None
+    sim_strict_trace: bool = False
+    sim_eviction_policy: str = "lru"
 
     def __post_init__(self):
         if not self.tokenizer:
@@ -1011,6 +1014,15 @@ class EngineArgs:
             help='Virtual GPU memory (GiB) for the KV cache, used to size the '
             'block pool unless --num-gpu-blocks-override is set.')
 
+        sim_group.add_argument('--sim-metrics-path', type=nullable_str,
+                               default=EngineArgs.sim_metrics_path,
+                               help='Write per-request and block reuse JSONL.')
+        sim_group.add_argument('--sim-strict-trace', action='store_true',
+                               help='Fail on missing or mismatched traces.')
+        sim_group.add_argument('--sim-eviction-policy',
+                               choices=['lru', 'lfu', 'fifo'], default='lru',
+                               help='Prefix cache eviction policy for sim.')
+
         return parser
 
     @classmethod
@@ -1125,6 +1137,8 @@ class EngineArgs:
             sliding_window=model_config.get_sliding_window(),
             enable_prefix_caching=self.enable_prefix_caching,
             cpu_offload_gb=self.cpu_offload_gb,
+            prefix_cache_eviction_policy=(self.sim_eviction_policy
+                                          if use_simulator else "lru"),
         )
         parallel_config = ParallelConfig(
             pipeline_parallel_size=self.pipeline_parallel_size,
@@ -1322,6 +1336,8 @@ class EngineArgs:
                 decode_ms_base=self.sim_decode_ms_base,
                 decode_ms_per_seq=self.sim_decode_ms_per_seq,
                 kv_cache_gb=self.sim_kv_cache_gb,
+                metrics_path=self.sim_metrics_path,
+                strict_trace=self.sim_strict_trace,
             ) if use_simulator else None,
         )
 

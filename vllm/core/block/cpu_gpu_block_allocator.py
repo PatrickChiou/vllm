@@ -4,6 +4,7 @@ from vllm.core.block.interfaces import (Block, BlockAllocator, BlockId,
                                         DeviceAwareBlockAllocator)
 from vllm.core.block.naive_block import NaiveBlock, NaiveBlockAllocator
 from vllm.core.block.prefix_caching_block import PrefixCachingBlockAllocator
+from vllm.core.evictor import EvictionPolicy
 from vllm.platforms import current_platform
 from vllm.utils import Device
 
@@ -26,6 +27,7 @@ class CpuGpuBlockAllocator(DeviceAwareBlockAllocator):
         num_gpu_blocks: int,
         num_cpu_blocks: int,
         block_size: int,
+        eviction_policy: str = "lru",
     ) -> DeviceAwareBlockAllocator:
         """Creates a CpuGpuBlockAllocator instance with the specified
         configuration.
@@ -76,16 +78,19 @@ class CpuGpuBlockAllocator(DeviceAwareBlockAllocator):
                 block_ids=cpu_block_ids,
             )
         elif allocator_type == "prefix_caching":
+            policy = EvictionPolicy[eviction_policy.upper()]
             gpu_allocator = PrefixCachingBlockAllocator(
                 num_blocks=num_gpu_blocks,
                 block_size=block_size,
                 block_ids=gpu_block_ids,
+                eviction_policy=policy,
             )
 
             cpu_allocator = PrefixCachingBlockAllocator(
                 num_blocks=num_cpu_blocks,
                 block_size=block_size,
                 block_ids=cpu_block_ids,
+                eviction_policy=policy,
             )
         else:
             raise ValueError(f"Unknown allocator type {allocator_type=}")

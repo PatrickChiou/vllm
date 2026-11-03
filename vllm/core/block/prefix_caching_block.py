@@ -232,6 +232,7 @@ class PrefixCachingBlockAllocator(BlockAllocator):
         assert block_id is not None
 
         refcount = self._refcounter.incr(block_id)
+        self.evictor.on_access(block_id)
         if refcount == 1:
             # In case a cached block was evicted, restore its tracking
             if block_id in self.evictor:
@@ -459,6 +460,7 @@ class PrefixCachingBlockAllocator(BlockAllocator):
             # because other sequences in the same batch cannot reuse
             # this block.
             self._cached_blocks[block.content_hash] = block.block_id
+            self.evictor.on_insert(block.block_id)
             # Mark this block as touched so that it can be marked as
             # computed after the entire batch of sequences are scheduled.
             self._touched_blocks.add(block.block_id)
