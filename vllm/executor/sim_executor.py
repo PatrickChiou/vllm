@@ -101,6 +101,15 @@ class SimExecutor(ExecutorBase):
         # virtual blocks only.
         logger.info("Simulated KV cache: # GPU blocks: %d, # CPU blocks: %d",
                     num_gpu_blocks, num_cpu_blocks)
+        if self.simulator.metrics:
+            self.simulator.metrics.write({
+                "event": "cache_config", "num_gpu_blocks": num_gpu_blocks,
+                "num_cpu_blocks": num_cpu_blocks,
+                "block_bytes": self._kv_cache_block_bytes(),
+                "eviction_policy":
+                self.cache_config.prefix_cache_eviction_policy,
+            })
+            self.simulator.metrics.flush()
 
     def execute_model(
         self, execute_model_req: ExecuteModelRequest
@@ -143,6 +152,8 @@ class SimExecutor(ExecutorBase):
         simulator = getattr(self, "simulator", None)
         if simulator is not None:
             logger.info("Simulator stats: %s", simulator.stats)
+            if simulator.metrics:
+                simulator.metrics.close()
             self.simulator = None
 
 

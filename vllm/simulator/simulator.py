@@ -76,6 +76,8 @@ class Simulator:
         self.stats = SimulatorStats()
         self._plans: Dict[str, _ReplayPlan] = {}
         self._next_miss_report = 1
+        self.metrics = (PrefixMetrics(config.metrics_path, block_size)
+                        if config.metrics_path else None)
 
     @property
     def num_active_requests(self) -> int:
@@ -90,6 +92,8 @@ class Simulator:
         in seconds. The caller decides how to wait for that latency."""
         for request_id in execute_model_req.finished_requests_ids:
             self._plans.pop(request_id, None)
+        if self.metrics:
+            self.metrics.finish(execute_model_req.finished_requests_ids)
 
         outputs: List[CompletionSequenceGroupOutput] = []
         computed_prefill_tokens = 0
@@ -103,6 +107,9 @@ class Simulator:
                     seq_group_metadata)
             else:
                 decode_seqs += len(seq_group_metadata.seq_data)
+
+            if self.metrics:
+                self.metrics.observe(seq_group_metadata)
 
             samples: List[SequenceOutput] = []
             if seq_group_metadata.do_sample:
@@ -121,6 +128,8 @@ class Simulator:
         latency_s = self._latency_s(computed_prefill_tokens, decode_seqs)
         self.stats.num_steps += 1
         self.stats.simulated_time_s += latency_s
+        if self.metrics:
+            self.metrics.flush()
         return [SamplerOutput(outputs=outputs)], latency_s
 
     def _next_token(self, request_id: str, seq_data: SequenceData) -> int:
@@ -181,7 +190,12 @@ class Simulator:
         computed_block_nums = seq_group_metadata.computed_block_nums
         if computed_block_nums and self.sliding_window is None:
             prefix_cache_len = len(computed_block_nums) * self.block_size
-            seq_data.update_num_cached_tokens(prefix_cache_len)
+            # RequestOutput reports prompt reuse. Recompute preemption can
+            # include generated tokens; it must not overwrite this value with
+            # a larger cache-hit region from the recomputed sequence.
+            if seq_data.get_output_len() == 0:
+                seq_data.update_num_cached_tokens(
+                    min(prefix_cache_len, seq_data.get_prompt_len()))
             if context_len < prefix_cache_len < seq_len:
                 query_len = seq_len - prefix_cache_len
             elif seq_len <= prefix_cache_len:
