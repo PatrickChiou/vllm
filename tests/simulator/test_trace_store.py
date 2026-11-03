@@ -42,6 +42,20 @@ def test_duplicate_prompts_cycle_through_responses():
     assert replayed == [(10, ), (11, 12), (10, )]
 
 
+def test_request_ids_disambiguate_reordered_duplicate_prompts():
+    store = TraceStore([
+        {"request_id": "a", "prompt_token_ids": [1], "output_token_ids": [10]},
+        {"request_id": "b", "prompt_token_ids": [1], "output_token_ids": [20]},
+    ])
+    assert store.lookup([1], "b").output_token_ids == (20, )
+    assert store.lookup([1], "a").output_token_ids == (10, )
+    assert store.lookup([2], "a") is None
+    assert store.lookup([1], "unknown") is None
+    with pytest.raises(ValueError, match="Duplicate"):
+        entry = {"request_id": "a", "prompt_token_ids": [1], "output_len": 1}
+        TraceStore([entry] * 2)
+
+
 @pytest.mark.parametrize("fmt", ["jsonl", "json"])
 def test_from_file(tmp_path, fmt):
     entries = [

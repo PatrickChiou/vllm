@@ -299,3 +299,9 @@ def test_simulated_latency(tmp_path):
     expected_ms = 0.05 * len(prompt) + len(response) * (0.5 + 0.25)
     assert engine.model_executor.simulator.stats.simulated_time_s == (
         pytest.approx(expected_ms / 1000))
+
+
+def test_strict_trace_rejects_missing_prompt(tmp_path):
+    engine = _make_engine(tmp_path, [], sim_strict_trace=True)
+    with pytest.raises(ValueError, match="No matching trace"):
+        _run(engine, {"missing": _tokens(0, 20)}, max_tokens=3)

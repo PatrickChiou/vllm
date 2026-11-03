@@ -126,15 +126,19 @@ class Simulator:
     def _next_token(self, request_id: str, seq_data: SequenceData) -> int:
         plan = self._plans.get(request_id)
         if plan is None:
-            plan = self._make_plan(seq_data.get_prompt_token_ids())
+            plan = self._make_plan(seq_data.get_prompt_token_ids(), request_id)
             self._plans[request_id] = plan
         return plan.token_at(seq_data.get_output_len())
 
-    def _make_plan(self, prompt_token_ids: Sequence[int]) -> _ReplayPlan:
+    def _make_plan(self, prompt_token_ids: Sequence[int],
+                   request_id: str) -> _ReplayPlan:
         self.stats.num_requests += 1
-        entry: Optional[TraceEntry] = self.trace.lookup(prompt_token_ids)
+        entry: Optional[TraceEntry] = self.trace.lookup(prompt_token_ids,
+                                                       request_id)
         if entry is None:
             self.stats.num_trace_misses += 1
+            if self.config.strict_trace:
+                raise ValueError(f"No matching trace for request {request_id}")
             self._report_misses(len(prompt_token_ids))
             entry = TraceEntry(output_token_ids=None,
                                output_len=self.config.default_output_len)

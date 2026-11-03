@@ -54,9 +54,16 @@ class TraceStore:
     def __init__(self, entries: Iterable[Dict[str, Any]] = ()) -> None:
         self._entries: Dict[bytes, List[TraceEntry]] = {}
         self._next_index: Dict[bytes, int] = {}
+        self._requests: Dict[str, Tuple[bytes, TraceEntry]] = {}
         self._num_entries = 0
         for i, raw in enumerate(entries):
             key, entry = _parse_entry(raw, f"trace entry {i}")
+            if "request_id" in raw:
+                request_id = str(raw["request_id"])
+                if request_id in self._requests:
+                    raise ValueError(
+                        f"Duplicate trace request_id: {request_id}")
+                self._requests[request_id] = (key, entry)
             self._entries.setdefault(key, []).append(entry)
             self._num_entries += 1
 
@@ -88,8 +95,15 @@ class TraceStore:
     def __contains__(self, prompt_token_ids: Sequence[int]) -> bool:
         return prompt_key(prompt_token_ids) in self._entries
 
-    def lookup(self, prompt_token_ids: Sequence[int]) -> Optional[TraceEntry]:
+    def lookup(self, prompt_token_ids: Sequence[int],
+               request_id: Optional[str] = None) -> Optional[TraceEntry]:
         key = prompt_key(prompt_token_ids)
+        if request_id in self._requests:
+            expected_key, entry = self._requests[request_id]
+            return entry if expected_key == key else None
+        # ID-addressed traces must not silently borrow another request's reply.
+        if self._requests and request_id is not None:
+            return None
         candidates = self._entries.get(key)
         if not candidates:
             return None
