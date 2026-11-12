@@ -187,9 +187,9 @@ time.
 For now, we have the ShareGPT workflow and LRU/LFU/FIFO comparisons for
 **Milestone 2**.
 
-We don't have the Milestone 3 workload generation or mixed-policy workflow
-implemented yet. We can use the sweep above to collect baseline results in the
-meantime, then add the Milestone 3 commands here once they're ready.
+The [Milestone 3 Task 1 guide](milestone3-task1.md) adds comparisons across
+separate chat, code, and general-instruction workloads at fixed cache geometry.
+The mixed-workload workflow and new-policy design in Task 2 remain unimplemented.
 
 ## Tests and troubleshooting
 

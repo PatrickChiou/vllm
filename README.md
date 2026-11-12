@@ -17,6 +17,9 @@ Easy, fast, and cheap LLM serving for everyone
 
 See the [Milestone guide](docs/comp536.md) for setup, commands, metric definitions, and experiment limitations.
 
+For separate-workload eviction comparisons, see the
+[Milestone 3 Task 1 guide](docs/milestone3-task1.md).
+
 ---  
 *Latest News* 🔥
 - [2024/12] vLLM joins [pytorch ecosystem](https://pytorch.org/blog/vllm-joins-pytorch)! Easy, Fast, and Cheap LLM Serving for Everyone!
