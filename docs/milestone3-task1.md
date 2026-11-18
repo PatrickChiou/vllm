@@ -240,7 +240,7 @@ this saturation, and every policy receives the same requests.
 ## Results
 
 One run of the command above (36 configurations, no failed requests, 22
-minutes on a macOS laptop). The summary files are copied to
+minutes on a macOS laptop). The plot is in
 [`docs/assets/m3-task1/`](assets/m3-task1/). Values are mean shared fractions across
 seeds (± sample standard deviation where two seeds were run); the bound is the
 shared fraction with unlimited cache, computed offline from the same trace.
@@ -254,8 +254,6 @@ shared fraction with unlimited cache, computed offline from the same trace.
 | `mooncake-agent` | **40.6** | 40.4 | 39.8 | LRU (≈ LFU) | 47.5 |
 | `chat` | 17.7 ± 0.1 | **18.4 ± 0.0** | 18.1 ± 1.2 | LFU (within noise) | 83.5 |
 | `code` | 29.5 | 29.5 | 29.5 | tie | 29.5 |
-
-![Policy comparison](assets/m3-task1/policy_comparison.png)
 
 Observations (pilot scale; see Limitations):
 
