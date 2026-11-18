@@ -342,6 +342,9 @@ class ChatCompletionRequest(OpenAIBaseModel):
             "The request_id related to this request. If the caller does "
             "not set it, a random_uuid will be generated. This id is used "
             "through out the inference process and return in response."))
+    workload: Optional[str] = Field(
+        default=None,
+        description="Workload label supplied by the simulator, if any.")
     logits_processors: Optional[LogitsProcessors] = Field(
         default=None,
         description=(

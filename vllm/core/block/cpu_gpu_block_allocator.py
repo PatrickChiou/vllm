@@ -363,6 +363,12 @@ class CpuGpuBlockAllocator(DeviceAwareBlockAllocator):
     ) -> List[int]:
         return self._allocators[device].find_cached_blocks_prefix(block_hashes)
 
+    def note_workload(self, content_hash: Optional[int], workload: Optional[str]) -> None:
+        allocator = self._allocators[Device.GPU]
+        note = getattr(allocator, "note_workload", None)
+        if note is not None:
+            note(content_hash, workload)
+
 
 class NullBlock(Block):
     """

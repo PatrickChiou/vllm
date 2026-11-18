@@ -1,7 +1,8 @@
 import enum
 import heapq
+import time
 from abc import ABC, abstractmethod
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Set, Optional
 
 
 class EvictionPolicy(enum.Enum):
@@ -11,6 +12,7 @@ class EvictionPolicy(enum.Enum):
     LRU = enum.auto()
     LFU = enum.auto()
     FIFO = enum.auto()
+    TLRU = enum.auto()
 
 
 class Evictor(ABC):
@@ -72,10 +74,11 @@ class BlockMetaData:
     """
 
     def __init__(self, content_hash: int, num_hashed_tokens: int,
-                 last_accessed: float):
-        self.content_hash = content_hash
-        self.num_hashed_tokens = num_hashed_tokens
-        self.last_accessed = last_accessed
+             last_accessed: float, workloads: Optional[Set[str]] = None):
+            self.content_hash = content_hash
+            self.num_hashed_tokens = num_hashed_tokens
+            self.last_accessed = last_accessed
+            self.workloads = set(workloads or ())
 
 
 class LRUEvictor(Evictor):
@@ -94,6 +97,7 @@ class LRUEvictor(Evictor):
     def __init__(self):
         self.free_table: Dict[int, BlockMetaData] = {}
         self.priority_queue = []
+        self._workloads: Dict[int, Set[str]] = {}
 
     def __contains__(self, block_id: int) -> bool:
         return block_id in self.free_table
@@ -113,6 +117,7 @@ class LRUEvictor(Evictor):
             if (block_id in self.free_table and
                     self.free_table[block_id].last_accessed == last_accessed):
                 self.free_table.pop(block_id)
+                self._workloads.pop(content_hash, None)
                 return block_id, content_hash
 
         raise ValueError("No usable cache memory left")
@@ -121,7 +126,8 @@ class LRUEvictor(Evictor):
             last_accessed: float):
         self.free_table[block_id] = BlockMetaData(content_hash,
                                                   num_hashed_tokens,
-                                                  last_accessed)
+                                                  last_accessed,
+                                                  self._workloads.get(content_hash))
         heapq.heappush(
             self.priority_queue,
             (last_accessed, -num_hashed_tokens, block_id, content_hash))
@@ -156,6 +162,9 @@ class LRUEvictor(Evictor):
     def num_blocks(self) -> int:
         return len(self.free_table)
 
+    def note(self, content_hash: int, workload: str) -> None:
+        self._workloads.setdefault(content_hash, set()).add(workload)
+
 
 class OrderedEvictor(Evictor):
     """FIFO or LFU over eligible blocks, retaining history while referenced.
@@ -172,6 +181,7 @@ class OrderedEvictor(Evictor):
         self._serial = 0
         self._versions: Dict[int, int] = {}
         self.priority_queue: List[Tuple[float, float, int, int, int]] = []
+        self._workloads: Dict[int, Set[str]] = {}
 
     def __contains__(self, block_id: int) -> bool:
         return block_id in self.free_table
@@ -211,7 +221,8 @@ class OrderedEvictor(Evictor):
             self.on_insert(block_id)
         self.free_table[block_id] = BlockMetaData(content_hash,
                                                  num_hashed_tokens,
-                                                 last_accessed)
+                                                 last_accessed,
+                                                 self._workloads.get(content_hash))
         self._push(block_id)
 
     def update(self, block_id: int, last_accessed: float):
@@ -230,6 +241,7 @@ class OrderedEvictor(Evictor):
             block = self.free_table[block_id]
             self.remove(block_id)
             self._history.pop(block_id)
+            self._workloads.pop(block.content_hash, None)
             return block_id, block.content_hash
         raise ValueError("No usable cache memory left")
 
@@ -237,11 +249,92 @@ class OrderedEvictor(Evictor):
     def num_blocks(self) -> int:
         return len(self.free_table)
 
+    def note(self, content_hash: int, workload: str) -> None:
+        self._workloads.setdefault(content_hash, set()).add(workload)
+
+class TLRUEvictor(Evictor):
+    """Evict one-shot blocks first, then unprotected chat, then shared prefixes.
+
+    Shared blocks have been used by at least two workload types. Chat blocks
+    stay protected until hold_s after last_accessed, and only up to
+    chat_budget of the free table. Inside one tier, the oldest last_accessed
+    is evicted. A tier is only touched when every lower tier is empty.
+    """
+
+    HOLD_S = 1.0 # seconds
+    CHAT_BUDGET = 0.5 # proportion of free table
+
+    def __init__(self):
+        self.free_table: Dict[int, BlockMetaData] = {}
+        self._workloads: Dict[int, Set[str]] = {}
+        self.hold_s = TLRUEvictor.HOLD_S
+        self.chat_budget = TLRUEvictor.CHAT_BUDGET
+
+    def __contains__(self, block_id: int) -> bool:
+        return block_id in self.free_table
+
+    def note(self, content_hash: int, workload: str) -> None:
+        self._workloads.setdefault(content_hash, set()).add(workload)
+
+    def add(self, block_id: int, content_hash: int, num_hashed_tokens: int, last_accessed: float):
+        self.free_table[block_id] = BlockMetaData(
+                                            content_hash,
+                                            num_hashed_tokens, 
+                                            last_accessed,
+                                            self._workloads.get(content_hash)
+                                            )
+
+    def update(self, block_id: int, last_accessed: float):
+        self.free_table[block_id].last_accessed = last_accessed
+
+    def remove(self, block_id: int):
+        if block_id not in self.free_table:
+            raise ValueError("Attempting to remove block that's not in the evictor")
+        self.free_table.pop(block_id)
+
+    def _protected_chat(self, now: float) -> Set[int]:
+        protected = [
+            (block.last_accessed, block_id)
+            for block_id, block in self.free_table.items()
+            if block.workloads == {"chat"} and now - block.last_accessed <= self.hold_s
+        ]
+        protected.sort()
+        limit = int(self.chat_budget * len(self.free_table))
+        return {block_id for _, block_id in protected[:limit]}
+
+    def evict(self) -> Tuple[int, int]:
+        if not self.free_table:
+            raise ValueError("No usable cache memory left")
+        now  = time.time()
+        kept_chat = self._protected_chat(now)
+
+        def rank(item: Tuple[int, BlockMetaData]) -> Tuple[int, float, int]:
+            block_id, block = item
+            if len(block.workloads) >= 2:
+                tier = 2
+            elif block_id in kept_chat:
+                tier = 1
+            else:
+                tier = 0
+            return (tier, block.last_accessed, block_id)
+
+        block_id, block = min(self.free_table.items(), key=rank)
+        self.free_table.pop(block_id)
+        self._workloads.pop(block.content_hash, None)
+        return block_id, block.content_hash
+
+    @property
+    def num_blocks(self) -> int:
+        return len(self.free_table)        
+                                        
+
 
 def make_evictor(eviction_policy: EvictionPolicy) -> Evictor:
     if eviction_policy == EvictionPolicy.LRU:
         return LRUEvictor()
     elif eviction_policy in (EvictionPolicy.LFU, EvictionPolicy.FIFO):
         return OrderedEvictor(eviction_policy)
+    elif eviction_policy == EvictionPolicy.TLRU:
+        return TLRUEvictor()
     else:
         raise ValueError(f"Unknown cache eviction policy: {eviction_policy}")

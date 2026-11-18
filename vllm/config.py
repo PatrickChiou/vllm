@@ -989,7 +989,7 @@ class CacheConfig:
         self.sliding_window = sliding_window
         self.enable_prefix_caching = enable_prefix_caching
         self.cpu_offload_gb = cpu_offload_gb
-        if prefix_cache_eviction_policy not in ("lru", "lfu", "fifo"):
+        if prefix_cache_eviction_policy not in ("lru", "lfu", "fifo", "tlru"):
             raise ValueError("Unknown prefix cache eviction policy: "
                              f"{prefix_cache_eviction_policy}")
         self.prefix_cache_eviction_policy = prefix_cache_eviction_policy

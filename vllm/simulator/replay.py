@@ -81,6 +81,7 @@ async def replay(workload: dict, base_url: str, output: Path, *,
                                     "chat_template_kwargs": template_kwargs,
                                     "max_tokens": turn["output_tokens"],
                                     "temperature": 0.0,
+                                    "workload": turn.get("workload"),
                                 }
                                 async with session.post(
                                         url, json=body) as response:

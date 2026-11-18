@@ -53,6 +53,7 @@ class BlockTable:
 
         self._max_block_sliding_window = max_block_sliding_window
         self._num_full_slots = self._get_num_token_ids()
+        self.workload = None
 
     @staticmethod
     def get_num_required_blocks(token_ids: List[int],
@@ -222,12 +223,14 @@ class BlockTable:
         assert self._is_allocated
         assert len(self._blocks) > 0
         forked_blocks = self._allocator.fork(self._blocks[-1])
-        return BlockTable(
+        forked = BlockTable(
             block_size=self._block_size,
             block_allocator=self._allocator,
             _blocks=forked_blocks,
             max_block_sliding_window=self._max_block_sliding_window,
         )
+        forked.workload = self.workload
+        return forked
 
     def free(self) -> None:
         """Frees the memory occupied by the blocks in the BlockTable.

@@ -653,6 +653,7 @@ class SequenceGroup:
         trace_headers: Optional[Mapping[str, str]] = None,
         prompt_adapter_request: Optional[PromptAdapterRequest] = None,
         priority: int = 0,
+        workload: Optional[str] = None,
     ) -> None:
         self.request_id = request_id
         self.seqs = seqs
@@ -676,6 +677,7 @@ class SequenceGroup:
         self.encoder_seq = encoder_seq
         self.trace_headers = trace_headers
         self.priority = priority
+        self.workload = workload
 
         self.cached_request_output = None
 
@@ -877,6 +879,7 @@ class SequenceGroupMetadataDelta(
     computed_block_nums: Optional[List[int]] = None
     state: Optional[SequenceGroupState] = msgspec.field(
         default_factory=lambda: SequenceGroupState())
+    workload: Optional[str] = None
 
 
 class SequenceGroupMetadata(
@@ -944,6 +947,7 @@ class SequenceGroupMetadata(
     # Zero means speculative decoding is disabled for some reasons.
     # TODO: We should maintain this states out of the sequence group.
     num_speculative_tokens: Optional[int] = None
+    workload: Optional[str] = None
 
     def __post_init__(self):
         if self.seq_data is not None and self.token_chunk_size is None:

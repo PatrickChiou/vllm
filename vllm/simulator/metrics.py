@@ -47,7 +47,8 @@ class PrefixMetrics:
             self.write({"event": "request", "request_id": request_id,
                         "time_s": now, "prompt_tokens": data.get_prompt_len(),
                         "cached_tokens": min(cached_blocks * self.block_size,
-                                             data.get_prompt_len())})
+                                             data.get_prompt_len()),
+                        "workload": metadata.workload,})
 
         hashes = self._requests[request_id]
         end = min(data.get_len(), data.get_num_computed_tokens() +
@@ -69,7 +70,8 @@ class PrefixMetrics:
                         "block_key": digest.hex(), "block_index": index,
                         "time_s": now, "hit": hit,
                         "reuse_gap_s": (now - last
-                                        if hit and last is not None else None)})
+                                        if hit and last is not None else None),
+                        "workload": metadata.workload,})
             self._last_access[digest] = now
 
     def finish(self, request_ids: List[str]) -> None:

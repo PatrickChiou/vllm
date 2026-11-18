@@ -673,6 +673,11 @@ class PrefixCachingBlockAllocator(BlockAllocator):
                            key=lambda x: not _block_is_cached(x))
         return block_hashes[:idx]
 
+    def note_workload(self, content_hash: Optional[int], workload: Optional[str]) -> None:
+        if content_hash is None or not workload:
+            return
+        self.evictor.note(content_hash, workload)
+
 
 class PrefixCachingBlock(Block):
     """A block implementation that supports prefix caching.

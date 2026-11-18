@@ -471,6 +471,7 @@ class _AsyncLLMEngine(LLMEngine):
             priority: int = 0,
             *,
             inputs: Optional[PromptType] = None,  # DEPRECATED
+            workload: Optional[str] = None,
     ) -> None:
         """Async version of :meth:`add_request`."""
         if inputs is not None:
@@ -520,6 +521,7 @@ class _AsyncLLMEngine(LLMEngine):
             prompt_adapter_request=prompt_adapter_request,
             trace_headers=trace_headers,
             priority=priority,
+            workload=workload,
         )
 
     async def check_health_async(self) -> None:
@@ -958,6 +960,7 @@ class AsyncLLMEngine(EngineClient):
         priority: int = 0,
         *,
         inputs: Optional[PromptType] = None,  # DEPRECATED
+        workload: Optional[str] = None,
     ) -> AsyncGenerator[Union[RequestOutput, PoolingRequestOutput], None]:
         if inputs is not None:
             prompt = inputs
@@ -988,6 +991,7 @@ class AsyncLLMEngine(EngineClient):
             trace_headers=trace_headers,
             prompt_adapter_request=prompt_adapter_request,
             priority=priority,
+            workload=workload,
         )
 
         return stream.generator()
@@ -1001,6 +1005,7 @@ class AsyncLLMEngine(EngineClient):
         trace_headers: Optional[Mapping[str, str]] = None,
         prompt_adapter_request: Optional[PromptAdapterRequest] = None,
         priority: int = 0,
+        workload: Optional[str] = None,
     ) -> AsyncGenerator[RequestOutput, None]:
         """Generate outputs for a request.
 
@@ -1077,6 +1082,7 @@ class AsyncLLMEngine(EngineClient):
                     trace_headers=trace_headers,
                     prompt_adapter_request=prompt_adapter_request,
                     priority=priority,
+                    workload=workload,
             ):
                 yield LLMEngine.validate_output(output, RequestOutput)
         except asyncio.CancelledError:

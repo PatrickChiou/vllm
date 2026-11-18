@@ -1020,7 +1020,7 @@ class EngineArgs:
         sim_group.add_argument('--sim-strict-trace', action='store_true',
                                help='Fail on missing or mismatched traces.')
         sim_group.add_argument('--sim-eviction-policy',
-                               choices=['lru', 'lfu', 'fifo'], default='lru',
+                               choices=['lru', 'lfu', 'fifo', 'tlru'], default='lru',
                                help='Prefix cache eviction policy for sim.')
 
         return parser

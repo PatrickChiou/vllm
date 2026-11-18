@@ -175,6 +175,8 @@ class SelfAttnBlockSpaceManager(BlockSpaceManager):
         seq = waiting_seqs[0]
         block_table: BlockTable = self._allocate_sequence(seq)
         self.block_tables[seq.seq_id] = block_table
+        block_table.workload = seq_group.workload
+        self._note_workload(block_table)
 
         # Track seq
         self._last_access_blocks_tracker.add_seq(seq.seq_id)
@@ -247,6 +249,7 @@ class SelfAttnBlockSpaceManager(BlockSpaceManager):
             num_computed_slots=seq.data.get_num_computed_tokens(),
             extra_hash=seq.extra_hash(),
         )
+        self._note_workload(block_table)
         # Return any new copy-on-writes.
         new_cows = self.block_allocator.clear_copy_on_writes()
         return new_cows
@@ -516,3 +519,9 @@ class SelfAttnBlockSpaceManager(BlockSpaceManager):
         cached in the block manager for the sequence.
         """
         return self._computed_blocks_tracker.get_num_cached_tokens(seq)
+
+    def _note_workload(self, block_table) -> None:
+        if not block_table.workload:
+            return
+        for block in block_table.blocks:
+            self.block_allocator.note_workload(block.content_hash, block_table.workload)
