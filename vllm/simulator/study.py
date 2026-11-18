@@ -13,6 +13,7 @@ import sys
 import time
 from contextlib import contextmanager
 from pathlib import Path
+from typing import Optional
 
 import requests
 
@@ -29,7 +30,8 @@ DATASET_URL = ("https://huggingface.co/datasets/anon8231489123/"
 def server(workload: dict, trace_path: Path, directory: Path, *,
            block_size: int, cache_gb: float, policy: str,
            prefill_ms: float, decode_ms: float, max_num_seqs: int,
-           startup_timeout: float):
+           startup_timeout: float, num_gpu_blocks: Optional[int] = None):
+    """Start a simulator server; ``num_gpu_blocks`` overrides ``cache_gb``."""
     directory.mkdir(parents=True, exist_ok=False)
     with socket.socket() as sock:
         sock.bind(("127.0.0.1", 0))
@@ -57,6 +59,8 @@ def server(workload: dict, trace_path: Path, directory: Path, *,
             command.extend(["--" + field.replace("_", "-"), workload[field]])
     if workload["trust_remote_code"]:
         command.append("--trust-remote-code")
+    if num_gpu_blocks is not None:
+        command.extend(["--num-gpu-blocks-override", str(num_gpu_blocks)])
     env = dict(os.environ, VLLM_USE_V1="0", TOKENIZERS_PARALLELISM="false")
     base_url = f"http://127.0.0.1:{port}"
     with (directory / "server.log").open("w") as log:

@@ -604,6 +604,7 @@ def init_app_state(
         prompt_adapters=args.prompt_adapters,
         request_logger=request_logger,
         return_tokens_as_token_ids=args.return_tokens_as_token_ids,
+        enable_prompt_tokens_details=args.enable_prompt_tokens_details,
     ) if model_config.runner_type == "generate" else None
     state.openai_serving_embedding = OpenAIServingEmbedding(
         engine_client,

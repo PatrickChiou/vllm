@@ -2,8 +2,11 @@ import json
 
 import pytest
 
-from vllm.simulator.eviction_study import (convert_instructions, file_hash,
-                                           rank_results)
+from vllm.simulator.eviction_study import (cache_blocks, convert_claude_code,
+                                           convert_document_qa,
+                                           convert_instructions, file_hash,
+                                           interleave, rank_results,
+                                           working_set)
 from vllm.simulator.workload import normalize, read_records
 
 
@@ -88,3 +91,109 @@ def test_ranking_refuses_incomplete_or_unfair_comparisons(problem):
 def test_ranking_rejects_no_runs():
     with pytest.raises(ValueError, match="No completed"):
         rank_results([])
+
+
+def test_ranking_allows_cache_capacity_to_differ_between_workloads():
+    rows = results()
+    for row in rows:
+        if row["workload"] == "code":
+            row["virtual_cache_bytes"] = 4096
+    assert len(rank_results(rows)) == 6
+
+
+def event(role, content, sidechain=False, kind=None):
+    return {"type": kind or role, "isSidechain": sidechain,
+            "message": {"role": role, "content": content}}
+
+
+def test_claude_code_conversion_merges_main_thread_and_renders_tools(tmp_path):
+    trajectory = [
+        event("user", "Build a game"),
+        event("assistant", [{"type": "text", "text": "Plan first."}]),
+        event("assistant", [{"type": "tool_use", "name": "Write",
+                             "input": {"file_path": "a.html"}}]),
+        event("user", [{"type": "tool_result", "content": [
+            {"type": "text", "text": "created"}, {"type": "image"}]}]),
+        event("assistant", [{"type": "text", "text": "sub"}], sidechain=True),
+        event("assistant", [{"type": "thinking", "thinking": "hidden"},
+                            {"type": "text", "text": "Done."}]),
+        {"type": "summary", "summary": "ignored"},
+    ]
+    source, output = tmp_path / "cc.jsonl", tmp_path / "out.jsonl"
+    source.write_text(json.dumps({"model_name": "m", "task_id": 3,
+                                  "trajectory": json.dumps(trajectory)}) +
+                      "\n" + json.dumps({"trajectory": []}) + "\n")
+    assert convert_claude_code(source, output) == {
+        "accepted": 1, "no_complete_turn": 1}
+    record = next(read_records(output))
+    messages = normalize(record)
+    assert record["id"] == "m-3"
+    assert [m["role"] for m in messages] == [
+        "user", "assistant", "user", "assistant"]
+    assert messages[1]["content"] == (
+        'Plan first.\n<tool_call>\n{"name": "Write", "arguments": '
+        '{"file_path": "a.html"}}\n</tool_call>')
+    assert messages[2]["content"] == (
+        "<tool_response>\ncreated\n</tool_response>")
+    assert messages[3]["content"] == "Done."
+
+
+def test_document_qa_shares_article_prefix_and_interleaves(tmp_path):
+    rows = [dict(article=f"Article {a}", question=f"Q{a}{q}?",
+                 options=["no", "yes"], answer=1)
+            for a in range(3) for q in range(4)]
+    rows.append(dict(article="Article 0", question="bad", options=["x"],
+                     answer=3))
+    source, output = tmp_path / "quality.jsonl", tmp_path / "out.jsonl"
+    source.write_text("".join(json.dumps(r) + "\n" for r in rows))
+    counts = convert_document_qa(source, output, group=2)
+    assert counts == {"accepted": 12, "invalid": 1, "articles": 3}
+    records = list(read_records(output))
+    first = normalize(records[0])
+    assert first[0]["content"].startswith("Article ")
+    assert first[0]["content"].endswith(
+        "\nA. no\nB. yes\nAnswer with the letter of the correct option.")
+    assert first[1]["content"] == "B. yes"
+    # The first group's 8 questions come first, in a shuffled order that
+    # mixes both articles; the last article follows as its own group.
+    articles = [r["id"].split("-")[0] for r in records]
+    assert set(articles[:8]) == {"article0", "article1"}
+    assert articles[:8] != sorted(articles[:8])
+    assert set(articles[8:]) == {"article2"}
+    assert convert_document_qa(source, tmp_path / "again.jsonl",
+                               group=2) == counts
+    assert list(read_records(tmp_path / "again.jsonl")) == records
+
+
+def test_interleave_samples_each_file_round_robin(tmp_path):
+    first, second = tmp_path / "a.jsonl", tmp_path / "b.jsonl"
+    first.write_text("".join(json.dumps({"id": i, "conversations": []}) + "\n"
+                             for i in range(3)))
+    second.write_text(json.dumps({"id": 9, "messages": []}) + "\n")
+    output = tmp_path / "mixed.jsonl"
+    assert interleave([first, second], output) == {"a": 3, "b": 1}
+    assert [r["id"] for r in read_records(output)] == [
+        "a-0", "b-9", "a-1", "a-2"]
+
+
+def test_working_set_counts_prefix_blocks_and_cache_sizing(tmp_path):
+    trace = tmp_path / "trace.jsonl"
+    rows = [
+        # 2 full blocks of prompt+reply; the EOS is not cached.
+        {"prompt_token_ids": [1] * 4 + [2] * 3, "output_token_ids": [3]},
+        # Shares the first block; the same tokens later in a different
+        # prefix are a distinct block.
+        {"prompt_token_ids": [1] * 4 + [1] * 4 + [1] * 4,
+         "output_token_ids": []},
+    ]
+    trace.write_text("".join(json.dumps(r) + "\n" for r in rows))
+    footprint = working_set(trace, 4)
+    assert footprint == {"unique_blocks": 4, "longest_request_tokens": 13}
+    assert cache_blocks(1.0, footprint, 4) == {
+        "num_gpu_blocks": 4, "cache_clamped": False}
+    assert cache_blocks(0.5, footprint, 4) == {
+        "num_gpu_blocks": 4, "cache_clamped": True}
+    # The 1% watermark must still leave room for the longest request.
+    assert cache_blocks(0.01, {"unique_blocks": 1000,
+                               "longest_request_tokens": 400}, 4) == {
+        "num_gpu_blocks": 101, "cache_clamped": True}

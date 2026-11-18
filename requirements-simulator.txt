@@ -1,3 +1,5 @@
-# Optional plotting dependency for the COMP536 prefix-sharing study.
+# Optional dependencies for the COMP536 prefix-sharing study: plotting and
+# reading Parquet datasets (AgentBank, CC-Bench) in Milestone 3.
 # Other study dependencies are already in requirements-common.txt.
 matplotlib >= 3.7, < 4
+pyarrow >= 14

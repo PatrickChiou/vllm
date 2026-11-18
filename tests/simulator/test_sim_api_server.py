@@ -5,6 +5,7 @@ import pytest
 import requests
 
 from vllm.simulator.trace_builder import TraceBuilder
+from vllm.simulator.workload import BlockTokens
 
 from ..utils import RemoteOpenAIServer
 
@@ -42,6 +43,9 @@ SECOND_TURN = CONVERSATION[:4]
 SECOND_REPLY = CONVERSATION[4]["content"]
 COMPLETION_PROMPT = "Once upon a time"
 COMPLETION_REPLY = " there was a simulator."
+# Block-hash prompts sharing their first two blocks, as in a Bailian trace.
+BLOCK_PROMPTS = [([11, 12, 13], 40), ([11, 12, 14, 15], 60)]
+FILLER = [264, 264, 264]
 
 
 @pytest.fixture(scope="module")
@@ -54,6 +58,10 @@ def server(request, builder, tmp_path_factory):
     entries = builder.chat_entries(CONVERSATION)
     entries.append(
         builder.completion_entry(COMPLETION_PROMPT, COMPLETION_REPLY))
+    blocks = BlockTokens(builder.tokenizer, BLOCK_SIZE)
+    entries.extend({"prompt_token_ids": blocks.prompt(hash_ids, length),
+                    "output_token_ids": FILLER}
+                   for hash_ids, length in BLOCK_PROMPTS)
     trace_path = tmp_path_factory.mktemp("trace") / "trace.jsonl"
     trace_path.write_text("".join(json.dumps(e) + "\n" for e in entries))
 
@@ -137,6 +145,28 @@ def test_completion_replays_trace(server):
 
     assert response.choices[0].text == COMPLETION_REPLY
     assert response.choices[0].finish_reason == "stop"
+
+
+def test_token_id_completion_reports_cached_block_prefix(server, builder):
+    blocks = BlockTokens(builder.tokenizer, BLOCK_SIZE)
+    usages = []
+    for index, (hash_ids, length) in enumerate(BLOCK_PROMPTS):
+        response = requests.post(
+            server.url_for("v1/completions"),
+            headers={"X-Request-Id": f"block-{index}"},
+            json={"model": MODEL, "prompt": blocks.prompt(hash_ids, length),
+                  "max_tokens": len(FILLER) + 1, "temperature": 0.0})
+        response.raise_for_status()
+        payload = response.json()
+        assert payload["choices"][0]["text"] == builder.tokenizer.decode(
+            FILLER, skip_special_tokens=True)
+        assert payload["choices"][0]["finish_reason"] == "stop"
+        usages.append(payload["usage"])
+
+    assert usages[0]["prompt_tokens"] == 40
+    assert usages[1]["prompt_tokens"] == 60
+    # Only the two shared full blocks are reused.
+    assert usages[1]["prompt_tokens_details"]["cached_tokens"] == 32
 
 
 def test_streaming_chat_replays_trace(server):
