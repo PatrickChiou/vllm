@@ -1,6 +1,6 @@
 # Milestone 3 Task 1: Eviction Policies for Separate Workloads
 
-This extension evaluates LRU, LFU, and FIFO separately on seven workloads,
+This extension evaluates LRU, LFU, and FIFO separately on eight workloads,
 each with a different prefix-reuse pattern. It uses the existing v0 online
 simulator. It does not combine workloads or introduce a new eviction policy.
 
@@ -10,6 +10,7 @@ simulator. It does not combine workloads or introduce a new eviction policy.
 | `agent` | AgentBank (ALFWorld, WebShop, InterCode-Bash, Mind2Web) | `chat` | Short agent thought/action/observation loops |
 | `coding-agent` | CC-Bench trajectories | `claude-code` | Long Claude Code sessions with tool calls |
 | `quality` | QuALITY | `document-qa` | Many independent questions over the same long article (RAG-like) |
+| `bailian-chat` | Qwen Bailian to-C trace A | `block-trace` | Production chat traffic, recorded arrivals |
 | `bailian-coder` | Qwen Bailian coder trace | `block-trace` | Production code-generation traffic, recorded arrivals |
 | `mooncake-agent` | Mooncake tool-agent trace | `block-trace` | Production tool-agent traffic from a second provider |
 | `code` | Code Alpaca | `instruction` | Single-turn control with no reuse beyond the template |
@@ -40,9 +41,9 @@ tests can find the `vllm` executable.
 ## Download the input data
 
 The ShareGPT command downloads the first 1000 raw records rather than the full
-dataset; preparation later selects eligible conversations. The Bailian file
-is a Git LFS object; its SHA-256 hash must equal the `oid` in the repository's
-LFS pointer (`3d74974c…`).
+dataset; preparation later selects eligible conversations. The Bailian files
+are Git LFS objects; their SHA-256 hashes must equal the `oid` values in the
+repository's LFS pointers (`07cedc9e…` for trace A, `3d74974c…` for coder).
 
 ```bash
 mkdir -p data/m3
@@ -58,6 +59,8 @@ curl --fail --location -o data/m3/cc_bench.parquet \
 curl --fail --location -o data/m3/quality_validation.parquet \
   $HF/emozilla/quality/resolve/main/data/validation-00000-of-00001-77baeb9538209706.parquet
 LFS=https://media.githubusercontent.com/media/alibaba-edu/qwen-bailian-usagetraces-anon/main
+curl --fail --location -o data/m3/bailian_traceA.jsonl \
+  $LFS/qwen_traceA_blksz_16.jsonl
 curl --fail --location -o data/m3/bailian_coder.jsonl \
   $LFS/qwen_coder_blksz_16.jsonl
 curl --fail --location -o data/m3/mooncake_toolagent.jsonl \
@@ -82,12 +85,12 @@ The runner records a SHA-256 hash of each local input file in `sources.json`.
 ## Run Task 1
 
 The command below sizes each workload's cache to 25% of its working set and
-runs 5 text workloads x 3 policies x 2 seeds plus 2 production traces x 3
-policies x 1 seed = 36 configurations, about 25 minutes on a laptop. The
-traces use one seed because recorded arrivals make further seeds identical
-repeats; two seeds for text workloads give a basic check of arrival-order
-variability. In a previous run, the second seed changed no ranking, so
-`--seeds 0` gives a quicker check.
+runs 4 text workloads x 3 policies x 3 seeds, `coding-agent` x 3 policies x 2
+seeds, and 3 production traces x 3 policies x 1 seed = 51 configurations,
+about 30 minutes on a laptop. The traces use one seed because recorded
+arrivals make further seeds identical repeats; `coding-agent` is the slowest
+text workload and its two seeds already agree. `--seeds 0` gives a quicker
+check.
 Task 1 only requires one fixed cache size; for a second pressure level, repeat
 with e.g. `--cache-ratio 0.5` and another output directory.
 
@@ -98,12 +101,16 @@ python -m vllm.simulator.eviction_study \
   --source agent chat ${AB}_alfworld.parquet,${AB}_webshop.parquet,${AB}_intercode_bash.parquet,${AB}_mind2web.parquet \
   --source coding-agent claude-code data/m3/cc_bench.parquet \
   --source quality document-qa data/m3/quality_validation.parquet \
+  --source bailian-chat block-trace data/m3/bailian_traceA.jsonl \
   --source bailian-coder block-trace data/m3/bailian_coder.jsonl \
   --source mooncake-agent block-trace data/m3/mooncake_toolagent.jsonl \
   --source code instruction data/code_alpaca.json \
   --set chat max_model_len=2048 --set agent max_model_len=2048 \
   --set coding-agent max_model_len=8192 --set coding-agent limit=50 \
+  --set coding-agent seeds=0,1 \
   --set quality max_model_len=8192 --set quality limit=300 \
+  --set bailian-chat max_model_len=32768 --set bailian-chat limit=1000 \
+  --set bailian-chat time_scale=0.25 --set bailian-chat seeds=0 \
   --set bailian-coder max_model_len=32768 --set bailian-coder limit=1000 \
   --set bailian-coder time_scale=0.25 --set bailian-coder seeds=0 \
   --set mooncake-agent max_model_len=32768 --set mooncake-agent limit=1000 \
@@ -114,7 +121,7 @@ python -m vllm.simulator.eviction_study \
   --output experiments/m3-task1 \
   --revision "$MODEL_REVISION" \
   --limit 100 --cache-ratio 0.25 --block-size 16 \
-  --request-rate 100 --concurrency 8 --seeds 0 1
+  --request-rate 100 --concurrency 8 --seeds 0 1 2
 ```
 
 Each `--source` has three arguments: label, format, and local path. Chat
@@ -239,20 +246,21 @@ this saturation, and every policy receives the same requests.
 
 ## Results
 
-One run of the command above (36 configurations, no failed requests, 22
+One run of the command above (51 configurations, no failed requests, 30
 minutes on a macOS laptop). The plot is in
 [`docs/assets/m3-task1/`](assets/m3-task1/). Values are mean shared fractions across
-seeds (± sample standard deviation where two seeds were run); the bound is the
-shared fraction with unlimited cache, computed offline from the same trace.
+seeds (± sample standard deviation where several seeds were run); the bound is
+the shared fraction with unlimited cache, computed offline from the same trace.
 
 | Workload | LRU | LFU | FIFO | Observed best | Bound |
 | --- | --- | --- | --- | --- | --- |
-| `coding-agent` | **48.8 ± 0.4** | 36.2 ± 0.5 | 46.3 ± 1.0 | LRU | 95.8 |
-| `quality` | 48.8 ± 0.5 | 46.5 ± 2.8 | **50.9 ± 0.6** | FIFO | 92.0 |
-| `bailian-coder` | 35.8 | **37.3** | 32.5 | LFU | 43.6 |
-| `agent` | 50.2 ± 0.1 | **50.7 ± 0.2** | 49.3 ± 0.4 | LFU (≈ LRU) | 77.8 |
-| `mooncake-agent` | **40.6** | 40.4 | 39.8 | LRU (≈ LFU) | 47.5 |
-| `chat` | 17.7 ± 0.1 | **18.4 ± 0.0** | 18.1 ± 1.2 | LFU (within noise) | 83.5 |
+| `coding-agent` | **47.6 ± 0.2** | 37.5 ± 0.5 | 46.5 ± 0.8 | LRU | 95.8 |
+| `quality` | 49.9 ± 0.4 | 44.9 ± 0.4 | **50.6 ± 1.6** | FIFO (≈ LRU); LFU worst | 92.0 |
+| `bailian-chat` | 28.4 | **29.5** | 26.7 | LFU | 38.5 |
+| `bailian-coder` | 35.8 | **37.3** | 32.4 | LFU | 43.6 |
+| `agent` | 50.3 ± 0.2 | **50.8 ± 0.4** | 49.5 ± 0.2 | LFU (≈ LRU) | 77.8 |
+| `mooncake-agent` | 40.1 | **40.4** | 39.5 | near tie | 47.5 |
+| `chat` | 18.8 ± 0.7 | 18.8 ± 0.4 | **19.1 ± 0.7** | tie within noise | 83.5 |
 | `code` | 29.5 | 29.5 | 29.5 | tie | 29.5 |
 
 Observations (pilot scale; see Limitations):
@@ -261,17 +269,19 @@ Observations (pilot scale; see Limitations):
   A new block starts with the lowest count, so LFU evicts it first, while
   blocks that were popular earlier keep high counts after they stop being
   used. In `coding-agent`, the newest turn of an active session is evicted
-  before the next turn arrives (LFU is 12.6 points below LRU). In `quality`
-  (seed 0), LFU is already worst on the first group of articles (47.7% vs
-  51.0% LRU) and falls further once the next group starts (40.0% vs 46.5%),
-  when the previous group's articles are no longer asked about.
-- LFU wins on the Bailian coder trace, where many requests begin with the
-  same blocks (e.g. shared system prompts). It keeps these hot prefixes
-  across bursts of one-off requests, and its hits have the longest mean reuse
-  gap (3.2 s vs 2.3 s for LRU), i.e. it retains content that returns later.
+  before the next turn arrives (LFU is 10 points below LRU). In `quality`
+  (seed 0 of an earlier run), LFU is already worst on the first group of
+  articles (47.7% vs 51.0% LRU) and falls further once the next group starts
+  (40.0% vs 46.5%), when the previous group's articles are no longer asked
+  about. FIFO and LRU are within seed noise on `quality`.
+- LFU wins on both Bailian traces, where many requests begin with the same
+  blocks (e.g. shared system prompts). It keeps these hot prefixes across
+  bursts of one-off requests; on the coder trace its hits have the longest
+  mean reuse gap (3.2 s vs 2.3 s for LRU in an earlier run), i.e. it retains
+  content that returns later.
 - When reuse follows closely, the policy matters little: the Mooncake tool
-  agent's mean reuse gap is under 1 s and all policies are within 0.8 points.
-  AgentBank and ShareGPT policies are within about 1.5 points, partly within
+  agent's mean reuse gap is under 1 s and all policies are within 0.9 points.
+  AgentBank policies are within 1.3 points, and ShareGPT policies are within
   seed noise.
 - With no reuse beyond the template's system prompt (`code`), all policies
   reach the bound and tie, so the eviction policy only matters when a
@@ -279,8 +289,10 @@ Observations (pilot scale; see Limitations):
 
 In an earlier run with 128 generated tokens per trace request, Bailian
 dispatch lagged by a median of 12 s; the rankings of the workloads run in both
-experiments were unchanged (`coding-agent`: LRU > FIFO > LFU; `bailian-coder`:
-LFU > LRU > FIFO; `agent`: LFU > LRU > FIFO).
+experiments were unchanged (`coding-agent`: LRU > FIFO > LFU; Bailian traces:
+LFU > LRU > FIFO; `agent`: LFU > LRU > FIFO). In this run the median dispatch
+lag is 0.001 s for `bailian-chat`, 0.7 s for `bailian-coder` and 0.5 s for
+`mooncake-agent`.
 
 ## Limitations
 
