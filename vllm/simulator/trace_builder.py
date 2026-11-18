@@ -118,15 +118,30 @@ class TraceBuilder:
         return self.tokenizer(content, add_special_tokens=False).input_ids
 
     def chat_entries(
-        self, messages: Sequence[ChatCompletionMessageParam]
+        self,
+        messages: Sequence[ChatCompletionMessageParam],
+        max_model_len: Optional[int] = None,
     ) -> List[Dict[str, Any]]:
         """One trace entry per assistant message of a conversation, keyed by
-        the chat prompt that precedes it."""
-        return [{
-            "prompt_token_ids": self.chat_prompt_token_ids(messages[:i]),
-            "output_token_ids": self.reply_token_ids(messages[:i + 1]),
-        } for i, message in enumerate(messages)
-                if message["role"] == "assistant"]
+        the chat prompt that precedes it.
+
+        With ``max_model_len``, stops before the first turn whose prompt,
+        reply and EOS do not fit, without tokenizing later turns.
+        """
+        entries = []
+        for i, message in enumerate(messages):
+            if message["role"] != "assistant":
+                continue
+            entry = {
+                "prompt_token_ids": self.chat_prompt_token_ids(messages[:i]),
+                "output_token_ids": self.reply_token_ids(messages[:i + 1]),
+            }
+            if (max_model_len is not None
+                    and len(entry["prompt_token_ids"]) +
+                    len(entry["output_token_ids"]) + 1 > max_model_len):
+                break
+            entries.append(entry)
+        return entries
 
     def completion_entry(self, prompt: str,
                          completion: str) -> Dict[str, Any]:

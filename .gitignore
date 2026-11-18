@@ -200,6 +200,10 @@ hip_compat.h
 # Benchmark dataset
 benchmarks/*.json
 
+# COMP536 study: downloaded datasets and generated experiment outputs
+/data/
+/experiments/
+
 # Linting
 actionlint
 shellcheck*/

@@ -16,7 +16,9 @@ def validate_response(payload: dict, turn: dict) -> dict:
     details = usage.get("prompt_tokens_details") or {}
     cached = details.get("cached_tokens", 0)
     prompt = usage["prompt_tokens"]
-    if (choice["message"]["content"] != turn["expected_text"]
+    text = (choice["text"] if "prompt_token_ids" in turn
+            else choice["message"]["content"])
+    if (text != turn["expected_text"]
             or usage["completion_tokens"] != turn["output_tokens"]
             or prompt != turn["prompt_tokens"]
             or choice["finish_reason"] != "stop"):
@@ -41,9 +43,22 @@ async def replay(workload: dict, base_url: str, output: Path, *,
     rows: List[dict] = []
     start = time.monotonic()
     headers = {"Authorization": f"Bearer {api_key}"} if api_key else {}
-    url = base_url.rstrip("/") + "/v1/chat/completions"
+    chat_url = base_url.rstrip("/") + "/v1/chat/completions"
+    completion_url = base_url.rstrip("/") + "/v1/completions"
     client_timeout = aiohttp.ClientTimeout(total=timeout)
     template_kwargs = workload["chat_template_kwargs"]
+
+    def request(turn: dict):
+        """Chat turns carry messages; token-id turns use /v1/completions,
+        which takes the engine request id from X-Request-Id."""
+        body = {"model": workload["model"],
+                "max_tokens": turn["output_tokens"], "temperature": 0.0}
+        if "prompt_token_ids" in turn:
+            body["prompt"] = turn["prompt_token_ids"]
+            return completion_url, body, {"X-Request-Id": turn["request_id"]}
+        body.update(messages=turn["messages"], request_id=turn["request_id"],
+                    chat_template_kwargs=template_kwargs)
+        return chat_url, body, None
 
     async with aiohttp.ClientSession(
             timeout=client_timeout, headers=headers) as session:
@@ -74,16 +89,10 @@ async def replay(workload: dict, base_url: str, output: Path, *,
                             row.update(sent_s=sent,
                                        dispatch_lag_s=sent - planned)
                             try:
-                                body = {
-                                    "model": workload["model"],
-                                    "messages": turn["messages"],
-                                    "request_id": turn["request_id"],
-                                    "chat_template_kwargs": template_kwargs,
-                                    "max_tokens": turn["output_tokens"],
-                                    "temperature": 0.0,
-                                }
+                                url, body, extra = request(turn)
                                 async with session.post(
-                                        url, json=body) as response:
+                                        url, json=body,
+                                        headers=extra) as response:
                                     payload = await response.json()
                                     if response.status != 200:
                                         status = response.status

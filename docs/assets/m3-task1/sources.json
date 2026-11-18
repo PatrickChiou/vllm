@@ -1,0 +1,179 @@
+{
+  "chat": {
+    "paths": [
+      "data/sharegpt1000.jsonl"
+    ],
+    "format": "chat",
+    "sha256": [
+      "2c540dfb982237ca215cafd624a1f7ac40b8355d96e31eee74c92e0039b5663a"
+    ],
+    "settings": {
+      "limit": 100,
+      "max_model_len": 2048,
+      "max_output_tokens": 32,
+      "time_scale": 1.0,
+      "seeds": [
+        0,
+        1
+      ],
+      "trace_block_size": 16,
+      "timestamp_unit": "s",
+      "overflow": "reject"
+    }
+  },
+  "agent": {
+    "paths": [
+      "data/m3/agentbank_alfworld.parquet",
+      "data/m3/agentbank_webshop.parquet",
+      "data/m3/agentbank_intercode_bash.parquet",
+      "data/m3/agentbank_mind2web.parquet"
+    ],
+    "format": "chat",
+    "sha256": [
+      "b2fb04225acd0b5dc0de4a3c833531dca80f13f6900695f529f3ca255eeb9eb7",
+      "bafe873b28e4f25a3a2bd0a0364518bbf7e6417bb3a610a023aba2c145b843b8",
+      "fc8d5eef5ffd09e9a8c7565c07fdc692c026e66f0ad8e2dac7402cd4e9d308e4",
+      "6f51adb409b9b93d6795a9fdd6681066fcdffb236bc18627a065c2272d029a97"
+    ],
+    "settings": {
+      "limit": 100,
+      "max_model_len": 2048,
+      "max_output_tokens": 32,
+      "time_scale": 1.0,
+      "seeds": [
+        0,
+        1
+      ],
+      "trace_block_size": 16,
+      "timestamp_unit": "s",
+      "overflow": "reject"
+    },
+    "conversion": {
+      "agentbank_alfworld": 3321,
+      "agentbank_webshop": 4958,
+      "agentbank_intercode_bash": 200,
+      "agentbank_mind2web": 7770
+    }
+  },
+  "coding-agent": {
+    "paths": [
+      "data/m3/cc_bench.parquet"
+    ],
+    "format": "claude-code",
+    "sha256": [
+      "6cd74e6720de678ac7640dc19046cf45f2419dc4052fb8d5d847448d774c3249"
+    ],
+    "settings": {
+      "limit": 50,
+      "max_model_len": 8192,
+      "max_output_tokens": 32,
+      "time_scale": 1.0,
+      "seeds": [
+        0,
+        1
+      ],
+      "trace_block_size": 16,
+      "timestamp_unit": "s",
+      "overflow": "truncate"
+    },
+    "conversion": {
+      "accepted": 370,
+      "no_complete_turn": 0
+    }
+  },
+  "quality": {
+    "paths": [
+      "data/m3/quality_validation.parquet"
+    ],
+    "format": "document-qa",
+    "sha256": [
+      "c797bdff9b8ea6be13dca89dc2926fb01f450c6bfd84e135c226c8f464b9d41d"
+    ],
+    "settings": {
+      "limit": 300,
+      "max_model_len": 8192,
+      "max_output_tokens": 32,
+      "time_scale": 1.0,
+      "seeds": [
+        0,
+        1
+      ],
+      "trace_block_size": 16,
+      "timestamp_unit": "s",
+      "overflow": "reject"
+    },
+    "conversion": {
+      "accepted": 2086,
+      "invalid": 0,
+      "articles": 115
+    }
+  },
+  "bailian-coder": {
+    "paths": [
+      "data/m3/bailian_coder.jsonl"
+    ],
+    "format": "block-trace",
+    "sha256": [
+      "3d74974cebb7bccb69b1ca6ea210a44d9a3033443c0271ed015327284dea1aff"
+    ],
+    "settings": {
+      "limit": 1000,
+      "max_model_len": 32768,
+      "max_output_tokens": 32,
+      "time_scale": 0.25,
+      "seeds": [
+        0
+      ],
+      "trace_block_size": 16,
+      "timestamp_unit": "s",
+      "overflow": "reject"
+    }
+  },
+  "mooncake-agent": {
+    "paths": [
+      "data/m3/mooncake_toolagent.jsonl"
+    ],
+    "format": "block-trace",
+    "sha256": [
+      "48a2db1a13d3bc05e6330140c64f604ba366df20d3c9e128b5c35a01c1fa5f71"
+    ],
+    "settings": {
+      "limit": 1000,
+      "max_model_len": 32768,
+      "max_output_tokens": 32,
+      "time_scale": 0.5,
+      "seeds": [
+        0
+      ],
+      "trace_block_size": 512,
+      "timestamp_unit": "ms",
+      "overflow": "reject"
+    }
+  },
+  "code": {
+    "paths": [
+      "data/code_alpaca.json"
+    ],
+    "format": "instruction",
+    "sha256": [
+      "58d136bb7ea8e4b7c5b6ef08831da905d0abfafeb56f8fa519083089dd6a210e"
+    ],
+    "settings": {
+      "limit": 100,
+      "max_model_len": 1024,
+      "max_output_tokens": 32,
+      "time_scale": 1.0,
+      "seeds": [
+        0,
+        1
+      ],
+      "trace_block_size": 16,
+      "timestamp_unit": "s",
+      "overflow": "reject"
+    },
+    "conversion": {
+      "accepted": 20016,
+      "invalid_text": 6
+    }
+  }
+}

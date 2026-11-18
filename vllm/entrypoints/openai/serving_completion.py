@@ -18,6 +18,7 @@ from vllm.entrypoints.openai.protocol import (CompletionLogProbs,
                                               CompletionResponseStreamChoice,
                                               CompletionStreamResponse,
                                               ErrorResponse,
+                                              PromptTokenUsageInfo,
                                               RequestResponseMetadata,
                                               UsageInfo)
 # yapf: enable
@@ -47,6 +48,7 @@ class OpenAIServingCompletion(OpenAIServing):
         prompt_adapters: Optional[List[PromptAdapterPath]],
         request_logger: Optional[RequestLogger],
         return_tokens_as_token_ids: bool = False,
+        enable_prompt_tokens_details: bool = False,
     ):
         super().__init__(engine_client=engine_client,
                          model_config=model_config,
@@ -55,6 +57,7 @@ class OpenAIServingCompletion(OpenAIServing):
                          prompt_adapters=prompt_adapters,
                          request_logger=request_logger,
                          return_tokens_as_token_ids=return_tokens_as_token_ids)
+        self.enable_prompt_tokens_details = enable_prompt_tokens_details
         diff_sampling_param = self.model_config.get_diff_sampling_param()
         if diff_sampling_param:
             logger.info(
@@ -396,8 +399,10 @@ class OpenAIServingCompletion(OpenAIServing):
         choices: List[CompletionResponseChoice] = []
         num_prompt_tokens = 0
         num_generated_tokens = 0
+        num_cached_tokens = 0
 
         for final_res in final_res_batch:
+            num_cached_tokens += final_res.num_cached_tokens or 0
             prompt_token_ids = final_res.prompt_token_ids
             assert prompt_token_ids is not None
             prompt_logprobs = final_res.prompt_logprobs
@@ -470,6 +475,9 @@ class OpenAIServingCompletion(OpenAIServing):
             completion_tokens=num_generated_tokens,
             total_tokens=num_prompt_tokens + num_generated_tokens,
         )
+        if self.enable_prompt_tokens_details and num_cached_tokens:
+            usage.prompt_tokens_details = PromptTokenUsageInfo(
+                cached_tokens=num_cached_tokens)
 
         request_metadata.final_usage_info = usage
 

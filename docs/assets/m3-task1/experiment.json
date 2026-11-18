@@ -1,0 +1,220 @@
+{
+  "source": [
+    [
+      "chat",
+      "chat",
+      "data/sharegpt1000.jsonl"
+    ],
+    [
+      "agent",
+      "chat",
+      "data/m3/agentbank_alfworld.parquet,data/m3/agentbank_webshop.parquet,data/m3/agentbank_intercode_bash.parquet,data/m3/agentbank_mind2web.parquet"
+    ],
+    [
+      "coding-agent",
+      "claude-code",
+      "data/m3/cc_bench.parquet"
+    ],
+    [
+      "quality",
+      "document-qa",
+      "data/m3/quality_validation.parquet"
+    ],
+    [
+      "bailian-coder",
+      "block-trace",
+      "data/m3/bailian_coder.jsonl"
+    ],
+    [
+      "mooncake-agent",
+      "block-trace",
+      "data/m3/mooncake_toolagent.jsonl"
+    ],
+    [
+      "code",
+      "instruction",
+      "data/code_alpaca.json"
+    ]
+  ],
+  "set": [
+    [
+      "chat",
+      "max_model_len=2048"
+    ],
+    [
+      "agent",
+      "max_model_len=2048"
+    ],
+    [
+      "coding-agent",
+      "max_model_len=8192"
+    ],
+    [
+      "coding-agent",
+      "limit=50"
+    ],
+    [
+      "quality",
+      "max_model_len=8192"
+    ],
+    [
+      "quality",
+      "limit=300"
+    ],
+    [
+      "bailian-coder",
+      "max_model_len=32768"
+    ],
+    [
+      "bailian-coder",
+      "limit=1000"
+    ],
+    [
+      "bailian-coder",
+      "time_scale=0.25"
+    ],
+    [
+      "bailian-coder",
+      "seeds=0"
+    ],
+    [
+      "mooncake-agent",
+      "max_model_len=32768"
+    ],
+    [
+      "mooncake-agent",
+      "limit=1000"
+    ],
+    [
+      "mooncake-agent",
+      "time_scale=0.5"
+    ],
+    [
+      "mooncake-agent",
+      "seeds=0"
+    ],
+    [
+      "mooncake-agent",
+      "trace_block_size=512"
+    ],
+    [
+      "mooncake-agent",
+      "timestamp_unit=ms"
+    ]
+  ],
+  "output": "experiments/m3-task1",
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "limit": 100,
+  "max_model_len": 1024,
+  "max_output_tokens": 32,
+  "cache_gb": 0.02,
+  "cache_ratio": 0.25,
+  "block_size": 16,
+  "request_rate": 100.0,
+  "time_scale": 1.0,
+  "seeds": [
+    0,
+    1
+  ],
+  "think_time": 0.0,
+  "concurrency": 8,
+  "prefill_ms": 0.01,
+  "decode_ms": 0.1,
+  "startup_timeout": 120.0,
+  "timeout": 300.0,
+  "no_plots": false,
+  "settings": {
+    "chat": {
+      "limit": 100,
+      "max_model_len": 2048,
+      "max_output_tokens": 32,
+      "time_scale": 1.0,
+      "seeds": [
+        0,
+        1
+      ],
+      "trace_block_size": 16,
+      "timestamp_unit": "s",
+      "overflow": "reject"
+    },
+    "agent": {
+      "limit": 100,
+      "max_model_len": 2048,
+      "max_output_tokens": 32,
+      "time_scale": 1.0,
+      "seeds": [
+        0,
+        1
+      ],
+      "trace_block_size": 16,
+      "timestamp_unit": "s",
+      "overflow": "reject"
+    },
+    "coding-agent": {
+      "limit": 50,
+      "max_model_len": 8192,
+      "max_output_tokens": 32,
+      "time_scale": 1.0,
+      "seeds": [
+        0,
+        1
+      ],
+      "trace_block_size": 16,
+      "timestamp_unit": "s",
+      "overflow": "truncate"
+    },
+    "quality": {
+      "limit": 300,
+      "max_model_len": 8192,
+      "max_output_tokens": 32,
+      "time_scale": 1.0,
+      "seeds": [
+        0,
+        1
+      ],
+      "trace_block_size": 16,
+      "timestamp_unit": "s",
+      "overflow": "reject"
+    },
+    "bailian-coder": {
+      "limit": 1000,
+      "max_model_len": 32768,
+      "max_output_tokens": 32,
+      "time_scale": 0.25,
+      "seeds": [
+        0
+      ],
+      "trace_block_size": 16,
+      "timestamp_unit": "s",
+      "overflow": "reject"
+    },
+    "mooncake-agent": {
+      "limit": 1000,
+      "max_model_len": 32768,
+      "max_output_tokens": 32,
+      "time_scale": 0.5,
+      "seeds": [
+        0
+      ],
+      "trace_block_size": 512,
+      "timestamp_unit": "ms",
+      "overflow": "reject"
+    },
+    "code": {
+      "limit": 100,
+      "max_model_len": 1024,
+      "max_output_tokens": 32,
+      "time_scale": 1.0,
+      "seeds": [
+        0,
+        1
+      ],
+      "trace_block_size": 16,
+      "timestamp_unit": "s",
+      "overflow": "reject"
+    }
+  },
+  "python": "3.12.15",
+  "platform": "macOS-15.7.3-arm64-arm-64bit"
+}

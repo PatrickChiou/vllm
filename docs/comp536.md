@@ -188,7 +188,9 @@ For now, we have the ShareGPT workflow and LRU/LFU/FIFO comparisons for
 **Milestone 2**.
 
 The [Milestone 3 Task 1 guide](milestone3-task1.md) adds comparisons across
-separate chat, code, and general-instruction workloads at fixed cache geometry.
+separate chat, agent, coding-agent, shared-document (QuALITY), production-trace
+(Qwen Bailian, Mooncake), and single-turn control workloads at fixed block size
+and relative cache size, with results.
 The mixed-workload workflow and new-policy design in Task 2 remain unimplemented.
 
 ## Tests and troubleshooting
