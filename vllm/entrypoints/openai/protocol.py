@@ -638,6 +638,7 @@ class CompletionRequest(OpenAIBaseModel):
     temperature: Optional[float] = None
     top_p: Optional[float] = None
     user: Optional[str] = None
+    workload: Optional[str] = Field(default=None, description="Workload label supplied by the simulator, if any.")
 
     # doc: begin-completion-sampling-params
     use_beam_search: bool = False

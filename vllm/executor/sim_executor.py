@@ -108,6 +108,8 @@ class SimExecutor(ExecutorBase):
                 "block_bytes": self._kv_cache_block_bytes(),
                 "eviction_policy":
                 self.cache_config.prefix_cache_eviction_policy,
+                "hold_s": self.cache_config.hold_s,
+                "hold_budget": self.cache_config.hold_budget,
             })
             self.simulator.metrics.flush()
 

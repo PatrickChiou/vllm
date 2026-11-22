@@ -28,6 +28,8 @@ class CpuGpuBlockAllocator(DeviceAwareBlockAllocator):
         num_cpu_blocks: int,
         block_size: int,
         eviction_policy: str = "lru",
+        hold_s: Optional[float] = None, 
+        hold_budget: Optional[float] = None,
     ) -> DeviceAwareBlockAllocator:
         """Creates a CpuGpuBlockAllocator instance with the specified
         configuration.
@@ -84,6 +86,8 @@ class CpuGpuBlockAllocator(DeviceAwareBlockAllocator):
                 block_size=block_size,
                 block_ids=gpu_block_ids,
                 eviction_policy=policy,
+                hold_s=hold_s, 
+                hold_budget=hold_budget,
             )
 
             cpu_allocator = PrefixCachingBlockAllocator(
@@ -91,6 +95,8 @@ class CpuGpuBlockAllocator(DeviceAwareBlockAllocator):
                 block_size=block_size,
                 block_ids=cpu_block_ids,
                 eviction_policy=policy,
+                hold_s=hold_s, 
+                hold_budget=hold_budget,
             )
         else:
             raise ValueError(f"Unknown allocator type {allocator_type=}")

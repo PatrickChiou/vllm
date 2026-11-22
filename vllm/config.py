@@ -979,6 +979,8 @@ class CacheConfig:
         enable_prefix_caching: bool = False,
         cpu_offload_gb: float = 0,
         prefix_cache_eviction_policy: str = "lru",
+        hold_s: Optional[float] = None,
+        hold_budget: Optional[float] = None,
     ) -> None:
         self.block_size = block_size
         self.gpu_memory_utilization = gpu_memory_utilization
@@ -989,7 +991,9 @@ class CacheConfig:
         self.sliding_window = sliding_window
         self.enable_prefix_caching = enable_prefix_caching
         self.cpu_offload_gb = cpu_offload_gb
-        if prefix_cache_eviction_policy not in ("lru", "lfu", "fifo", "tlru"):
+        if prefix_cache_eviction_policy not in ("lru", "lfu", "fifo", "tlru",
+                                                "tfifo", "hfifo", "hlru",
+                                                "rfifo"):
             raise ValueError("Unknown prefix cache eviction policy: "
                              f"{prefix_cache_eviction_policy}")
         self.prefix_cache_eviction_policy = prefix_cache_eviction_policy
@@ -1001,6 +1005,12 @@ class CacheConfig:
         # Will be set after profiling.
         self.num_gpu_blocks: Optional[int] = None
         self.num_cpu_blocks: Optional[int] = None
+        self.hold_s = hold_s
+        self.hold_budget = hold_budget
+        if hold_s is not None and hold_s < 0:
+            raise ValueError("hold_s must be >= 0")
+        if hold_budget is not None and not 0 <= hold_budget <= 1:
+            raise ValueError("hold_budget must be in [0, 1]")
 
     def metrics_info(self):
         # convert cache_config to dict(key: str, value: str) for prometheus

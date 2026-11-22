@@ -191,7 +191,7 @@ The [Milestone 3 Task 1 guide](milestone3-task1.md) adds comparisons across
 separate chat, agent, coding-agent, shared-document (QuALITY), production-trace
 (Qwen Bailian, Mooncake), and single-turn control workloads at fixed block size
 and relative cache size, with results.
-The mixed-workload workflow and new-policy design in Task 2 remain unimplemented.
+The [Milestone 3 Task 2 guide](milestone3-task2.md) mixes those workloads onto one cache and adds TLRU. Its results table is not filled in yet.
 
 ## Tests and troubleshooting
 

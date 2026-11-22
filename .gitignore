@@ -207,7 +207,3 @@ benchmarks/*.json
 # Linting
 actionlint
 shellcheck*/
-
-# Downloaded data / experiment results
-data/
-experiments/

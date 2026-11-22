@@ -30,7 +30,8 @@ DATASET_URL = ("https://huggingface.co/datasets/anon8231489123/"
 def server(workload: dict, trace_path: Path, directory: Path, *,
            block_size: int, cache_gb: float, policy: str,
            prefill_ms: float, decode_ms: float, max_num_seqs: int,
-           startup_timeout: float, num_gpu_blocks: Optional[int] = None):
+           startup_timeout: float, num_gpu_blocks: Optional[int] = None,
+           hold_s: Optional[float] = None, hold_budget: Optional[float] = None):
     """Start a simulator server; ``num_gpu_blocks`` overrides ``cache_gb``."""
     directory.mkdir(parents=True, exist_ok=False)
     with socket.socket() as sock:
@@ -61,6 +62,10 @@ def server(workload: dict, trace_path: Path, directory: Path, *,
         command.append("--trust-remote-code")
     if num_gpu_blocks is not None:
         command.extend(["--num-gpu-blocks-override", str(num_gpu_blocks)])
+    if hold_s is not None:
+        command.extend(["--sim-tlru-hold-s", str(hold_s)])
+    if hold_budget is not None:
+        command.extend(["--sim-tlru-hold-budget", str(hold_budget)])
     env = dict(os.environ, VLLM_USE_V1="0", TOKENIZERS_PARALLELISM="false")
     base_url = f"http://127.0.0.1:{port}"
     with (directory / "server.log").open("w") as log:

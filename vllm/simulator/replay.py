@@ -47,6 +47,9 @@ async def replay(workload: dict, base_url: str, output: Path, *,
     completion_url = base_url.rstrip("/") + "/v1/completions"
     client_timeout = aiohttp.ClientTimeout(total=timeout)
     template_kwargs = workload["chat_template_kwargs"]
+    total = sum(len(conversation["turns"])
+                for conversation in workload["conversations"])
+    done = 0
 
     def request(turn: dict):
         """Chat turns carry messages; token-id turns use /v1/completions,
@@ -55,9 +58,11 @@ async def replay(workload: dict, base_url: str, output: Path, *,
                 "max_tokens": turn["output_tokens"], "temperature": 0.0}
         if "prompt_token_ids" in turn:
             body["prompt"] = turn["prompt_token_ids"]
+            body["workload"] = turn.get("workload")
             return completion_url, body, {"X-Request-Id": turn["request_id"]}
         body.update(messages=turn["messages"], request_id=turn["request_id"],
-                    chat_template_kwargs=template_kwargs)
+                    chat_template_kwargs=template_kwargs,
+                    workload=turn.get("workload"))
         return chat_url, body, None
 
     async with aiohttp.ClientSession(
@@ -65,6 +70,7 @@ async def replay(workload: dict, base_url: str, output: Path, *,
         with output.open("w", encoding="utf-8") as stream:
 
             async def conversation_replay(conversation: dict) -> None:
+                nonlocal done
                 previous_end: Optional[float] = None
                 failed = False
                 for index, turn in enumerate(conversation["turns"]):
@@ -79,6 +85,7 @@ async def replay(workload: dict, base_url: str, output: Path, *,
                     row: Dict[str, Any] = {
                         "request_id": turn["request_id"],
                         "conversation_id": conversation["id"], "turn": index,
+                        "workload": turn.get("workload"),
                         "planned_s": planned, "success": False,
                     }
                     if failed:
@@ -110,6 +117,9 @@ async def replay(workload: dict, base_url: str, output: Path, *,
                     rows.append(row)
                     stream.write(json.dumps(row) + "\n")
                     stream.flush()
+                    done += 1
+                    if done % 100 == 0 or done == total:
+                        print(f"{done}/{total}", flush=True)
 
             await asyncio.gather(*(conversation_replay(c)
                                    for c in workload["conversations"]))

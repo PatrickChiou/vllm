@@ -210,6 +210,9 @@ class EngineArgs:
     sim_metrics_path: Optional[str] = None
     sim_strict_trace: bool = False
     sim_eviction_policy: str = "lru"
+    sim_tlru_hold_s: float = 1.0
+    # sim_tlru_hold_budget: float = 0.5
+    sim_tlru_hold_budget: float = 1.0
 
     def __post_init__(self):
         if not self.tokenizer:
@@ -1020,8 +1023,19 @@ class EngineArgs:
         sim_group.add_argument('--sim-strict-trace', action='store_true',
                                help='Fail on missing or mismatched traces.')
         sim_group.add_argument('--sim-eviction-policy',
-                               choices=['lru', 'lfu', 'fifo', 'tlru'], default='lru',
+                               choices=['lru', 'lfu', 'fifo', 'tlru', 'tfifo',
+                                        'hfifo', 'hlru', 'rfifo'],
+                               default='lru',
                                help='Prefix cache eviction policy for sim.')
+        sim_group.add_argument("--sim-tlru-hold-s", type=float,
+                               default=EngineArgs.sim_tlru_hold_s,
+                               help="TLRU and HLRU protection window in seconds. "
+                               "LRU, LFU, FIFO, TFIFO, HFIFO, and RFIFO ignore it.")
+        sim_group.add_argument("--sim-tlru-hold-budget", type=float,
+                               default=EngineArgs.sim_tlru_hold_budget,
+                               help="Fraction of the free table TLRU and HLRU "
+                               "may protect. LRU, LFU, FIFO, TFIFO, HFIFO, and "
+                               "RFIFO ignore it.")
 
         return parser
 
@@ -1139,6 +1153,8 @@ class EngineArgs:
             cpu_offload_gb=self.cpu_offload_gb,
             prefix_cache_eviction_policy=(self.sim_eviction_policy
                                           if use_simulator else "lru"),
+            hold_s=self.sim_tlru_hold_s,
+            hold_budget=self.sim_tlru_hold_budget,
         )
         parallel_config = ParallelConfig(
             pipeline_parallel_size=self.pipeline_parallel_size,

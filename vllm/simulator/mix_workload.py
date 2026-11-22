@@ -57,11 +57,16 @@ def retag(conversation: dict, label: str, traces: dict) -> tuple:
     for turn in copied["turns"]:
         old = turn["request_id"]
         new = f"m3t2-{label}-{old}"
-        trace_key = f"chatcmpl-{old}"
+        if "prompt_token_ids" in turn:
+            trace_key = f"cmpl-{old}-0"
+            new_trace_id = f"cmpl-{new}-0"
+        else:
+            trace_key = f"chatcmpl-{old}"
+            new_trace_id = f"chatcmpl-{new}"
         if trace_key not in traces:
             raise ValueError(f"Missing trace for {trace_key}")
         entry = dict(traces[trace_key])
-        entry["request_id"] = f"chatcmpl-{new}"
+        entry["request_id"] = new_trace_id
         turn["request_id"] = new
         turn["workload"] = label
         rewritten.append(entry)

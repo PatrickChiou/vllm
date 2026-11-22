@@ -55,6 +55,9 @@ def summarize(rows: List[dict], events: List[dict]) -> dict:
         "elapsed_s": elapsed,
         "requests_per_s": len(successful) / elapsed if elapsed else 0.0,
     }
+    typed = by_workload(rows, events)
+    if typed:
+        result["by_workload"] = typed
     return {"summary": result, "blocks": list(blocks.values()), "gaps": gaps}
 
 
@@ -76,7 +79,7 @@ def analyze(root: Path, *, plots: bool = True) -> List[dict]:
             "request_id", "conversation_id", "turn", "success", "prompt_tokens",
             "completion_tokens", "cached_tokens", "shared_fraction",
             "planned_s",
-            "sent_s", "dispatch_lag_s", "latency_s", "finished_s", "error"])
+            "sent_s", "dispatch_lag_s", "latency_s", "finished_s", "error", "workload"])
         write_csv(directory / "block_hits.csv", result["blocks"],
                   ["block_key", "accesses", "hits"])
         write_csv(directory / "reuse_gaps.csv", [
@@ -90,9 +93,39 @@ def analyze(root: Path, *, plots: bool = True) -> List[dict]:
     (root / "comparison.json").write_text(
         json.dumps(comparisons, indent=2) + "\n")
     write_csv(root / "comparison.csv", comparisons, list(comparisons[0]))
+    typed_rows = []
+    for summary in comparisons:
+        for label, stats in (summary.get("by_workload") or {}).items():
+            typed_rows.append(dict(policy=summary["policy"], workload=label, **stats))
+    if typed_rows:
+        write_csv(root / "by_workload.csv", typed_rows, ["policy", "workload", "token_weighted_shared_fraction", "mean_reuse_gap_s"])
     if plots:
         plot(root, comparisons, distributions)
     return comparisons
+
+
+def by_workload(rows: List[dict], events: List[dict]) -> dict:
+    groups: Dict[str, dict] = {}
+    for row in rows:
+        label = row.get("workload")
+        if not row.get("success") or not label:
+            continue
+        bucket = groups.setdefault(label, { "prompt_tokens": 0, "cached_tokens": 0, "gaps": [] })
+        bucket["prompt_tokens"] += row["prompt_tokens"]
+        bucket["cached_tokens"] += row["cached_tokens"]
+    for event in events:
+        label = event.get("workload")
+        if (event.get("event") != "block" or event.get("reuse_gap_s") is None or not label or label not in groups):
+            continue
+        groups[label]["gaps"].append(event["reuse_gap_s"])
+    summary = {}
+    for label, bucket in groups.items():
+        prompt, gaps = bucket["prompt_tokens"], bucket["gaps"]
+        summary[label] = {
+            "token_weighted_shared_fraction": (bucket["cached_tokens"] / prompt if prompt else 0.0),
+            "mean_reuse_gap_s": sum(gaps) / len(gaps) if gaps else None,
+        }
+    return summary
 
 
 def plot(root: Path, comparisons: List[dict], distributions: list) -> None:
