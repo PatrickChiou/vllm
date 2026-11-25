@@ -424,6 +424,7 @@ class MQLLMEngineClient(EngineClient):
         trace_headers: Optional[Mapping[str, str]] = None,
         prompt_adapter_request: Optional[PromptAdapterRequest] = None,
         priority: int = 0,
+        workload: Optional[str] = None,
     ) -> AsyncGenerator[RequestOutput, None]:
         ...
 
@@ -439,6 +440,7 @@ class MQLLMEngineClient(EngineClient):
         trace_headers: Optional[Mapping[str, str]] = None,
         prompt_adapter_request: Optional[PromptAdapterRequest] = None,
         priority: int = 0,
+        workload: Optional[str] = None,
     ) -> AsyncGenerator[RequestOutput, None]:
         ...
 
@@ -455,6 +457,7 @@ class MQLLMEngineClient(EngineClient):
         trace_headers: Optional[Mapping[str, str]] = None,
         prompt_adapter_request: Optional[PromptAdapterRequest] = None,
         priority: int = 0,
+        workload: Optional[str] = None,
         *,
         inputs: Optional[PromptType] = None  # DEPRECATED
     ) -> AsyncGenerator[RequestOutput, None]:
@@ -465,6 +468,7 @@ class MQLLMEngineClient(EngineClient):
         from the LLMEngine to the caller.
 
         Args:
+            workload: Optional workload label used by cache eviction policies.
             prompt: The prompt to the LLM. See :class:`~vllm.inputs.PromptType`
                 for more details about the format of each input.
             sampling_params: The sampling parameters of the request.
@@ -484,7 +488,7 @@ class MQLLMEngineClient(EngineClient):
 
         return self._process_request(prompt, sampling_params, request_id,
                                      lora_request, trace_headers,
-                                     prompt_adapter_request, priority)
+                                     prompt_adapter_request, priority, workload)
 
     @overload
     def encode(
@@ -568,6 +572,7 @@ class MQLLMEngineClient(EngineClient):
         trace_headers: Optional[Mapping[str, str]] = None,
         prompt_adapter_request: Optional[PromptAdapterRequest] = None,
         priority: int = 0,
+        workload: Optional[str] = None,
     ) -> Union[AsyncGenerator[RequestOutput, None], AsyncGenerator[
             PoolingRequestOutput, None]]:
         """Send an RPCGenerateRequest to the RPCServer and stream responses."""
@@ -621,6 +626,7 @@ class MQLLMEngineClient(EngineClient):
                     trace_headers=trace_headers,
                     prompt_adapter_request=prompt_adapter_request,
                     priority=priority,
+                    workload=workload,
                 ))
 
             # 3) Send the RPCGenerateRequest to the MQLLMEngine.

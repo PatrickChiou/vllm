@@ -1,0 +1,36 @@
+{
+  "supplied_zip_sha256": "04e77090038f78c985154c71f7a57b7fbb2553ddd3e4e62f431ed420ba3768ef",
+  "files": [
+    {
+      "zip_entry": "mlsys2025style/mlsys2025.bst",
+      "file": "report/mlsys2025.bst",
+      "sha256": "c9c9f1b83e32512b93f6208e28ba2989fc691b6f70763ad0657a77d44bc067a7",
+      "byte_identical": true
+    },
+    {
+      "zip_entry": "mlsys2025style/fancyhdr.sty",
+      "file": "report/fancyhdr.sty",
+      "sha256": "b56ec4434b9f4607529a4b23dc68ad8d4b94f1f631c8cddaf7da78140d53a5ea",
+      "byte_identical": true
+    },
+    {
+      "zip_entry": "mlsys2025style/algorithm.sty",
+      "file": "report/algorithm.sty",
+      "sha256": "93fd0eb31c112eb405833db8f1d7f5d238c7e691b1c05680d7276e68f36d564a",
+      "byte_identical": true
+    },
+    {
+      "zip_entry": "mlsys2025style/mlsys2025.sty",
+      "file": "report/mlsys2025.sty",
+      "sha256": "05a9842992b7ef71851fd2380a1058f83b0faafc106602cabc4c169d372ad8e2",
+      "byte_identical": true
+    },
+    {
+      "zip_entry": "mlsys2025style/algorithmic.sty",
+      "file": "report/algorithmic.sty",
+      "sha256": "48d18794a5d97c0479a588cc2eac0917992feb9da83acc4631b8f55757d80f9b",
+      "byte_identical": true
+    }
+  ],
+  "paper_notice": "Course notice configured in main.tex; official style files unchanged."
+}

@@ -1,0 +1,1810 @@
+[
+  {
+    "git_commit": "3d501ab40fb9a6b1bed5688d1db338b21f4a185f",
+    "driver_sha256": "ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f",
+    "dirty_status": " M README.md\n M tests/simulator/test_sim_api_server.py\n M vllm/engine/multiprocessing/__init__.py\n M vllm/engine/multiprocessing/client.py\n M vllm/engine/multiprocessing/engine.py\n M vllm/simulator/eviction_study.py\n?? deliverables/\n?? tests/simulator/test_rpc_workload.py\n?? tools/comp536_counting/\n?? tools/comp536_diagrams.py\n?? tools/comp536_final_figures.py\n?? tools/comp536_final_study.py\n",
+    "implementation_sha256": "04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4",
+    "workload_sha256": "09b1bf27c2fcf837fc3a9d10b8dedc97751e06ae97d9532b38714a71a1329726",
+    "trace_sha256": "516465e0ad6229b586ca2eb7a624dbf288f75956542a0fc15746ccf62ff82c5b",
+    "mixture": "equal-token",
+    "seed": 0,
+    "policy": "fifo",
+    "policy_order": 2,
+    "block_size": 16,
+    "cache_gb": null,
+    "cache_ratio": 0.1,
+    "concurrency": 8,
+    "hold_s": 8,
+    "hold_budget": 1,
+    "allocator_counter_sha256": "597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12",
+    "num_gpu_blocks": 8043,
+    "cache_clamped": false,
+    "working_set_blocks": 80429,
+    "name": "equal-token-seed-0-fifo",
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "tokenizer_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "virtual_cache_bytes": 1581318144,
+    "conversations": 5280,
+    "prefill_ms_per_token": 0.01,
+    "decode_ms_per_seq": 0.1,
+    "arrival": "poisson",
+    "request_rate": 100,
+    "think_time_s": 1,
+    "max_model_len": 32768,
+    "chat_template_kwargs": {
+      "date_string": "26 Jul 2024"
+    },
+    "command": [
+      "work/review-vllm/tools/comp536_final_study.py",
+      "--phase",
+      "mixed",
+      "--data",
+      "work/rerun-2026-11-23/data",
+      "--output",
+      "work/final-2026-11-24/experiments",
+      "--mixed-prepared",
+      "work/rerun-2026-11-23/task2-skewed/prepared",
+      "--expanded-prepared",
+      "work/final-2026-11-24/experiments/mixed-expanded",
+      "--seeds",
+      "0"
+    ],
+    "prepared_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/equal-token/seed-0/prepared",
+    "started_epoch": 1795549331.4333324,
+    "requests": 6051,
+    "successful_requests": 6051,
+    "failed_requests": 0,
+    "prompt_tokens": 2119769,
+    "cached_tokens": 743312,
+    "token_weighted_shared_fraction": 0.35065707631350396,
+    "mean_request_shared_fraction": 0.33438776199789644,
+    "unique_blocks": 80429,
+    "block_hits": 46457,
+    "zero_hit_blocks": 66141,
+    "reuse_gap_samples": 46457,
+    "mean_reuse_gap_s": 2.339501091588383,
+    "elapsed_s": 129.69531429200015,
+    "requests_per_s": 46.65550203592233,
+    "by_workload": {
+      "quality": {
+        "token_weighted_shared_fraction": 0.2880285261976853,
+        "mean_reuse_gap_s": 2.4882735954594235
+      },
+      "code": {
+        "token_weighted_shared_fraction": 0.29949386951371476,
+        "mean_reuse_gap_s": 0.03431125866324051
+      },
+      "bailian-coder": {
+        "token_weighted_shared_fraction": 0.05421431596781025,
+        "mean_reuse_gap_s": 3.6339414742203293
+      },
+      "agent": {
+        "token_weighted_shared_fraction": 0.5629515757109915,
+        "mean_reuse_gap_s": 1.947425780608571
+      },
+      "chat": {
+        "token_weighted_shared_fraction": 0.44563760451352485,
+        "mean_reuse_gap_s": 3.685757729464964
+      },
+      "coding-agent": {
+        "token_weighted_shared_fraction": 0.8508964459982427,
+        "mean_reuse_gap_s": 2.184654601422185
+      },
+      "mooncake-agent": {
+        "token_weighted_shared_fraction": 0.06920087279105708,
+        "mean_reuse_gap_s": 2.4385532856765164
+      },
+      "bailian-chat": {
+        "token_weighted_shared_fraction": 0.25338744592876533,
+        "mean_reuse_gap_s": 3.60753936561677
+      }
+    },
+    "cache_evictions": 101684,
+    "definition": "successful evictor allocations of unused cached blocks",
+    "measurement": "opt-in allocator wrapper; not inferred from misses",
+    "block_events_sha256": "ca65cd73a3020a5a4b9bd0686dfccf1b38f1e89a899a4f439cc55086bea6b751",
+    "median_request_shared_fraction": 0.32,
+    "median_dispatch_lag_s": 14.47938385080959,
+    "p95_dispatch_lag_s": 54.592521588088744,
+    "achieved_dispatch_requests_per_s": 46.683192632602044,
+    "evictions": 101684,
+    "eviction_count_status": "opt-in allocator counter",
+    "raw_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/equal-token-seed-0-fifo/attempt-001"
+  },
+  {
+    "git_commit": "3d501ab40fb9a6b1bed5688d1db338b21f4a185f",
+    "driver_sha256": "ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f",
+    "dirty_status": " M README.md\n M tests/simulator/test_sim_api_server.py\n M vllm/engine/multiprocessing/__init__.py\n M vllm/engine/multiprocessing/client.py\n M vllm/engine/multiprocessing/engine.py\n M vllm/simulator/eviction_study.py\n?? deliverables/\n?? tests/simulator/test_rpc_workload.py\n?? tools/comp536_counting/\n?? tools/comp536_diagrams.py\n?? tools/comp536_final_figures.py\n?? tools/comp536_final_study.py\n",
+    "implementation_sha256": "04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4",
+    "workload_sha256": "09b1bf27c2fcf837fc3a9d10b8dedc97751e06ae97d9532b38714a71a1329726",
+    "trace_sha256": "516465e0ad6229b586ca2eb7a624dbf288f75956542a0fc15746ccf62ff82c5b",
+    "mixture": "equal-token",
+    "seed": 0,
+    "policy": "hfifo",
+    "policy_order": 3,
+    "block_size": 16,
+    "cache_gb": null,
+    "cache_ratio": 0.1,
+    "concurrency": 8,
+    "hold_s": 8,
+    "hold_budget": 1,
+    "allocator_counter_sha256": "597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12",
+    "num_gpu_blocks": 8043,
+    "cache_clamped": false,
+    "working_set_blocks": 80429,
+    "name": "equal-token-seed-0-hfifo",
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "tokenizer_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "virtual_cache_bytes": 1581318144,
+    "conversations": 5280,
+    "prefill_ms_per_token": 0.01,
+    "decode_ms_per_seq": 0.1,
+    "arrival": "poisson",
+    "request_rate": 100,
+    "think_time_s": 1,
+    "max_model_len": 32768,
+    "chat_template_kwargs": {
+      "date_string": "26 Jul 2024"
+    },
+    "command": [
+      "work/review-vllm/tools/comp536_final_study.py",
+      "--phase",
+      "mixed",
+      "--data",
+      "work/rerun-2026-11-23/data",
+      "--output",
+      "work/final-2026-11-24/experiments",
+      "--mixed-prepared",
+      "work/rerun-2026-11-23/task2-skewed/prepared",
+      "--expanded-prepared",
+      "work/final-2026-11-24/experiments/mixed-expanded",
+      "--seeds",
+      "0"
+    ],
+    "prepared_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/equal-token/seed-0/prepared",
+    "started_epoch": 1795549466.303652,
+    "requests": 6051,
+    "successful_requests": 6051,
+    "failed_requests": 0,
+    "prompt_tokens": 2119769,
+    "cached_tokens": 632064,
+    "token_weighted_shared_fraction": 0.2981758861460848,
+    "mean_request_shared_fraction": 0.31298680170674426,
+    "unique_blocks": 80429,
+    "block_hits": 39504,
+    "zero_hit_blocks": 72377,
+    "reuse_gap_samples": 39504,
+    "mean_reuse_gap_s": 3.54634389631808,
+    "elapsed_s": 126.67407693099995,
+    "requests_per_s": 47.76825808879596,
+    "by_workload": {
+      "quality": {
+        "token_weighted_shared_fraction": 0.5531254322733351,
+        "mean_reuse_gap_s": 10.085783408210728
+      },
+      "code": {
+        "token_weighted_shared_fraction": 0.2995554051351476,
+        "mean_reuse_gap_s": 0.053177008318818934
+      },
+      "bailian-coder": {
+        "token_weighted_shared_fraction": 0.03658266896057993,
+        "mean_reuse_gap_s": 2.2782709975200217
+      },
+      "agent": {
+        "token_weighted_shared_fraction": 0.42779400461183703,
+        "mean_reuse_gap_s": 1.3590649925765654
+      },
+      "chat": {
+        "token_weighted_shared_fraction": 0.17857458338614218,
+        "mean_reuse_gap_s": 3.353779044165412
+      },
+      "coding-agent": {
+        "token_weighted_shared_fraction": 0.6436014881564434,
+        "mean_reuse_gap_s": 1.2904756078033863
+      },
+      "mooncake-agent": {
+        "token_weighted_shared_fraction": 0.09596457911171938,
+        "mean_reuse_gap_s": 4.785571143587833
+      },
+      "bailian-chat": {
+        "token_weighted_shared_fraction": 0.16566700900646372,
+        "mean_reuse_gap_s": 2.398231072095498
+      }
+    },
+    "cache_evictions": 109040,
+    "definition": "successful evictor allocations of unused cached blocks",
+    "measurement": "opt-in allocator wrapper; not inferred from misses",
+    "block_events_sha256": "a6b95f475ef7729c9aa0611f99e8a7c08a960c0d5474b901c7491612868ebc69",
+    "median_request_shared_fraction": 0.3137254901960784,
+    "median_dispatch_lag_s": 13.907946951644437,
+    "p95_dispatch_lag_s": 51.70912508160635,
+    "achieved_dispatch_requests_per_s": 47.79573831117481,
+    "evictions": 109040,
+    "eviction_count_status": "opt-in allocator counter",
+    "raw_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/equal-token-seed-0-hfifo/attempt-001"
+  },
+  {
+    "git_commit": "3d501ab40fb9a6b1bed5688d1db338b21f4a185f",
+    "driver_sha256": "ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f",
+    "dirty_status": " M README.md\n M tests/simulator/test_sim_api_server.py\n M vllm/engine/multiprocessing/__init__.py\n M vllm/engine/multiprocessing/client.py\n M vllm/engine/multiprocessing/engine.py\n M vllm/simulator/eviction_study.py\n?? deliverables/\n?? tests/simulator/test_rpc_workload.py\n?? tools/comp536_counting/\n?? tools/comp536_diagrams.py\n?? tools/comp536_final_figures.py\n?? tools/comp536_final_study.py\n",
+    "implementation_sha256": "04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4",
+    "workload_sha256": "09b1bf27c2fcf837fc3a9d10b8dedc97751e06ae97d9532b38714a71a1329726",
+    "trace_sha256": "516465e0ad6229b586ca2eb7a624dbf288f75956542a0fc15746ccf62ff82c5b",
+    "mixture": "equal-token",
+    "seed": 0,
+    "policy": "hlru",
+    "policy_order": 1,
+    "block_size": 16,
+    "cache_gb": null,
+    "cache_ratio": 0.1,
+    "concurrency": 8,
+    "hold_s": 8,
+    "hold_budget": 1,
+    "allocator_counter_sha256": "597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12",
+    "num_gpu_blocks": 8043,
+    "cache_clamped": false,
+    "working_set_blocks": 80429,
+    "name": "equal-token-seed-0-hlru",
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "tokenizer_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "virtual_cache_bytes": 1581318144,
+    "conversations": 5280,
+    "prefill_ms_per_token": 0.01,
+    "decode_ms_per_seq": 0.1,
+    "arrival": "poisson",
+    "request_rate": 100,
+    "think_time_s": 1,
+    "max_model_len": 32768,
+    "chat_template_kwargs": {
+      "date_string": "26 Jul 2024"
+    },
+    "command": [
+      "work/review-vllm/tools/comp536_final_study.py",
+      "--phase",
+      "mixed",
+      "--data",
+      "work/rerun-2026-11-23/data",
+      "--output",
+      "work/final-2026-11-24/experiments",
+      "--mixed-prepared",
+      "work/rerun-2026-11-23/task2-skewed/prepared",
+      "--expanded-prepared",
+      "work/final-2026-11-24/experiments/mixed-expanded",
+      "--seeds",
+      "0"
+    ],
+    "prepared_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/equal-token/seed-0/prepared",
+    "started_epoch": 1795549200.5269222,
+    "requests": 6051,
+    "successful_requests": 6051,
+    "failed_requests": 0,
+    "prompt_tokens": 2119769,
+    "cached_tokens": 787776,
+    "token_weighted_shared_fraction": 0.3716329467975048,
+    "mean_request_shared_fraction": 0.3384154390508384,
+    "unique_blocks": 80429,
+    "block_hits": 49236,
+    "zero_hit_blocks": 66893,
+    "reuse_gap_samples": 49236,
+    "mean_reuse_gap_s": 2.2516218522240155,
+    "elapsed_s": 125.71648896399984,
+    "requests_per_s": 48.132110989297225,
+    "by_workload": {
+      "quality": {
+        "token_weighted_shared_fraction": 0.3527657808585525,
+        "mean_reuse_gap_s": 3.254657779565411
+      },
+      "code": {
+        "token_weighted_shared_fraction": 0.2994323338922819,
+        "mean_reuse_gap_s": 0.0322278735421292
+      },
+      "bailian-coder": {
+        "token_weighted_shared_fraction": 0.07286547997886002,
+        "mean_reuse_gap_s": 3.6553284044444854
+      },
+      "agent": {
+        "token_weighted_shared_fraction": 0.5718063028439662,
+        "mean_reuse_gap_s": 1.7012510405254544
+      },
+      "chat": {
+        "token_weighted_shared_fraction": 0.4915409815917933,
+        "mean_reuse_gap_s": 3.230872631594006
+      },
+      "coding-agent": {
+        "token_weighted_shared_fraction": 0.8615453644674606,
+        "mean_reuse_gap_s": 1.9689254142474129
+      },
+      "mooncake-agent": {
+        "token_weighted_shared_fraction": 0.08883513514469306,
+        "mean_reuse_gap_s": 3.0591070040441197
+      },
+      "bailian-chat": {
+        "token_weighted_shared_fraction": 0.25338744592876533,
+        "mean_reuse_gap_s": 3.077773828351728
+      }
+    },
+    "cache_evictions": 99239,
+    "definition": "successful evictor allocations of unused cached blocks",
+    "measurement": "opt-in allocator wrapper; not inferred from misses",
+    "block_events_sha256": "ce3d1e1432c15586ec28416c2c2c3ebcf7f9f1ae24e604b7ab559d83ec0a1e06",
+    "median_request_shared_fraction": 0.32,
+    "median_dispatch_lag_s": 13.93355671511734,
+    "p95_dispatch_lag_s": 51.34232453131801,
+    "achieved_dispatch_requests_per_s": 48.16139989764248,
+    "evictions": 99239,
+    "eviction_count_status": "opt-in allocator counter",
+    "raw_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/equal-token-seed-0-hlru/attempt-001"
+  },
+  {
+    "git_commit": "3d501ab40fb9a6b1bed5688d1db338b21f4a185f",
+    "driver_sha256": "ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f",
+    "dirty_status": " M README.md\n M tests/simulator/test_sim_api_server.py\n M vllm/engine/multiprocessing/__init__.py\n M vllm/engine/multiprocessing/client.py\n M vllm/engine/multiprocessing/engine.py\n M vllm/simulator/eviction_study.py\n?? deliverables/\n?? tests/simulator/test_rpc_workload.py\n?? tools/comp536_counting/\n?? tools/comp536_diagrams.py\n?? tools/comp536_final_figures.py\n?? tools/comp536_final_study.py\n",
+    "implementation_sha256": "04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4",
+    "workload_sha256": "09b1bf27c2fcf837fc3a9d10b8dedc97751e06ae97d9532b38714a71a1329726",
+    "trace_sha256": "516465e0ad6229b586ca2eb7a624dbf288f75956542a0fc15746ccf62ff82c5b",
+    "mixture": "equal-token",
+    "seed": 0,
+    "policy": "lfu",
+    "policy_order": 0,
+    "block_size": 16,
+    "cache_gb": null,
+    "cache_ratio": 0.1,
+    "concurrency": 8,
+    "hold_s": 8,
+    "hold_budget": 1,
+    "allocator_counter_sha256": "597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12",
+    "num_gpu_blocks": 8043,
+    "cache_clamped": false,
+    "working_set_blocks": 80429,
+    "name": "equal-token-seed-0-lfu",
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "tokenizer_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "virtual_cache_bytes": 1581318144,
+    "conversations": 5280,
+    "prefill_ms_per_token": 0.01,
+    "decode_ms_per_seq": 0.1,
+    "arrival": "poisson",
+    "request_rate": 100,
+    "think_time_s": 1,
+    "max_model_len": 32768,
+    "chat_template_kwargs": {
+      "date_string": "26 Jul 2024"
+    },
+    "command": [
+      "work/review-vllm/tools/comp536_final_study.py",
+      "--phase",
+      "mixed",
+      "--data",
+      "work/rerun-2026-11-23/data",
+      "--output",
+      "work/final-2026-11-24/experiments",
+      "--mixed-prepared",
+      "work/rerun-2026-11-23/task2-skewed/prepared",
+      "--expanded-prepared",
+      "work/final-2026-11-24/experiments/mixed-expanded",
+      "--seeds",
+      "0"
+    ],
+    "prepared_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/equal-token/seed-0/prepared",
+    "started_epoch": 1795549064.712734,
+    "requests": 6051,
+    "successful_requests": 6051,
+    "failed_requests": 0,
+    "prompt_tokens": 2119769,
+    "cached_tokens": 634912,
+    "token_weighted_shared_fraction": 0.29951942876794596,
+    "mean_request_shared_fraction": 0.3126012995619714,
+    "unique_blocks": 80429,
+    "block_hits": 39682,
+    "zero_hit_blocks": 72481,
+    "reuse_gap_samples": 39682,
+    "mean_reuse_gap_s": 3.6296435732716956,
+    "elapsed_s": 130.57398809200004,
+    "requests_per_s": 46.341542357859026,
+    "by_workload": {
+      "quality": {
+        "token_weighted_shared_fraction": 0.5531254322733351,
+        "mean_reuse_gap_s": 10.238440557117785
+      },
+      "code": {
+        "token_weighted_shared_fraction": 0.29949386951371476,
+        "mean_reuse_gap_s": 0.05307301584548894
+      },
+      "bailian-coder": {
+        "token_weighted_shared_fraction": 0.03658266896057993,
+        "mean_reuse_gap_s": 2.3594627023837305
+      },
+      "agent": {
+        "token_weighted_shared_fraction": 0.42102997694081473,
+        "mean_reuse_gap_s": 1.351798806601861
+      },
+      "chat": {
+        "token_weighted_shared_fraction": 0.17236810268345795,
+        "mean_reuse_gap_s": 3.483468560488703
+      },
+      "coding-agent": {
+        "token_weighted_shared_fraction": 0.6669333881732693,
+        "mean_reuse_gap_s": 1.452811669080125
+      },
+      "mooncake-agent": {
+        "token_weighted_shared_fraction": 0.09596457911171938,
+        "mean_reuse_gap_s": 4.8891129131237205
+      },
+      "bailian-chat": {
+        "token_weighted_shared_fraction": 0.16566700900646372,
+        "mean_reuse_gap_s": 2.4719440402216137
+      }
+    },
+    "cache_evictions": 108810,
+    "definition": "successful evictor allocations of unused cached blocks",
+    "measurement": "opt-in allocator wrapper; not inferred from misses",
+    "block_events_sha256": "90fb923f478dd719b61f62755e1e65aa769a659b3655255e49eb1ccd954e553a",
+    "median_request_shared_fraction": 0.3137254901960784,
+    "median_dispatch_lag_s": 14.372410212660675,
+    "p95_dispatch_lag_s": 54.073034964910875,
+    "achieved_dispatch_requests_per_s": 46.36771725262144,
+    "evictions": 108810,
+    "eviction_count_status": "opt-in allocator counter",
+    "raw_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/equal-token-seed-0-lfu/attempt-001"
+  },
+  {
+    "git_commit": "3d501ab40fb9a6b1bed5688d1db338b21f4a185f",
+    "driver_sha256": "ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f",
+    "dirty_status": " M README.md\n M tests/simulator/test_sim_api_server.py\n M vllm/engine/multiprocessing/__init__.py\n M vllm/engine/multiprocessing/client.py\n M vllm/engine/multiprocessing/engine.py\n M vllm/simulator/eviction_study.py\n?? deliverables/\n?? tests/simulator/test_rpc_workload.py\n?? tools/comp536_counting/\n?? tools/comp536_diagrams.py\n?? tools/comp536_final_figures.py\n?? tools/comp536_final_study.py\n",
+    "implementation_sha256": "04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4",
+    "workload_sha256": "09b1bf27c2fcf837fc3a9d10b8dedc97751e06ae97d9532b38714a71a1329726",
+    "trace_sha256": "516465e0ad6229b586ca2eb7a624dbf288f75956542a0fc15746ccf62ff82c5b",
+    "mixture": "equal-token",
+    "seed": 0,
+    "policy": "lru",
+    "policy_order": 7,
+    "block_size": 16,
+    "cache_gb": null,
+    "cache_ratio": 0.1,
+    "concurrency": 8,
+    "hold_s": 8,
+    "hold_budget": 1,
+    "allocator_counter_sha256": "597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12",
+    "num_gpu_blocks": 8043,
+    "cache_clamped": false,
+    "working_set_blocks": 80429,
+    "name": "equal-token-seed-0-lru",
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "tokenizer_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "virtual_cache_bytes": 1581318144,
+    "conversations": 5280,
+    "prefill_ms_per_token": 0.01,
+    "decode_ms_per_seq": 0.1,
+    "arrival": "poisson",
+    "request_rate": 100,
+    "think_time_s": 1,
+    "max_model_len": 32768,
+    "chat_template_kwargs": {
+      "date_string": "26 Jul 2024"
+    },
+    "command": [
+      "work/review-vllm/tools/comp536_final_study.py",
+      "--phase",
+      "mixed",
+      "--data",
+      "work/rerun-2026-11-23/data",
+      "--output",
+      "work/final-2026-11-24/experiments",
+      "--mixed-prepared",
+      "work/rerun-2026-11-23/task2-skewed/prepared",
+      "--expanded-prepared",
+      "work/final-2026-11-24/experiments/mixed-expanded",
+      "--seeds",
+      "0"
+    ],
+    "prepared_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/equal-token/seed-0/prepared",
+    "started_epoch": 1795550003.2581336,
+    "requests": 6051,
+    "successful_requests": 6051,
+    "failed_requests": 0,
+    "prompt_tokens": 2119769,
+    "cached_tokens": 759872,
+    "token_weighted_shared_fraction": 0.3584692483001686,
+    "mean_request_shared_fraction": 0.33660896715350014,
+    "unique_blocks": 80429,
+    "block_hits": 47492,
+    "zero_hit_blocks": 67316,
+    "reuse_gap_samples": 47492,
+    "mean_reuse_gap_s": 2.108976120768307,
+    "elapsed_s": 125.99371315899953,
+    "requests_per_s": 48.0262058184114,
+    "by_workload": {
+      "code": {
+        "token_weighted_shared_fraction": 0.29949386951371476,
+        "mean_reuse_gap_s": 0.03355847308485694
+      },
+      "quality": {
+        "token_weighted_shared_fraction": 0.3040130335213562,
+        "mean_reuse_gap_s": 2.6231262046851427
+      },
+      "bailian-coder": {
+        "token_weighted_shared_fraction": 0.06968698579048176,
+        "mean_reuse_gap_s": 3.553243493458237
+      },
+      "agent": {
+        "token_weighted_shared_fraction": 0.568239815526518,
+        "mean_reuse_gap_s": 1.682343667455696
+      },
+      "chat": {
+        "token_weighted_shared_fraction": 0.483306640857539,
+        "mean_reuse_gap_s": 3.200030730710548
+      },
+      "coding-agent": {
+        "token_weighted_shared_fraction": 0.8582549683112416,
+        "mean_reuse_gap_s": 1.9889123567091642
+      },
+      "mooncake-agent": {
+        "token_weighted_shared_fraction": 0.07802780341689919,
+        "mean_reuse_gap_s": 2.7327678616342577
+      },
+      "bailian-chat": {
+        "token_weighted_shared_fraction": 0.22522649786387602,
+        "mean_reuse_gap_s": 2.6796131648814883
+      }
+    },
+    "cache_evictions": 101001,
+    "definition": "successful evictor allocations of unused cached blocks",
+    "measurement": "opt-in allocator wrapper; not inferred from misses",
+    "block_events_sha256": "038884cd660adc1eccf7a634cefff49320daf9da44086e8a2e1fd906c0557ca3",
+    "median_request_shared_fraction": 0.32,
+    "median_dispatch_lag_s": 14.203107141698283,
+    "p95_dispatch_lag_s": 51.46930895824758,
+    "achieved_dispatch_requests_per_s": 48.02770439385089,
+    "evictions": 101001,
+    "eviction_count_status": "opt-in allocator counter",
+    "raw_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/equal-token-seed-0-lru/attempt-001"
+  },
+  {
+    "git_commit": "3d501ab40fb9a6b1bed5688d1db338b21f4a185f",
+    "driver_sha256": "ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f",
+    "dirty_status": " M README.md\n M tests/simulator/test_sim_api_server.py\n M vllm/engine/multiprocessing/__init__.py\n M vllm/engine/multiprocessing/client.py\n M vllm/engine/multiprocessing/engine.py\n M vllm/simulator/eviction_study.py\n?? deliverables/\n?? tests/simulator/test_rpc_workload.py\n?? tools/comp536_counting/\n?? tools/comp536_diagrams.py\n?? tools/comp536_final_figures.py\n?? tools/comp536_final_study.py\n",
+    "implementation_sha256": "04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4",
+    "workload_sha256": "09b1bf27c2fcf837fc3a9d10b8dedc97751e06ae97d9532b38714a71a1329726",
+    "trace_sha256": "516465e0ad6229b586ca2eb7a624dbf288f75956542a0fc15746ccf62ff82c5b",
+    "mixture": "equal-token",
+    "seed": 0,
+    "policy": "rfifo",
+    "policy_order": 4,
+    "block_size": 16,
+    "cache_gb": null,
+    "cache_ratio": 0.1,
+    "concurrency": 8,
+    "hold_s": 8,
+    "hold_budget": 1,
+    "allocator_counter_sha256": "597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12",
+    "num_gpu_blocks": 8043,
+    "cache_clamped": false,
+    "working_set_blocks": 80429,
+    "name": "equal-token-seed-0-rfifo",
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "tokenizer_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "virtual_cache_bytes": 1581318144,
+    "conversations": 5280,
+    "prefill_ms_per_token": 0.01,
+    "decode_ms_per_seq": 0.1,
+    "arrival": "poisson",
+    "request_rate": 100,
+    "think_time_s": 1,
+    "max_model_len": 32768,
+    "chat_template_kwargs": {
+      "date_string": "26 Jul 2024"
+    },
+    "command": [
+      "work/review-vllm/tools/comp536_final_study.py",
+      "--phase",
+      "mixed",
+      "--data",
+      "work/rerun-2026-11-23/data",
+      "--output",
+      "work/final-2026-11-24/experiments",
+      "--mixed-prepared",
+      "work/rerun-2026-11-23/task2-skewed/prepared",
+      "--expanded-prepared",
+      "work/final-2026-11-24/experiments/mixed-expanded",
+      "--seeds",
+      "0"
+    ],
+    "prepared_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/equal-token/seed-0/prepared",
+    "started_epoch": 1795549598.0871096,
+    "requests": 6051,
+    "successful_requests": 6051,
+    "failed_requests": 0,
+    "prompt_tokens": 2119769,
+    "cached_tokens": 872832,
+    "token_weighted_shared_fraction": 0.41175807363915595,
+    "mean_request_shared_fraction": 0.3574149986624372,
+    "unique_blocks": 80429,
+    "block_hits": 54552,
+    "zero_hit_blocks": 62925,
+    "reuse_gap_samples": 54552,
+    "mean_reuse_gap_s": 4.697001987792234,
+    "elapsed_s": 126.19578864399955,
+    "requests_per_s": 47.94930215199156,
+    "by_workload": {
+      "quality": {
+        "token_weighted_shared_fraction": 0.3568848654381138,
+        "mean_reuse_gap_s": 5.315594101469465
+      },
+      "code": {
+        "token_weighted_shared_fraction": 0.2979554789778933,
+        "mean_reuse_gap_s": 0.01827932031268144
+      },
+      "bailian-coder": {
+        "token_weighted_shared_fraction": 0.1773359870761227,
+        "mean_reuse_gap_s": 12.020490365210104
+      },
+      "agent": {
+        "token_weighted_shared_fraction": 0.6795388162951576,
+        "mean_reuse_gap_s": 4.055409137063771
+      },
+      "chat": {
+        "token_weighted_shared_fraction": 0.5587676141535413,
+        "mean_reuse_gap_s": 6.264909545361673
+      },
+      "coding-agent": {
+        "token_weighted_shared_fraction": 0.8914580567967245,
+        "mean_reuse_gap_s": 2.8181355258133274
+      },
+      "mooncake-agent": {
+        "token_weighted_shared_fraction": 0.02970601652927634,
+        "mean_reuse_gap_s": 10.952523605757612
+      },
+      "bailian-chat": {
+        "token_weighted_shared_fraction": 0.3285240318719624,
+        "mean_reuse_gap_s": 7.477588130770444
+      }
+    },
+    "cache_evictions": 93637,
+    "definition": "successful evictor allocations of unused cached blocks",
+    "measurement": "opt-in allocator wrapper; not inferred from misses",
+    "block_events_sha256": "68f59fdca6d9417896d4bcfdc9b39cdf2c23604f360eb436aab3880c8f438ab6",
+    "median_request_shared_fraction": 0.33195020746887965,
+    "median_dispatch_lag_s": 13.979027808012063,
+    "p95_dispatch_lag_s": 51.40839214380216,
+    "achieved_dispatch_requests_per_s": 47.97498353000378,
+    "evictions": 93637,
+    "eviction_count_status": "opt-in allocator counter",
+    "raw_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/equal-token-seed-0-rfifo/attempt-001"
+  },
+  {
+    "git_commit": "3d501ab40fb9a6b1bed5688d1db338b21f4a185f",
+    "driver_sha256": "ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f",
+    "dirty_status": " M README.md\n M tests/simulator/test_sim_api_server.py\n M vllm/engine/multiprocessing/__init__.py\n M vllm/engine/multiprocessing/client.py\n M vllm/engine/multiprocessing/engine.py\n M vllm/simulator/eviction_study.py\n?? deliverables/\n?? tests/simulator/test_rpc_workload.py\n?? tools/comp536_counting/\n?? tools/comp536_diagrams.py\n?? tools/comp536_final_figures.py\n?? tools/comp536_final_study.py\n",
+    "implementation_sha256": "04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4",
+    "workload_sha256": "09b1bf27c2fcf837fc3a9d10b8dedc97751e06ae97d9532b38714a71a1329726",
+    "trace_sha256": "516465e0ad6229b586ca2eb7a624dbf288f75956542a0fc15746ccf62ff82c5b",
+    "mixture": "equal-token",
+    "seed": 0,
+    "policy": "tfifo",
+    "policy_order": 6,
+    "block_size": 16,
+    "cache_gb": null,
+    "cache_ratio": 0.1,
+    "concurrency": 8,
+    "hold_s": 8,
+    "hold_budget": 1,
+    "allocator_counter_sha256": "597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12",
+    "num_gpu_blocks": 8043,
+    "cache_clamped": false,
+    "working_set_blocks": 80429,
+    "name": "equal-token-seed-0-tfifo",
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "tokenizer_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "virtual_cache_bytes": 1581318144,
+    "conversations": 5280,
+    "prefill_ms_per_token": 0.01,
+    "decode_ms_per_seq": 0.1,
+    "arrival": "poisson",
+    "request_rate": 100,
+    "think_time_s": 1,
+    "max_model_len": 32768,
+    "chat_template_kwargs": {
+      "date_string": "26 Jul 2024"
+    },
+    "command": [
+      "work/review-vllm/tools/comp536_final_study.py",
+      "--phase",
+      "mixed",
+      "--data",
+      "work/rerun-2026-11-23/data",
+      "--output",
+      "work/final-2026-11-24/experiments",
+      "--mixed-prepared",
+      "work/rerun-2026-11-23/task2-skewed/prepared",
+      "--expanded-prepared",
+      "work/final-2026-11-24/experiments/mixed-expanded",
+      "--seeds",
+      "0"
+    ],
+    "prepared_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/equal-token/seed-0/prepared",
+    "started_epoch": 1795549860.7254689,
+    "requests": 6051,
+    "successful_requests": 6051,
+    "failed_requests": 0,
+    "prompt_tokens": 2119769,
+    "cached_tokens": 709360,
+    "token_weighted_shared_fraction": 0.33464023674277715,
+    "mean_request_shared_fraction": 0.3342048494750735,
+    "unique_blocks": 80429,
+    "block_hits": 44335,
+    "zero_hit_blocks": 67933,
+    "reuse_gap_samples": 44335,
+    "mean_reuse_gap_s": 3.991773354697041,
+    "elapsed_s": 137.6138609569989,
+    "requests_per_s": 43.97086135015713,
+    "by_workload": {
+      "quality": {
+        "token_weighted_shared_fraction": 0.12351105851251863,
+        "mean_reuse_gap_s": 1.4719912012237206
+      },
+      "code": {
+        "token_weighted_shared_fraction": 0.2983246927064905,
+        "mean_reuse_gap_s": 0.0197310582202999
+      },
+      "bailian-coder": {
+        "token_weighted_shared_fraction": 0.22777209297095502,
+        "mean_reuse_gap_s": 11.599153381093291
+      },
+      "agent": {
+        "token_weighted_shared_fraction": 0.6974327440430438,
+        "mean_reuse_gap_s": 3.863002015749875
+      },
+      "chat": {
+        "token_weighted_shared_fraction": 0.04018849880748004,
+        "mean_reuse_gap_s": 1.2654164282520683
+      },
+      "coding-agent": {
+        "token_weighted_shared_fraction": 0.9412926022172783,
+        "mean_reuse_gap_s": 3.163893566320525
+      },
+      "mooncake-agent": {
+        "token_weighted_shared_fraction": 0.011486326391320184,
+        "mean_reuse_gap_s": 1.6486175864137218
+      },
+      "bailian-chat": {
+        "token_weighted_shared_fraction": 0.3510650076549215,
+        "mean_reuse_gap_s": 6.109566503633407
+      }
+    },
+    "cache_evictions": 104400,
+    "definition": "successful evictor allocations of unused cached blocks",
+    "measurement": "opt-in allocator wrapper; not inferred from misses",
+    "block_events_sha256": "46c5e872d34a4f19eb7cef2faa54b9016b53b0458204b34bd2da06372566dc92",
+    "median_request_shared_fraction": 0.32,
+    "median_dispatch_lag_s": 16.387496084675547,
+    "p95_dispatch_lag_s": 62.57547525746591,
+    "achieved_dispatch_requests_per_s": 43.99373461644697,
+    "evictions": 104400,
+    "eviction_count_status": "opt-in allocator counter",
+    "raw_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/equal-token-seed-0-tfifo/attempt-001"
+  },
+  {
+    "git_commit": "3d501ab40fb9a6b1bed5688d1db338b21f4a185f",
+    "driver_sha256": "ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f",
+    "dirty_status": " M README.md\n M tests/simulator/test_sim_api_server.py\n M vllm/engine/multiprocessing/__init__.py\n M vllm/engine/multiprocessing/client.py\n M vllm/engine/multiprocessing/engine.py\n M vllm/simulator/eviction_study.py\n?? deliverables/\n?? tests/simulator/test_rpc_workload.py\n?? tools/comp536_counting/\n?? tools/comp536_diagrams.py\n?? tools/comp536_final_figures.py\n?? tools/comp536_final_study.py\n",
+    "implementation_sha256": "04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4",
+    "workload_sha256": "09b1bf27c2fcf837fc3a9d10b8dedc97751e06ae97d9532b38714a71a1329726",
+    "trace_sha256": "516465e0ad6229b586ca2eb7a624dbf288f75956542a0fc15746ccf62ff82c5b",
+    "mixture": "equal-token",
+    "seed": 0,
+    "policy": "tlru",
+    "policy_order": 5,
+    "block_size": 16,
+    "cache_gb": null,
+    "cache_ratio": 0.1,
+    "concurrency": 8,
+    "hold_s": 8,
+    "hold_budget": 1,
+    "allocator_counter_sha256": "597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12",
+    "num_gpu_blocks": 8043,
+    "cache_clamped": false,
+    "working_set_blocks": 80429,
+    "name": "equal-token-seed-0-tlru",
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "tokenizer_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "virtual_cache_bytes": 1581318144,
+    "conversations": 5280,
+    "prefill_ms_per_token": 0.01,
+    "decode_ms_per_seq": 0.1,
+    "arrival": "poisson",
+    "request_rate": 100,
+    "think_time_s": 1,
+    "max_model_len": 32768,
+    "chat_template_kwargs": {
+      "date_string": "26 Jul 2024"
+    },
+    "command": [
+      "work/review-vllm/tools/comp536_final_study.py",
+      "--phase",
+      "mixed",
+      "--data",
+      "work/rerun-2026-11-23/data",
+      "--output",
+      "work/final-2026-11-24/experiments",
+      "--mixed-prepared",
+      "work/rerun-2026-11-23/task2-skewed/prepared",
+      "--expanded-prepared",
+      "work/final-2026-11-24/experiments/mixed-expanded",
+      "--seeds",
+      "0"
+    ],
+    "prepared_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/equal-token/seed-0/prepared",
+    "started_epoch": 1795549729.2588356,
+    "requests": 6051,
+    "successful_requests": 6051,
+    "failed_requests": 0,
+    "prompt_tokens": 2119769,
+    "cached_tokens": 785808,
+    "token_weighted_shared_fraction": 0.37070454374981426,
+    "mean_request_shared_fraction": 0.34006719953793074,
+    "unique_blocks": 80429,
+    "block_hits": 49113,
+    "zero_hit_blocks": 66495,
+    "reuse_gap_samples": 49113,
+    "mean_reuse_gap_s": 2.3146379832031547,
+    "elapsed_s": 126.35726591400089,
+    "requests_per_s": 47.88802572001144,
+    "by_workload": {
+      "quality": {
+        "token_weighted_shared_fraction": 0.3040130335213562,
+        "mean_reuse_gap_s": 2.62335062093072
+      },
+      "code": {
+        "token_weighted_shared_fraction": 0.2992477270279833,
+        "mean_reuse_gap_s": 0.028931889877650347
+      },
+      "bailian-coder": {
+        "token_weighted_shared_fraction": 0.0849197692593134,
+        "mean_reuse_gap_s": 4.036093494572534
+      },
+      "agent": {
+        "token_weighted_shared_fraction": 0.6329900076863951,
+        "mean_reuse_gap_s": 2.1436203824032734
+      },
+      "chat": {
+        "token_weighted_shared_fraction": 0.3913155357890411,
+        "mean_reuse_gap_s": 2.5800324553286385
+      },
+      "coding-agent": {
+        "token_weighted_shared_fraction": 0.8917571837200172,
+        "mean_reuse_gap_s": 2.277309444064373
+      },
+      "mooncake-agent": {
+        "token_weighted_shared_fraction": 0.06722047168910532,
+        "mean_reuse_gap_s": 2.0369819361504398
+      },
+      "bailian-chat": {
+        "token_weighted_shared_fraction": 0.3135578013385613,
+        "mean_reuse_gap_s": 3.8942057811012645
+      }
+    },
+    "cache_evictions": 99380,
+    "definition": "successful evictor allocations of unused cached blocks",
+    "measurement": "opt-in allocator wrapper; not inferred from misses",
+    "block_events_sha256": "72f37f0777395b1d4402137091c6d8255f77091374ca3ce7b556299d644118dc",
+    "median_request_shared_fraction": 0.32,
+    "median_dispatch_lag_s": 14.275381037900903,
+    "p95_dispatch_lag_s": 51.82402612807468,
+    "achieved_dispatch_requests_per_s": 47.914372974530885,
+    "evictions": 99380,
+    "eviction_count_status": "opt-in allocator counter",
+    "raw_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/equal-token-seed-0-tlru/attempt-001"
+  },
+  {
+    "git_commit": "3d501ab40fb9a6b1bed5688d1db338b21f4a185f",
+    "driver_sha256": "ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f",
+    "dirty_status": " M README.md\n M tests/simulator/test_sim_api_server.py\n M vllm/engine/multiprocessing/__init__.py\n M vllm/engine/multiprocessing/client.py\n M vllm/engine/multiprocessing/engine.py\n M vllm/simulator/eviction_study.py\n?? deliverables/\n?? tests/simulator/test_rpc_workload.py\n?? tools/comp536_counting/\n?? tools/comp536_diagrams.py\n?? tools/comp536_final_figures.py\n?? tools/comp536_final_study.py\n",
+    "implementation_sha256": "04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4",
+    "workload_sha256": "481dd5a465c378709e734b1465edfb4de57bbaa6e2a2fe19567abd261e1f11d7",
+    "trace_sha256": "34b101c43fed904fc696085e2325debc2c8cd482bfc2fd774841ef860d5e24dd",
+    "mixture": "skewed",
+    "seed": 0,
+    "policy": "fifo",
+    "policy_order": 2,
+    "block_size": 16,
+    "cache_gb": null,
+    "cache_ratio": 0.1,
+    "concurrency": 8,
+    "hold_s": 8,
+    "hold_budget": 1,
+    "allocator_counter_sha256": "597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12",
+    "num_gpu_blocks": 12360,
+    "cache_clamped": false,
+    "working_set_blocks": 123593,
+    "name": "skewed-seed-0-fifo",
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "tokenizer_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "virtual_cache_bytes": 2430074880,
+    "conversations": 858,
+    "prefill_ms_per_token": 0.01,
+    "decode_ms_per_seq": 0.1,
+    "arrival": "poisson",
+    "request_rate": 100,
+    "think_time_s": 1,
+    "max_model_len": 32768,
+    "chat_template_kwargs": {
+      "date_string": "26 Jul 2024"
+    },
+    "command": [
+      "work/review-vllm/tools/comp536_final_study.py",
+      "--phase",
+      "mixed",
+      "--data",
+      "work/rerun-2026-11-23/data",
+      "--output",
+      "work/final-2026-11-24/experiments",
+      "--mixed-prepared",
+      "work/rerun-2026-11-23/task2-skewed/prepared",
+      "--expanded-prepared",
+      "work/final-2026-11-24/experiments/mixed-expanded",
+      "--seeds",
+      "0"
+    ],
+    "prepared_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/skewed/seed-0/prepared",
+    "started_epoch": 1795546667.9562175,
+    "requests": 3322,
+    "successful_requests": 3322,
+    "failed_requests": 0,
+    "prompt_tokens": 10517812,
+    "cached_tokens": 5166272,
+    "token_weighted_shared_fraction": 0.49119265489818603,
+    "mean_request_shared_fraction": 0.18157760093671974,
+    "unique_blocks": 123593,
+    "block_hits": 322892,
+    "zero_hit_blocks": 95941,
+    "reuse_gap_samples": 322892,
+    "mean_reuse_gap_s": 2.7625314461531816,
+    "elapsed_s": 396.236504124,
+    "requests_per_s": 8.383881761081756,
+    "by_workload": {
+      "quality": {
+        "token_weighted_shared_fraction": 0.206470733514448,
+        "mean_reuse_gap_s": 4.422268263045617
+      },
+      "chat": {
+        "token_weighted_shared_fraction": 0.027063257637734702,
+        "mean_reuse_gap_s": 1.9599476514820047
+      },
+      "agent": {
+        "token_weighted_shared_fraction": 0.17513904359590057,
+        "mean_reuse_gap_s": 2.267831661057391
+      },
+      "bailian-coder": {
+        "token_weighted_shared_fraction": 0.16243654822335024,
+        "mean_reuse_gap_s": 10.739302221545595
+      },
+      "coding-agent": {
+        "token_weighted_shared_fraction": 0.5999185535122987,
+        "mean_reuse_gap_s": 2.7418543543366134
+      },
+      "bailian-chat": {
+        "token_weighted_shared_fraction": 0.09223856555466067,
+        "mean_reuse_gap_s": 2.3429692372243514
+      },
+      "code": {
+        "token_weighted_shared_fraction": 0.28776978417266186,
+        "mean_reuse_gap_s": 0.05435044484993341
+      },
+      "mooncake-agent": {
+        "token_weighted_shared_fraction": 0.15781369607489462,
+        "mean_reuse_gap_s": 3.39874216019175
+      }
+    },
+    "cache_evictions": 402998,
+    "definition": "successful evictor allocations of unused cached blocks",
+    "measurement": "opt-in allocator wrapper; not inferred from misses",
+    "block_events_sha256": "ca36e0a3ef5893e5d5977e11408dae925efc727f6c62a541b03cba2ae3054070",
+    "median_request_shared_fraction": 0.03863801239570139,
+    "median_dispatch_lag_s": 102.73617891707545,
+    "p95_dispatch_lag_s": 307.5709234460529,
+    "achieved_dispatch_requests_per_s": 8.38997593442158,
+    "evictions": 402998,
+    "eviction_count_status": "opt-in allocator counter",
+    "raw_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/skewed-seed-0-fifo/attempt-001"
+  },
+  {
+    "git_commit": "3d501ab40fb9a6b1bed5688d1db338b21f4a185f",
+    "driver_sha256": "ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f",
+    "dirty_status": " M README.md\n M tests/simulator/test_sim_api_server.py\n M vllm/engine/multiprocessing/__init__.py\n M vllm/engine/multiprocessing/client.py\n M vllm/engine/multiprocessing/engine.py\n M vllm/simulator/eviction_study.py\n?? deliverables/\n?? tests/simulator/test_rpc_workload.py\n?? tools/comp536_counting/\n?? tools/comp536_diagrams.py\n?? tools/comp536_final_figures.py\n?? tools/comp536_final_study.py\n",
+    "implementation_sha256": "04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4",
+    "workload_sha256": "481dd5a465c378709e734b1465edfb4de57bbaa6e2a2fe19567abd261e1f11d7",
+    "trace_sha256": "34b101c43fed904fc696085e2325debc2c8cd482bfc2fd774841ef860d5e24dd",
+    "mixture": "skewed",
+    "seed": 0,
+    "policy": "hfifo",
+    "policy_order": 3,
+    "block_size": 16,
+    "cache_gb": null,
+    "cache_ratio": 0.1,
+    "concurrency": 8,
+    "hold_s": 8,
+    "hold_budget": 1,
+    "allocator_counter_sha256": "597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12",
+    "num_gpu_blocks": 12360,
+    "cache_clamped": false,
+    "working_set_blocks": 123593,
+    "name": "skewed-seed-0-hfifo",
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "tokenizer_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "virtual_cache_bytes": 2430074880,
+    "conversations": 858,
+    "prefill_ms_per_token": 0.01,
+    "decode_ms_per_seq": 0.1,
+    "arrival": "poisson",
+    "request_rate": 100,
+    "think_time_s": 1,
+    "max_model_len": 32768,
+    "chat_template_kwargs": {
+      "date_string": "26 Jul 2024"
+    },
+    "command": [
+      "work/review-vllm/tools/comp536_final_study.py",
+      "--phase",
+      "mixed",
+      "--data",
+      "work/rerun-2026-11-23/data",
+      "--output",
+      "work/final-2026-11-24/experiments",
+      "--mixed-prepared",
+      "work/rerun-2026-11-23/task2-skewed/prepared",
+      "--expanded-prepared",
+      "work/final-2026-11-24/experiments/mixed-expanded",
+      "--seeds",
+      "0"
+    ],
+    "prepared_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/skewed/seed-0/prepared",
+    "started_epoch": 1795547072.8537433,
+    "requests": 3322,
+    "successful_requests": 3322,
+    "failed_requests": 0,
+    "prompt_tokens": 10517812,
+    "cached_tokens": 3872800,
+    "token_weighted_shared_fraction": 0.3682134649297782,
+    "mean_request_shared_fraction": 0.1662913617318946,
+    "unique_blocks": 123593,
+    "block_hits": 242050,
+    "zero_hit_blocks": 100996,
+    "reuse_gap_samples": 242050,
+    "mean_reuse_gap_s": 2.098005972449981,
+    "elapsed_s": 364.846824147,
+    "requests_per_s": 9.105190946273762,
+    "by_workload": {
+      "quality": {
+        "token_weighted_shared_fraction": 0.206470733514448,
+        "mean_reuse_gap_s": 4.7401986067519255
+      },
+      "chat": {
+        "token_weighted_shared_fraction": 0.029061139194360004,
+        "mean_reuse_gap_s": 5.314545993054114
+      },
+      "agent": {
+        "token_weighted_shared_fraction": 0.19592138785358315,
+        "mean_reuse_gap_s": 3.7759783019423563
+      },
+      "bailian-coder": {
+        "token_weighted_shared_fraction": 0.16891780700532932,
+        "mean_reuse_gap_s": 10.725145478509493
+      },
+      "coding-agent": {
+        "token_weighted_shared_fraction": 0.4404476268238594,
+        "mean_reuse_gap_s": 1.9464522293688256
+      },
+      "bailian-chat": {
+        "token_weighted_shared_fraction": 0.1234369039040312,
+        "mean_reuse_gap_s": 4.4795281239175715
+      },
+      "mooncake-agent": {
+        "token_weighted_shared_fraction": 0.23130053760129518,
+        "mean_reuse_gap_s": 4.34150496552161
+      },
+      "code": {
+        "token_weighted_shared_fraction": 0.28776978417266186,
+        "mean_reuse_gap_s": 0.06031027990002258
+      }
+    },
+    "cache_evictions": 477284,
+    "definition": "successful evictor allocations of unused cached blocks",
+    "measurement": "opt-in allocator wrapper; not inferred from misses",
+    "block_events_sha256": "4e9efe1910c5b14668548da514b287018ca79505e26bd118dd08654506d85efe",
+    "median_request_shared_fraction": 0.04050632911392405,
+    "median_dispatch_lag_s": 96.39061520868572,
+    "p95_dispatch_lag_s": 284.3708240361279,
+    "achieved_dispatch_requests_per_s": 9.110613846933779,
+    "evictions": 477284,
+    "eviction_count_status": "opt-in allocator counter",
+    "raw_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/skewed-seed-0-hfifo/attempt-001"
+  },
+  {
+    "git_commit": "3d501ab40fb9a6b1bed5688d1db338b21f4a185f",
+    "driver_sha256": "ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f",
+    "dirty_status": " M README.md\n M tests/simulator/test_sim_api_server.py\n M vllm/engine/multiprocessing/__init__.py\n M vllm/engine/multiprocessing/client.py\n M vllm/engine/multiprocessing/engine.py\n M vllm/simulator/eviction_study.py\n?? deliverables/\n?? tests/simulator/test_rpc_workload.py\n?? tools/comp536_counting/\n?? tools/comp536_diagrams.py\n?? tools/comp536_final_figures.py\n?? tools/comp536_final_study.py\n",
+    "implementation_sha256": "04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4",
+    "workload_sha256": "481dd5a465c378709e734b1465edfb4de57bbaa6e2a2fe19567abd261e1f11d7",
+    "trace_sha256": "34b101c43fed904fc696085e2325debc2c8cd482bfc2fd774841ef860d5e24dd",
+    "mixture": "skewed",
+    "seed": 0,
+    "policy": "hlru",
+    "policy_order": 1,
+    "block_size": 16,
+    "cache_gb": null,
+    "cache_ratio": 0.1,
+    "concurrency": 8,
+    "hold_s": 8,
+    "hold_budget": 1,
+    "allocator_counter_sha256": "597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12",
+    "num_gpu_blocks": 12360,
+    "cache_clamped": false,
+    "working_set_blocks": 123593,
+    "name": "skewed-seed-0-hlru",
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "tokenizer_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "virtual_cache_bytes": 2430074880,
+    "conversations": 858,
+    "prefill_ms_per_token": 0.01,
+    "decode_ms_per_seq": 0.1,
+    "arrival": "poisson",
+    "request_rate": 100,
+    "think_time_s": 1,
+    "max_model_len": 32768,
+    "chat_template_kwargs": {
+      "date_string": "26 Jul 2024"
+    },
+    "command": [
+      "work/review-vllm/tools/comp536_final_study.py",
+      "--phase",
+      "mixed",
+      "--data",
+      "work/rerun-2026-11-23/data",
+      "--output",
+      "work/final-2026-11-24/experiments",
+      "--mixed-prepared",
+      "work/rerun-2026-11-23/task2-skewed/prepared",
+      "--expanded-prepared",
+      "work/final-2026-11-24/experiments/mixed-expanded",
+      "--seeds",
+      "0"
+    ],
+    "prepared_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/skewed/seed-0/prepared",
+    "started_epoch": 1795546295.1015685,
+    "requests": 3322,
+    "successful_requests": 3322,
+    "failed_requests": 0,
+    "prompt_tokens": 10517812,
+    "cached_tokens": 4442608,
+    "token_weighted_shared_fraction": 0.4223889911704069,
+    "mean_request_shared_fraction": 0.16477606731122008,
+    "unique_blocks": 123593,
+    "block_hits": 277663,
+    "zero_hit_blocks": 99674,
+    "reuse_gap_samples": 277663,
+    "mean_reuse_gap_s": 2.1754259438800365,
+    "elapsed_s": 364.2398243260004,
+    "requests_per_s": 9.12036460084265,
+    "by_workload": {
+      "quality": {
+        "token_weighted_shared_fraction": 0.206470733514448,
+        "mean_reuse_gap_s": 4.279662836748893
+      },
+      "chat": {
+        "token_weighted_shared_fraction": 0.02503092984737448,
+        "mean_reuse_gap_s": 1.239579663117445
+      },
+      "agent": {
+        "token_weighted_shared_fraction": 0.11655380013952538,
+        "mean_reuse_gap_s": 1.6659218112915293
+      },
+      "bailian-coder": {
+        "token_weighted_shared_fraction": 0.16405686291884503,
+        "mean_reuse_gap_s": 10.529790422575203
+      },
+      "coding-agent": {
+        "token_weighted_shared_fraction": 0.5132439358313057,
+        "mean_reuse_gap_s": 2.138634289440938
+      },
+      "bailian-chat": {
+        "token_weighted_shared_fraction": 0.09325590267474884,
+        "mean_reuse_gap_s": 2.352162931276312
+      },
+      "code": {
+        "token_weighted_shared_fraction": 0.28776978417266186,
+        "mean_reuse_gap_s": 0.04672191000004204
+      },
+      "mooncake-agent": {
+        "token_weighted_shared_fraction": 0.2057725415665813,
+        "mean_reuse_gap_s": 3.1569759891463915
+      }
+    },
+    "cache_evictions": 427848,
+    "definition": "successful evictor allocations of unused cached blocks",
+    "measurement": "opt-in allocator wrapper; not inferred from misses",
+    "block_events_sha256": "a69025f60a7b8535969f056c443ce2777400e478cbbb8590dfce2f72f395e8a2",
+    "median_request_shared_fraction": 0.039072097322440213,
+    "median_dispatch_lag_s": 96.24355539715656,
+    "p95_dispatch_lag_s": 284.3026208346385,
+    "achieved_dispatch_requests_per_s": 9.125602960224244,
+    "evictions": 427848,
+    "eviction_count_status": "opt-in allocator counter",
+    "raw_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/skewed-seed-0-hlru/attempt-001"
+  },
+  {
+    "git_commit": "3d501ab40fb9a6b1bed5688d1db338b21f4a185f",
+    "driver_sha256": "ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f",
+    "dirty_status": " M README.md\n M tests/simulator/test_sim_api_server.py\n M vllm/engine/multiprocessing/__init__.py\n M vllm/engine/multiprocessing/client.py\n M vllm/engine/multiprocessing/engine.py\n M vllm/simulator/eviction_study.py\n?? deliverables/\n?? tests/simulator/test_rpc_workload.py\n?? tools/comp536_counting/\n?? tools/comp536_diagrams.py\n?? tools/comp536_final_figures.py\n?? tools/comp536_final_study.py\n",
+    "implementation_sha256": "04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4",
+    "workload_sha256": "481dd5a465c378709e734b1465edfb4de57bbaa6e2a2fe19567abd261e1f11d7",
+    "trace_sha256": "34b101c43fed904fc696085e2325debc2c8cd482bfc2fd774841ef860d5e24dd",
+    "mixture": "skewed",
+    "seed": 0,
+    "policy": "lfu",
+    "policy_order": 0,
+    "block_size": 16,
+    "cache_gb": null,
+    "cache_ratio": 0.1,
+    "concurrency": 8,
+    "hold_s": 8,
+    "hold_budget": 1,
+    "allocator_counter_sha256": "597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12",
+    "num_gpu_blocks": 12360,
+    "cache_clamped": false,
+    "working_set_blocks": 123593,
+    "name": "skewed-seed-0-lfu",
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "tokenizer_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "virtual_cache_bytes": 2430074880,
+    "conversations": 858,
+    "prefill_ms_per_token": 0.01,
+    "decode_ms_per_seq": 0.1,
+    "arrival": "poisson",
+    "request_rate": 100,
+    "think_time_s": 1,
+    "max_model_len": 32768,
+    "chat_template_kwargs": {
+      "date_string": "26 Jul 2024"
+    },
+    "command": [
+      "work/review-vllm/tools/comp536_final_study.py",
+      "--phase",
+      "mixed",
+      "--data",
+      "work/rerun-2026-11-23/data",
+      "--output",
+      "work/final-2026-11-24/experiments",
+      "--mixed-prepared",
+      "work/rerun-2026-11-23/task2-skewed/prepared",
+      "--expanded-prepared",
+      "work/final-2026-11-24/experiments/mixed-expanded",
+      "--seeds",
+      "0"
+    ],
+    "prepared_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/skewed/seed-0/prepared",
+    "started_epoch": 1795545867.1915865,
+    "requests": 3322,
+    "successful_requests": 3322,
+    "failed_requests": 0,
+    "prompt_tokens": 10517812,
+    "cached_tokens": 2177616,
+    "token_weighted_shared_fraction": 0.20704077996450213,
+    "mean_request_shared_fraction": 0.12971873632429423,
+    "unique_blocks": 123593,
+    "block_hits": 136101,
+    "zero_hit_blocks": 109777,
+    "reuse_gap_samples": 136101,
+    "mean_reuse_gap_s": 2.543269720468763,
+    "elapsed_s": 419.32153530100004,
+    "requests_per_s": 7.922321465353266,
+    "by_workload": {
+      "quality": {
+        "token_weighted_shared_fraction": 0.206470733514448,
+        "mean_reuse_gap_s": 4.301334954351519
+      },
+      "chat": {
+        "token_weighted_shared_fraction": 0.029061139194360004,
+        "mean_reuse_gap_s": 5.335714572200346
+      },
+      "agent": {
+        "token_weighted_shared_fraction": 0.09836154032938782,
+        "mean_reuse_gap_s": 5.243590684607525
+      },
+      "bailian-coder": {
+        "token_weighted_shared_fraction": 0.16891780700532932,
+        "mean_reuse_gap_s": 10.631987531776666
+      },
+      "coding-agent": {
+        "token_weighted_shared_fraction": 0.24002733606253882,
+        "mean_reuse_gap_s": 2.314032656061028
+      },
+      "bailian-chat": {
+        "token_weighted_shared_fraction": 0.1234369039040312,
+        "mean_reuse_gap_s": 4.393677019365469
+      },
+      "code": {
+        "token_weighted_shared_fraction": 0.28776978417266186,
+        "mean_reuse_gap_s": 0.0476565849999588
+      },
+      "mooncake-agent": {
+        "token_weighted_shared_fraction": 0.23130053760129518,
+        "mean_reuse_gap_s": 4.255328984543899
+      }
+    },
+    "cache_evictions": 576115,
+    "definition": "successful evictor allocations of unused cached blocks",
+    "measurement": "opt-in allocator wrapper; not inferred from misses",
+    "block_events_sha256": "67bdd3e77190102b834d22675af7c9d6019796bf94e40bb75c2589eebb961d93",
+    "median_request_shared_fraction": 0.03520356295686693,
+    "median_dispatch_lag_s": 96.54166792182154,
+    "p95_dispatch_lag_s": 315.8120549813902,
+    "achieved_dispatch_requests_per_s": 7.928099688437785,
+    "evictions": 576115,
+    "eviction_count_status": "opt-in allocator counter",
+    "raw_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/skewed-seed-0-lfu/attempt-002"
+  },
+  {
+    "git_commit": "3d501ab40fb9a6b1bed5688d1db338b21f4a185f",
+    "driver_sha256": "ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f",
+    "dirty_status": " M README.md\n M tests/simulator/test_sim_api_server.py\n M vllm/engine/multiprocessing/__init__.py\n M vllm/engine/multiprocessing/client.py\n M vllm/engine/multiprocessing/engine.py\n M vllm/simulator/eviction_study.py\n?? deliverables/\n?? tests/simulator/test_rpc_workload.py\n?? tools/comp536_counting/\n?? tools/comp536_diagrams.py\n?? tools/comp536_final_figures.py\n?? tools/comp536_final_study.py\n",
+    "implementation_sha256": "04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4",
+    "workload_sha256": "481dd5a465c378709e734b1465edfb4de57bbaa6e2a2fe19567abd261e1f11d7",
+    "trace_sha256": "34b101c43fed904fc696085e2325debc2c8cd482bfc2fd774841ef860d5e24dd",
+    "mixture": "skewed",
+    "seed": 0,
+    "policy": "lru",
+    "policy_order": 7,
+    "block_size": 16,
+    "cache_gb": null,
+    "cache_ratio": 0.1,
+    "concurrency": 8,
+    "hold_s": 8,
+    "hold_budget": 1,
+    "allocator_counter_sha256": "597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12",
+    "num_gpu_blocks": 12360,
+    "cache_clamped": false,
+    "working_set_blocks": 123593,
+    "name": "skewed-seed-0-lru",
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "tokenizer_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "virtual_cache_bytes": 2430074880,
+    "conversations": 858,
+    "prefill_ms_per_token": 0.01,
+    "decode_ms_per_seq": 0.1,
+    "arrival": "poisson",
+    "request_rate": 100,
+    "think_time_s": 1,
+    "max_model_len": 32768,
+    "chat_template_kwargs": {
+      "date_string": "26 Jul 2024"
+    },
+    "command": [
+      "work/review-vllm/tools/comp536_final_study.py",
+      "--phase",
+      "mixed",
+      "--data",
+      "work/rerun-2026-11-23/data",
+      "--output",
+      "work/final-2026-11-24/experiments",
+      "--mixed-prepared",
+      "work/rerun-2026-11-23/task2-skewed/prepared",
+      "--expanded-prepared",
+      "work/final-2026-11-24/experiments/mixed-expanded",
+      "--seeds",
+      "0"
+    ],
+    "prepared_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/skewed/seed-0/prepared",
+    "started_epoch": 1795548668.113558,
+    "requests": 3322,
+    "successful_requests": 3322,
+    "failed_requests": 0,
+    "prompt_tokens": 10517812,
+    "cached_tokens": 4767040,
+    "token_weighted_shared_fraction": 0.45323495038701966,
+    "mean_request_shared_fraction": 0.1707849402762904,
+    "unique_blocks": 123593,
+    "block_hits": 297940,
+    "zero_hit_blocks": 98876,
+    "reuse_gap_samples": 297940,
+    "mean_reuse_gap_s": 2.375124235198086,
+    "elapsed_s": 386.25091512499966,
+    "requests_per_s": 8.60062687210702,
+    "by_workload": {
+      "quality": {
+        "token_weighted_shared_fraction": 0.206470733514448,
+        "mean_reuse_gap_s": 4.263209356168367
+      },
+      "chat": {
+        "token_weighted_shared_fraction": 0.025547623353398264,
+        "mean_reuse_gap_s": 1.4235032667864829
+      },
+      "agent": {
+        "token_weighted_shared_fraction": 0.11618378807559038,
+        "mean_reuse_gap_s": 1.5788367312791622
+      },
+      "bailian-coder": {
+        "token_weighted_shared_fraction": 0.16405686291884503,
+        "mean_reuse_gap_s": 10.346212453502288
+      },
+      "coding-agent": {
+        "token_weighted_shared_fraction": 0.5519945087832223,
+        "mean_reuse_gap_s": 2.345876087495057
+      },
+      "bailian-chat": {
+        "token_weighted_shared_fraction": 0.09325590267474884,
+        "mean_reuse_gap_s": 2.3287057956837054
+      },
+      "code": {
+        "token_weighted_shared_fraction": 0.28776978417266186,
+        "mean_reuse_gap_s": 0.03435892759985108
+      },
+      "mooncake-agent": {
+        "token_weighted_shared_fraction": 0.2085412029012286,
+        "mean_reuse_gap_s": 3.286327010936696
+      }
+    },
+    "cache_evictions": 407571,
+    "definition": "successful evictor allocations of unused cached blocks",
+    "measurement": "opt-in allocator wrapper; not inferred from misses",
+    "block_events_sha256": "38a05fd52fd674063c2ea4a401d4c0170c83b3fbd56d99ddede62353df28baff",
+    "median_request_shared_fraction": 0.03897691531659842,
+    "median_dispatch_lag_s": 96.38601963410628,
+    "p95_dispatch_lag_s": 301.973802209217,
+    "achieved_dispatch_requests_per_s": 8.606691355752249,
+    "evictions": 407571,
+    "eviction_count_status": "opt-in allocator counter",
+    "raw_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/skewed-seed-0-lru/attempt-001"
+  },
+  {
+    "git_commit": "3d501ab40fb9a6b1bed5688d1db338b21f4a185f",
+    "driver_sha256": "ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f",
+    "dirty_status": " M README.md\n M tests/simulator/test_sim_api_server.py\n M vllm/engine/multiprocessing/__init__.py\n M vllm/engine/multiprocessing/client.py\n M vllm/engine/multiprocessing/engine.py\n M vllm/simulator/eviction_study.py\n?? deliverables/\n?? tests/simulator/test_rpc_workload.py\n?? tools/comp536_counting/\n?? tools/comp536_diagrams.py\n?? tools/comp536_final_figures.py\n?? tools/comp536_final_study.py\n",
+    "implementation_sha256": "04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4",
+    "workload_sha256": "481dd5a465c378709e734b1465edfb4de57bbaa6e2a2fe19567abd261e1f11d7",
+    "trace_sha256": "34b101c43fed904fc696085e2325debc2c8cd482bfc2fd774841ef860d5e24dd",
+    "mixture": "skewed",
+    "seed": 0,
+    "policy": "rfifo",
+    "policy_order": 4,
+    "block_size": 16,
+    "cache_gb": null,
+    "cache_ratio": 0.1,
+    "concurrency": 8,
+    "hold_s": 8,
+    "hold_budget": 1,
+    "allocator_counter_sha256": "597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12",
+    "num_gpu_blocks": 12360,
+    "cache_clamped": false,
+    "working_set_blocks": 123593,
+    "name": "skewed-seed-0-rfifo",
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "tokenizer_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "virtual_cache_bytes": 2430074880,
+    "conversations": 858,
+    "prefill_ms_per_token": 0.01,
+    "decode_ms_per_seq": 0.1,
+    "arrival": "poisson",
+    "request_rate": 100,
+    "think_time_s": 1,
+    "max_model_len": 32768,
+    "chat_template_kwargs": {
+      "date_string": "26 Jul 2024"
+    },
+    "command": [
+      "work/review-vllm/tools/comp536_final_study.py",
+      "--phase",
+      "mixed",
+      "--data",
+      "work/rerun-2026-11-23/data",
+      "--output",
+      "work/final-2026-11-24/experiments",
+      "--mixed-prepared",
+      "work/rerun-2026-11-23/task2-skewed/prepared",
+      "--expanded-prepared",
+      "work/final-2026-11-24/experiments/mixed-expanded",
+      "--seeds",
+      "0"
+    ],
+    "prepared_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/skewed/seed-0/prepared",
+    "started_epoch": 1795547446.2629173,
+    "requests": 3322,
+    "successful_requests": 3322,
+    "failed_requests": 0,
+    "prompt_tokens": 10517812,
+    "cached_tokens": 6337136,
+    "token_weighted_shared_fraction": 0.602514667499286,
+    "mean_request_shared_fraction": 0.3053980473417929,
+    "unique_blocks": 123593,
+    "block_hits": 396071,
+    "zero_hit_blocks": 76260,
+    "reuse_gap_samples": 396071,
+    "mean_reuse_gap_s": 5.31239199231514,
+    "elapsed_s": 415.5602903200006,
+    "requests_per_s": 7.994026564573595,
+    "by_workload": {
+      "quality": {
+        "token_weighted_shared_fraction": 0.09335638429241788,
+        "mean_reuse_gap_s": 1.4062965499545055
+      },
+      "chat": {
+        "token_weighted_shared_fraction": 0.13367435104730904,
+        "mean_reuse_gap_s": 20.110610122690833
+      },
+      "agent": {
+        "token_weighted_shared_fraction": 0.3875259682945913,
+        "mean_reuse_gap_s": 9.454912822454817
+      },
+      "bailian-coder": {
+        "token_weighted_shared_fraction": 0.015190450270263427,
+        "mean_reuse_gap_s": 3.2631581992402667
+      },
+      "coding-agent": {
+        "token_weighted_shared_fraction": 0.7180810122504591,
+        "mean_reuse_gap_s": 4.812549912650108
+      },
+      "bailian-chat": {
+        "token_weighted_shared_fraction": 0.09359501504811157,
+        "mean_reuse_gap_s": 2.466094273336872
+      },
+      "mooncake-agent": {
+        "token_weighted_shared_fraction": 0.16245941594150617,
+        "mean_reuse_gap_s": 2.746381637624075
+      },
+      "code": {
+        "token_weighted_shared_fraction": 0.28776978417266186,
+        "mean_reuse_gap_s": 0.052115886299998235
+      }
+    },
+    "cache_evictions": 314077,
+    "definition": "successful evictor allocations of unused cached blocks",
+    "measurement": "opt-in allocator wrapper; not inferred from misses",
+    "block_events_sha256": "08273f592d00962ad7328bd1e0797f1d7cc2639ec78150001eba28e13fe3e8b1",
+    "median_request_shared_fraction": 0.0826878906041344,
+    "median_dispatch_lag_s": 100.10649712373156,
+    "p95_dispatch_lag_s": 321.7749528831607,
+    "achieved_dispatch_requests_per_s": 8.000111512313762,
+    "evictions": 314077,
+    "eviction_count_status": "opt-in allocator counter",
+    "raw_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/skewed-seed-0-rfifo/attempt-001"
+  },
+  {
+    "git_commit": "3d501ab40fb9a6b1bed5688d1db338b21f4a185f",
+    "driver_sha256": "ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f",
+    "dirty_status": " M README.md\n M tests/simulator/test_sim_api_server.py\n M vllm/engine/multiprocessing/__init__.py\n M vllm/engine/multiprocessing/client.py\n M vllm/engine/multiprocessing/engine.py\n M vllm/simulator/eviction_study.py\n?? deliverables/\n?? tests/simulator/test_rpc_workload.py\n?? tools/comp536_counting/\n?? tools/comp536_diagrams.py\n?? tools/comp536_final_figures.py\n?? tools/comp536_final_study.py\n",
+    "implementation_sha256": "04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4",
+    "workload_sha256": "481dd5a465c378709e734b1465edfb4de57bbaa6e2a2fe19567abd261e1f11d7",
+    "trace_sha256": "34b101c43fed904fc696085e2325debc2c8cd482bfc2fd774841ef860d5e24dd",
+    "mixture": "skewed",
+    "seed": 0,
+    "policy": "tfifo",
+    "policy_order": 6,
+    "block_size": 16,
+    "cache_gb": null,
+    "cache_ratio": 0.1,
+    "concurrency": 8,
+    "hold_s": 8,
+    "hold_budget": 1,
+    "allocator_counter_sha256": "597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12",
+    "num_gpu_blocks": 12360,
+    "cache_clamped": false,
+    "working_set_blocks": 123593,
+    "name": "skewed-seed-0-tfifo",
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "tokenizer_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "virtual_cache_bytes": 2430074880,
+    "conversations": 858,
+    "prefill_ms_per_token": 0.01,
+    "decode_ms_per_seq": 0.1,
+    "arrival": "poisson",
+    "request_rate": 100,
+    "think_time_s": 1,
+    "max_model_len": 32768,
+    "chat_template_kwargs": {
+      "date_string": "26 Jul 2024"
+    },
+    "command": [
+      "work/review-vllm/tools/comp536_final_study.py",
+      "--phase",
+      "mixed",
+      "--data",
+      "work/rerun-2026-11-23/data",
+      "--output",
+      "work/final-2026-11-24/experiments",
+      "--mixed-prepared",
+      "work/rerun-2026-11-23/task2-skewed/prepared",
+      "--expanded-prepared",
+      "work/final-2026-11-24/experiments/mixed-expanded",
+      "--seeds",
+      "0"
+    ],
+    "prepared_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/skewed/seed-0/prepared",
+    "started_epoch": 1795548278.1646433,
+    "requests": 3322,
+    "successful_requests": 3322,
+    "failed_requests": 0,
+    "prompt_tokens": 10517812,
+    "cached_tokens": 6266288,
+    "token_weighted_shared_fraction": 0.5957786657529152,
+    "mean_request_shared_fraction": 0.3154551385292872,
+    "unique_blocks": 123593,
+    "block_hits": 391643,
+    "zero_hit_blocks": 81307,
+    "reuse_gap_samples": 391643,
+    "mean_reuse_gap_s": 4.943266118974159,
+    "elapsed_s": 381.4859612279997,
+    "requests_per_s": 8.708053080922069,
+    "by_workload": {
+      "quality": {
+        "token_weighted_shared_fraction": 0.09335638429241788,
+        "mean_reuse_gap_s": 1.5249262879789929
+      },
+      "chat": {
+        "token_weighted_shared_fraction": 0.024445343873880858,
+        "mean_reuse_gap_s": 1.1149082475026066
+      },
+      "agent": {
+        "token_weighted_shared_fraction": 0.5483578787516717,
+        "mean_reuse_gap_s": 16.64491620084773
+      },
+      "bailian-coder": {
+        "token_weighted_shared_fraction": 0.16891780700532932,
+        "mean_reuse_gap_s": 10.999145340369413
+      },
+      "coding-agent": {
+        "token_weighted_shared_fraction": 0.7210921078641469,
+        "mean_reuse_gap_s": 4.704106895337976
+      },
+      "bailian-chat": {
+        "token_weighted_shared_fraction": 0.13327116273155018,
+        "mean_reuse_gap_s": 5.868744733992345
+      },
+      "code": {
+        "token_weighted_shared_fraction": 0.28776978417266186,
+        "mean_reuse_gap_s": 0.03902115874984702
+      },
+      "mooncake-agent": {
+        "token_weighted_shared_fraction": 0.16400798923037668,
+        "mean_reuse_gap_s": 2.0477494274352477
+      }
+    },
+    "cache_evictions": 331382,
+    "definition": "successful evictor allocations of unused cached blocks",
+    "measurement": "opt-in allocator wrapper; not inferred from misses",
+    "block_events_sha256": "4c8c35f7c7925791bf00caf63cb7352fa255e8bb660a57de7afab9d1dd8a67e1",
+    "median_request_shared_fraction": 0.07748592870544091,
+    "median_dispatch_lag_s": 98.24992974360629,
+    "p95_dispatch_lag_s": 292.9577568923213,
+    "achieved_dispatch_requests_per_s": 8.714853573173984,
+    "evictions": 331382,
+    "eviction_count_status": "opt-in allocator counter",
+    "raw_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/skewed-seed-0-tfifo/attempt-001"
+  },
+  {
+    "git_commit": "3d501ab40fb9a6b1bed5688d1db338b21f4a185f",
+    "driver_sha256": "ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f",
+    "dirty_status": " M README.md\n M tests/simulator/test_sim_api_server.py\n M vllm/engine/multiprocessing/__init__.py\n M vllm/engine/multiprocessing/client.py\n M vllm/engine/multiprocessing/engine.py\n M vllm/simulator/eviction_study.py\n?? deliverables/\n?? tests/simulator/test_rpc_workload.py\n?? tools/comp536_counting/\n?? tools/comp536_diagrams.py\n?? tools/comp536_final_figures.py\n?? tools/comp536_final_study.py\n",
+    "implementation_sha256": "04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4",
+    "workload_sha256": "481dd5a465c378709e734b1465edfb4de57bbaa6e2a2fe19567abd261e1f11d7",
+    "trace_sha256": "34b101c43fed904fc696085e2325debc2c8cd482bfc2fd774841ef860d5e24dd",
+    "mixture": "skewed",
+    "seed": 0,
+    "policy": "tlru",
+    "policy_order": 5,
+    "block_size": 16,
+    "cache_gb": null,
+    "cache_ratio": 0.1,
+    "concurrency": 8,
+    "hold_s": 8,
+    "hold_budget": 1,
+    "allocator_counter_sha256": "597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12",
+    "num_gpu_blocks": 12360,
+    "cache_clamped": false,
+    "working_set_blocks": 123593,
+    "name": "skewed-seed-0-tlru",
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "tokenizer_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "virtual_cache_bytes": 2430074880,
+    "conversations": 858,
+    "prefill_ms_per_token": 0.01,
+    "decode_ms_per_seq": 0.1,
+    "arrival": "poisson",
+    "request_rate": 100,
+    "think_time_s": 1,
+    "max_model_len": 32768,
+    "chat_template_kwargs": {
+      "date_string": "26 Jul 2024"
+    },
+    "command": [
+      "work/review-vllm/tools/comp536_final_study.py",
+      "--phase",
+      "mixed",
+      "--data",
+      "work/rerun-2026-11-23/data",
+      "--output",
+      "work/final-2026-11-24/experiments",
+      "--mixed-prepared",
+      "work/rerun-2026-11-23/task2-skewed/prepared",
+      "--expanded-prepared",
+      "work/final-2026-11-24/experiments/mixed-expanded",
+      "--seeds",
+      "0"
+    ],
+    "prepared_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/skewed/seed-0/prepared",
+    "started_epoch": 1795547871.7811105,
+    "requests": 3322,
+    "successful_requests": 3322,
+    "failed_requests": 0,
+    "prompt_tokens": 10517812,
+    "cached_tokens": 4649392,
+    "token_weighted_shared_fraction": 0.4420493539911153,
+    "mean_request_shared_fraction": 0.1671333838397836,
+    "unique_blocks": 123593,
+    "block_hits": 290587,
+    "zero_hit_blocks": 98812,
+    "reuse_gap_samples": 290587,
+    "mean_reuse_gap_s": 2.5417314055866314,
+    "elapsed_s": 397.87188435999997,
+    "requests_per_s": 8.349421335321619,
+    "by_workload": {
+      "quality": {
+        "token_weighted_shared_fraction": 0.206470733514448,
+        "mean_reuse_gap_s": 4.216854049169799
+      },
+      "chat": {
+        "token_weighted_shared_fraction": 0.024755359977495128,
+        "mean_reuse_gap_s": 1.3323776824596492
+      },
+      "agent": {
+        "token_weighted_shared_fraction": 0.09675815471900281,
+        "mean_reuse_gap_s": 1.5973020173327641
+      },
+      "bailian-coder": {
+        "token_weighted_shared_fraction": 0.16405686291884503,
+        "mean_reuse_gap_s": 10.858439824240872
+      },
+      "coding-agent": {
+        "token_weighted_shared_fraction": 0.5384695429623021,
+        "mean_reuse_gap_s": 2.511486433170755
+      },
+      "bailian-chat": {
+        "token_weighted_shared_fraction": 0.12309779153066848,
+        "mean_reuse_gap_s": 4.516802245352519
+      },
+      "mooncake-agent": {
+        "token_weighted_shared_fraction": 0.20788423241504111,
+        "mean_reuse_gap_s": 3.391765889661817
+      },
+      "code": {
+        "token_weighted_shared_fraction": 0.28776978417266186,
+        "mean_reuse_gap_s": 0.06260684545004551
+      }
+    },
+    "cache_evictions": 414919,
+    "definition": "successful evictor allocations of unused cached blocks",
+    "measurement": "opt-in allocator wrapper; not inferred from misses",
+    "block_events_sha256": "6c04326c9c30697818a6c200645c6e7cf85c01659c61ca5bc85ee47d8fcc913f",
+    "median_request_shared_fraction": 0.03863801239570139,
+    "median_dispatch_lag_s": 99.21714978670133,
+    "p95_dispatch_lag_s": 309.6605816243267,
+    "achieved_dispatch_requests_per_s": 8.356966784568815,
+    "evictions": 414919,
+    "eviction_count_status": "opt-in allocator counter",
+    "raw_directory": "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/skewed-seed-0-tlru/attempt-001"
+  }
+]

@@ -1,0 +1,1081 @@
+git_commit,dirty_status,implementation_sha256,workload_sha256,trace_sha256,seed,mode,cache_gb,block_size,policy,concurrency,cache_ratio,name,model,revision,tokenizer_revision,num_gpu_blocks,virtual_cache_bytes,conversations,prefill_ms_per_token,decode_ms_per_seq,arrival,request_rate,think_time_s,max_model_len,prepared_directory,started_epoch,requests,successful_requests,failed_requests,prompt_tokens,cached_tokens,token_weighted_shared_fraction,mean_request_shared_fraction,unique_blocks,block_hits,zero_hit_blocks,reuse_gap_samples,mean_reuse_gap_s,elapsed_s,requests_per_s,block_events_sha256,median_request_shared_fraction,median_dispatch_lag_s,p95_dispatch_lag_s,achieved_dispatch_requests_per_s,evictions,eviction_count_status,raw_directory
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1e04cd6e5f980f341b4b9b8a3ac2df90f0814974ee63b27bd57ea6da8f7f9ff5,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,0,multi,0.05,16,fifo,64,,seed-0-multi-0.05GiB-b16-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/multi,1795543121.4381433,608,608,0,442536,16352,0.03695066616049316,0.10086744584757021,15036,1022,14832,1022,0.03738955176417343,22.081839430999935,27.53393809876408,f9baaeb45c4cad4497cf5e34cbd69c53d9792c95580a5ed9ee32e0ae6339b53c,0.025682249154917965,7.114953830432835,14.647537997356974,27.54294775598416,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-multi-0.05GiB-b16-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1e04cd6e5f980f341b4b9b8a3ac2df90f0814974ee63b27bd57ea6da8f7f9ff5,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,0,multi,0.05,16,lfu,64,,seed-0-multi-0.05GiB-b16-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/multi,1795542888.9018788,608,608,0,442536,15072,0.03405824610879115,0.09927025925019434,15036,942,14912,942,0.0365125751921539,22.221990726000058,27.36028502111789,107c76cd0be58d58b4dda72eb7ca1911efa0119394f6340390b3d9fc708cb2a0,0.025579683474420314,7.110628162932965,14.799023066457188,27.369123756082338,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-multi-0.05GiB-b16-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1e04cd6e5f980f341b4b9b8a3ac2df90f0814974ee63b27bd57ea6da8f7f9ff5,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,0,multi,0.05,16,lru,64,,seed-0-multi-0.05GiB-b16-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/multi,1795542688.6419427,608,608,0,442536,15584,0.035215214129471956,0.09975420497385291,15036,974,14898,974,0.03844816494763582,22.122213165999938,27.483687795507148,87579cd7bc5150851bf40b6c3386e980059c599ae1eb9808cf9f1fa2ac59b2f7,0.0257858074167961,7.102387307932911,14.705295498157035,27.49161584873909,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-multi-0.05GiB-b16-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1e04cd6e5f980f341b4b9b8a3ac2df90f0814974ee63b27bd57ea6da8f7f9ff5,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,0,multi,0.05,32,fifo,64,,seed-0-multi-0.05GiB-b32-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,136,53477376,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/multi,1795543518.7988248,608,608,0,442536,5408,0.012220474718440986,0.004848590256709498,7566,169,7504,169,0.0349431191952789,20.789672107000115,29.245290491872627,2aeb019a63fab21a0afb56b6d771df1f2f70dee52e0ebd898e86d0a0e0a78e7c,0.0,6.521625626031183,13.396708653007057,29.258245239977718,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-multi-0.05GiB-b32-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1e04cd6e5f980f341b4b9b8a3ac2df90f0814974ee63b27bd57ea6da8f7f9ff5,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,0,multi,0.05,32,lfu,64,,seed-0-multi-0.05GiB-b32-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,136,53477376,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/multi,1795543389.3630059,608,608,0,442536,7456,0.016848346801164198,0.006471925703760861,7566,233,7440,233,0.05373522203436734,21.29653770699997,28.54924158869994,c3cd33cd17207deb750581dd6b2058ae7b022c8bc416279bb2b45030f3fff044,0.0,6.644141699031225,13.927797094107076,28.55952439705641,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-multi-0.05GiB-b32-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1e04cd6e5f980f341b4b9b8a3ac2df90f0814974ee63b27bd57ea6da8f7f9ff5,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,0,multi,0.05,32,lru,64,,seed-0-multi-0.05GiB-b32-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,136,53477376,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/multi,1795543543.881094,608,608,0,442536,5568,0.012582027224903737,0.004970456468930885,7566,174,7499,174,0.045166118137929555,21.619687586999817,28.12251553373962,fa053f491cbae2a7d738ba40d8ec8a085e51ddaab247abcac60509fc91085a0b,0.0,6.628223136531092,14.021831358092978,28.13903917885592,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-multi-0.05GiB-b32-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1e04cd6e5f980f341b4b9b8a3ac2df90f0814974ee63b27bd57ea6da8f7f9ff5,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,0,multi,0.05,8,fifo,64,,seed-0-multi-0.05GiB-b8-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/multi,1795543172.5743735,608,608,0,442536,19936,0.04504944230525878,0.14650784824651883,29976,2492,29726,2492,0.038229954619169074,22.904096037000045,26.54547025203773,1f66016c511be13d79e708be5883d678433cc4b5846af5c4dd5c2f956c56dfab,0.03836952521163048,7.337828394031108,15.373975377992982,26.556377691197042,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-multi-0.05GiB-b8-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1e04cd6e5f980f341b4b9b8a3ac2df90f0814974ee63b27bd57ea6da8f7f9ff5,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,0,multi,0.05,8,lfu,64,,seed-0-multi-0.05GiB-b8-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/multi,1795542847.9717715,608,608,0,442536,19928,0.04503136467993565,0.14650274630982366,29976,2491,29727,2491,0.038114514358495326,23.111656008999944,26.30707205763351,57bad1c1b5b6d04b36eb38b47e5a79282fcad5d3602413c19ec5d67822d77826,0.03836952521163048,7.284882178136749,15.582131764693004,26.317319917228165,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-multi-0.05GiB-b8-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1e04cd6e5f980f341b4b9b8a3ac2df90f0814974ee63b27bd57ea6da8f7f9ff5,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,0,multi,0.05,8,lru,64,,seed-0-multi-0.05GiB-b8-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/multi,1795543289.7329006,608,608,0,442536,20488,0.04629679845255527,0.1470213299666861,29976,2561,29692,2561,0.03954247915305396,22.767286452000008,26.704983102920014,a09e1ffdab6bc7c74fb3ca1b29460872a9e567ebfa80541f6267678d07202388,0.03867871112519415,7.109508988531134,15.258745573143093,26.713135056121452,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-multi-0.05GiB-b8-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1e04cd6e5f980f341b4b9b8a3ac2df90f0814974ee63b27bd57ea6da8f7f9ff5,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,0,multi,0.1,16,fifo,64,,seed-0-multi-0.1GiB-b16-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/multi,1795543245.078963,608,608,0,442536,20912,0.047254912594681564,0.10565808828406924,15036,1307,14641,1307,0.056710554019131776,27.97560907900015,21.733217614067758,bb02a84d3b5aba5dd4533846ade60e10f60f8d22d9703940f2f38e1d854466fa,0.02646817360845055,7.910650277573085,20.640677764763865,21.73137891916631,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-multi-0.1GiB-b16-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1e04cd6e5f980f341b4b9b8a3ac2df90f0814974ee63b27bd57ea6da8f7f9ff5,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,0,multi,0.1,16,lfu,64,,seed-0-multi-0.1GiB-b16-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/multi,1795543460.6607265,608,608,0,442536,20928,0.047291067845327835,0.10571669806017989,15036,1308,14640,1308,0.06387839260017524,27.347870251999893,22.232078563980252,54aada0e20fa77554cd9f50d3877cde9c2b5d523092520650a1b29f60202645e,0.02646817360845055,7.3722378210729165,20.018913708702012,22.237519353576403,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-multi-0.1GiB-b16-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1e04cd6e5f980f341b4b9b8a3ac2df90f0814974ee63b27bd57ea6da8f7f9ff5,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,0,multi,0.1,16,lru,64,,seed-0-multi-0.1GiB-b16-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/multi,1795542960.2870598,608,608,0,442536,20080,0.045374839561075256,0.10462647723906755,15036,1255,14662,1255,0.05709234443186713,27.82484869699988,21.85097236721203,157a3803109046a5687c3746fba84014b8810da1a61e1cebb747a1aac8b80b12,0.02646817360845055,7.521654899572967,20.435675350401514,21.8497975394465,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-multi-0.1GiB-b16-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1e04cd6e5f980f341b4b9b8a3ac2df90f0814974ee63b27bd57ea6da8f7f9ff5,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,0,multi,0.1,32,fifo,64,,seed-0-multi-0.1GiB-b32-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/multi,1795543043.6778119,608,608,0,442536,11328,0.025597917457562774,0.011350736860538066,7566,354,7367,354,0.06982883524008782,27.750252507999903,21.90971054496619,03a9c748e1dd4a375f97c0b0fcc31804ddd91229999eef4d841883162392417a,0.0,7.552399566836261,20.564989810145818,21.910111673163772,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-multi-0.1GiB-b32-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1e04cd6e5f980f341b4b9b8a3ac2df90f0814974ee63b27bd57ea6da8f7f9ff5,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,0,multi,0.1,32,lfu,64,,seed-0-multi-0.1GiB-b32-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/multi,1795543357.3421576,608,608,0,442536,11296,0.025525606956270225,0.011376205666506677,7566,353,7367,353,0.0595420078186886,27.72335104600006,21.930970718192544,9da3d435572735042860a60467398e26877a958870efc0a90752e71a7be1a18e,0.0,7.614734371801706,20.563137940304888,21.93104728907486,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-multi-0.1GiB-b32-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1e04cd6e5f980f341b4b9b8a3ac2df90f0814974ee63b27bd57ea6da8f7f9ff5,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,0,multi,0.1,32,lru,64,,seed-0-multi-0.1GiB-b32-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/multi,1795542928.3748076,608,608,0,442536,10720,0.02422401793300432,0.01066660704279138,7566,335,7367,335,0.06102637577012352,27.667228001000012,21.975457750159297,e97e6d3f51f7b1a1399d765723505643ee3cf970c48e6c54d3a652857dbd9ca1,0.0,7.621056295836201,20.43237042895149,21.972002699413316,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-multi-0.1GiB-b32-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1e04cd6e5f980f341b4b9b8a3ac2df90f0814974ee63b27bd57ea6da8f7f9ff5,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,0,multi,0.1,8,fifo,64,,seed-0-multi-0.1GiB-b8-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1092,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/multi,1795543414.955173,608,608,0,442536,29344,0.06630872968526855,0.15719331413389845,29976,3668,29237,3668,0.08246968824590684,28.20616355900006,21.555572374393275,09351150cf6417e1e3bb6bec9790414aad70de04640d903a75ccb42a76775c24,0.04099087535880143,7.72251917465008,20.78034874716365,21.562349351367068,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-multi-0.1GiB-b8-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1e04cd6e5f980f341b4b9b8a3ac2df90f0814974ee63b27bd57ea6da8f7f9ff5,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,0,multi,0.1,8,lfu,64,,seed-0-multi-0.1GiB-b8-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1092,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/multi,1795543088.306019,608,608,0,442536,28544,0.0645009671529548,0.15605253607114286,29976,3568,29189,3568,0.0672985219080673,28.523890486000028,21.315465374487253,0b46a7692cd29a3a7cfb55e025eb7c6f3139e7110acf0fe00fbd5e1c07e6ae7c,0.04003405732983856,7.907382121150142,21.167702520851616,21.31651879737796,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-multi-0.1GiB-b8-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1e04cd6e5f980f341b4b9b8a3ac2df90f0814974ee63b27bd57ea6da8f7f9ff5,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,0,multi,0.1,8,lru,64,,seed-0-multi-0.1GiB-b8-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1092,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/multi,1795543199.8904002,608,608,0,442536,26712,0.06036119095395629,0.1536833511779158,29976,3339,29235,3339,0.06842733570978698,28.268418457000053,21.50810102534909,9b33c6aeefbe3c70b422ee5f4e31830f487eaf6452f00821ee2aa95c7df36291,0.039801104486149916,8.011659335136764,20.886310376660848,21.508086977986693,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-multi-0.1GiB-b8-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,4ad463515e90f754eaa9cdaa7ce4629c9a76a18a35747d4639b86db20953e8dc,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,0,single,0.05,16,fifo,64,,seed-0-single-0.05GiB-b16-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/single,1795543004.6544836,200,200,0,72283,3184,0.04404908484705947,0.2290292086593426,7400,199,7399,199,0.0379517567688441,8.125862880000113,24.612770723987065,1e9bf3eb61c1b9433dc4e2533867bfda557d02bf45fb8f93ca737535a813b142,0.2407239819004525,0.501203326575237,3.4041899505597275,35.13901276504383,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-single-0.05GiB-b16-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,4ad463515e90f754eaa9cdaa7ce4629c9a76a18a35747d4639b86db20953e8dc,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,0,single,0.05,16,lfu,64,,seed-0-single-0.05GiB-b16-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/single,1795543232.7683604,200,200,0,72283,3200,0.044270437032220576,0.22906022843444923,7400,200,7398,200,0.03733523457500041,8.03503376599997,24.890996830193128,ec8c00001453b70cc495affd892a9840e29707afe241d35869ef47f1b30651cb,0.2407239819004525,0.49359854957514016,3.308634125459504,35.77073329240285,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-single-0.05GiB-b16-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,4ad463515e90f754eaa9cdaa7ce4629c9a76a18a35747d4639b86db20953e8dc,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,0,single,0.05,16,lru,64,,seed-0-single-0.05GiB-b16-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/single,1795543160.2388818,200,200,0,72283,3184,0.04404908484705947,0.2290292086593426,7400,199,7399,199,0.03762247382412087,8.057647301000088,24.821141026509892,bd694e97810b5f8cdf0871ee5b26f94c7bf96a07ff9fe4c711d78c1434ba08cb,0.2407239819004525,0.5110936595751673,3.388529306659486,35.277895600533455,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-single-0.05GiB-b16-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,4ad463515e90f754eaa9cdaa7ce4629c9a76a18a35747d4639b86db20953e8dc,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,0,single,0.05,32,fifo,64,,seed-0-single-0.05GiB-b32-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,136,53477376,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/single,1795543147.849604,200,200,0,72283,0,0.0,0.0,3746,0,3746,0,,8.123292242000161,24.620559502455485,a2ab314ffcbb13f5d96e4397114c4c4e481788241d6393111a37e1fe811436b3,0.0,0.5009265505752728,3.4589203649979727,35.19229717903452,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-single-0.05GiB-b32-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,4ad463515e90f754eaa9cdaa7ce4629c9a76a18a35747d4639b86db20953e8dc,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,0,single,0.05,32,lfu,64,,seed-0-single-0.05GiB-b32-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,136,53477376,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/single,1795542992.4160197,200,200,0,72283,32,0.00044270437032220577,6.203955021326095e-05,3746,1,3745,1,0.4238295290001588,8.022511845000054,24.92984789105022,9fec0c66ea3023262427f79e2aa1ecbe15703e605336d9b1bc23dd3ac8d034bd,0.0,0.4890003385752243,3.334206393898059,36.02629705917242,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-single-0.05GiB-b32-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,4ad463515e90f754eaa9cdaa7ce4629c9a76a18a35747d4639b86db20953e8dc,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,0,single,0.05,32,lru,64,,seed-0-single-0.05GiB-b32-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,136,53477376,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/single,1795543277.5902414,200,200,0,72283,0,0.0,0.0,3746,0,3746,0,,7.922231182999894,25.24541324029709,3ea18ab3a110a5cdc86edce9dfdbf227039241bd97f2d6d690895f743db569de,0.0,0.5004346705751322,3.2736995631980124,36.38268693020883,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-single-0.05GiB-b32-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,4ad463515e90f754eaa9cdaa7ce4629c9a76a18a35747d4639b86db20953e8dc,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,0,single,0.05,8,fifo,64,,seed-0-single-0.05GiB-b8-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/single,1795543506.4488292,200,200,0,72283,4776,0.06607362727058921,0.3435438129890142,14690,597,14687,597,0.037014732708542226,8.036188958000139,24.887418780875876,b090c8d21b4d6d754f0382a957c2e074a99f7b1bf0ab62cd40b4ce1fd7c40f0d,0.3610859728506788,0.5871192985753032,3.3487422550095762,35.203535852482574,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-single-0.05GiB-b8-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,4ad463515e90f754eaa9cdaa7ce4629c9a76a18a35747d4639b86db20953e8dc,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,0,single,0.05,8,lfu,64,,seed-0-single-0.05GiB-b8-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/single,1795543075.7482398,200,200,0,72283,4776,0.06607362727058921,0.3435438129890142,14690,597,14687,597,0.03871916428140788,8.312032570999918,24.0615034038468,df5406fd86e7077b495342be223788396d8d2fd10cb81fd38c91bd1c83e3fc35,0.3610859728506788,0.586222279575154,3.4763554747094094,34.36894184685239,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-single-0.05GiB-b8-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,4ad463515e90f754eaa9cdaa7ce4629c9a76a18a35747d4639b86db20953e8dc,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,0,single,0.05,8,lru,64,,seed-0-single-0.05GiB-b8-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/single,1795542835.300559,200,200,0,72283,4784,0.06618430336316976,0.34355932287656754,14690,598,14686,598,0.038208380180601756,8.216434876999983,24.341457456183814,c9ee533f344cbf49fa9293392840224c956dbfaa1918f153695a130cecc4d846,0.3610859728506788,0.5644311740752391,3.4675447297595285,34.45017562548164,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-single-0.05GiB-b8-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,4ad463515e90f754eaa9cdaa7ce4629c9a76a18a35747d4639b86db20953e8dc,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,0,single,0.1,16,fifo,64,,seed-0-single-0.1GiB-b16-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/single,1795542875.6991413,200,200,0,72283,3200,0.044270437032220576,0.22906022843444923,7400,200,7398,200,0.03919258854000077,8.948901915000079,22.349110751204186,453003439f060b6b54321bf51e0ac79ef096ddbc5af62c189c05600e49e76925,0.2407239819004525,0.8778890420752395,3.8355868065595717,30.869252105177928,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-single-0.1GiB-b16-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,4ad463515e90f754eaa9cdaa7ce4629c9a76a18a35747d4639b86db20953e8dc,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,0,single,0.1,16,lfu,64,,seed-0-single-0.1GiB-b16-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/single,1795543030.4476497,200,200,0,72283,3200,0.044270437032220576,0.229207382378719,7400,200,7398,200,0.04302931972500005,9.005267246999892,22.20922428111504,881e2cd681c819d0b59e2c285021e05b054500e71ecd8768a263d6936acfcfc9,0.2407239819004525,0.8844620875751025,3.8593161761593837,30.68404320686132,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-single-0.1GiB-b16-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,4ad463515e90f754eaa9cdaa7ce4629c9a76a18a35747d4639b86db20953e8dc,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,0,single,0.1,16,lru,64,,seed-0-single-0.1GiB-b16-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/single,1795543447.571182,200,200,0,72283,3200,0.044270437032220576,0.22906022843444923,7400,200,7398,200,0.038870113330000323,8.861501854000153,22.569537680536442,44273f15f5afe1bddf57e59bd4fafe0ae9a63415eff70a669865fa95e945b804,0.2407239819004525,0.8458695345751585,3.7598079377595486,31.168618062788312,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-single-0.1GiB-b16-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,4ad463515e90f754eaa9cdaa7ce4629c9a76a18a35747d4639b86db20953e8dc,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,0,single,0.1,32,fifo,64,,seed-0-single-0.1GiB-b32-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/single,1795542915.452738,200,200,0,72283,0,0.0,0.0,3746,0,3746,0,,8.709324838000157,22.96389257722579,52854ddfc3706a4202e6f9990929f9cabce8f25cb95d5f6b8ff8b33fd5cc9e81,0.0,0.7429895627303567,3.6584436943596095,31.415345083416938,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-single-0.1GiB-b32-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,4ad463515e90f754eaa9cdaa7ce4629c9a76a18a35747d4639b86db20953e8dc,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,0,single,0.1,32,lfu,64,,seed-0-single-0.1GiB-b32-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/single,1795543493.6867087,200,200,0,72283,64,0.0008854087406444115,0.00041838698896604494,3746,2,3744,2,0.3664269584999147,8.504794177000122,23.516148167449902,4b97e1ef0e00a211709227ca2ec10a9f045627b684af21d6aecb7e284ca1d43d,0.0,0.728223931575244,3.564398796798027,31.96716310901547,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-single-0.1GiB-b32-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,4ad463515e90f754eaa9cdaa7ce4629c9a76a18a35747d4639b86db20953e8dc,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,0,single,0.1,32,lru,64,,seed-0-single-0.1GiB-b32-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/single,1795543330.7363708,200,200,0,72283,0,0.0,0.0,3746,0,3746,0,,8.898227317999954,22.476386908595387,8f697c89943bd23d651bf9f289f676449ce4edf4d026d759ae18bef38d24b128,0.0,0.7539830585752588,3.654550685559618,31.27063677880292,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-single-0.1GiB-b32-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,4ad463515e90f754eaa9cdaa7ce4629c9a76a18a35747d4639b86db20953e8dc,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,0,single,0.1,8,fifo,64,,seed-0-single-0.1GiB-b8-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1092,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/single,1795543316.953897,200,200,0,72283,4776,0.06607362727058921,0.34354381298901415,14690,597,14687,597,0.039683712492461755,9.088461426999856,22.005924941909658,58c1b51494fc0722e3e3deb40db9e5905ef99cb57d1ae040f817eff3fe13bcd9,0.3610859728506788,0.907650129075123,3.8627579296996473,30.43764896539073,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-single-0.1GiB-b8-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,4ad463515e90f754eaa9cdaa7ce4629c9a76a18a35747d4639b86db20953e8dc,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,0,single,0.1,8,lfu,64,,seed-0-single-0.1GiB-b8-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1092,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/single,1795543016.9991586,200,200,0,72283,4792,0.06629497945575032,0.3436484097362557,14690,599,14685,599,0.041324642819699796,9.160532671000055,21.8327915180249,1df38a2fd1ee34d1751dba95fecdb32e3614c99a392e64bc75ddbd09994975be,0.3610859728506788,0.9224355865752477,3.872137984399716,30.359456934282306,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-single-0.1GiB-b8-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,4ad463515e90f754eaa9cdaa7ce4629c9a76a18a35747d4639b86db20953e8dc,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,0,single,0.1,8,lru,64,,seed-0-single-0.1GiB-b8-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1092,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-0/single,1795543343.8944411,200,200,0,72283,4776,0.06607362727058921,0.34354381298901415,14690,597,14687,597,0.04001942670351785,9.145994169999994,21.86749699185519,82d43d13d9ee3e449ab99bf6d6b5e47ad00f5ddef3c037275611897389f0351d,0.3610859728506788,0.9126938580751448,3.839464340249707,30.234381172373855,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-0-single-0.1GiB-b8-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1428749448e73ed66fa47c89e42b502ab2ad78345fd960706d9fe485b122a262,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,1,multi,0.05,16,fifo,64,,seed-1-multi-0.05GiB-b16-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/multi,1795543733.9342074,608,608,0,442536,15072,0.03405824610879115,0.09927025925019434,15036,942,14912,942,0.035504068525492906,21.709880400999737,28.005681688232684,bc0576f011c99fa276b5eddc8b3d0ac3e74afd056f8b1dcbb994c6ba1470245e,0.025579683474420314,7.112256763855521,14.481361434911895,27.991369370079582,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-multi-0.05GiB-b16-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1428749448e73ed66fa47c89e42b502ab2ad78345fd960706d9fe485b122a262,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,1,multi,0.05,16,lfu,64,,seed-1-multi-0.05GiB-b16-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/multi,1795543604.1020765,608,608,0,442536,15072,0.03405824610879115,0.09927025925019434,15036,942,14912,942,0.03608225259552338,22.05132269800015,27.57204220022321,a8733152cd8b2aac9d6147b89e8d990ee888e8d45c0b8e168a3bc3775c998e58,0.025579683474420314,7.328131999522283,14.774213529967177,27.558570867985722,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-multi-0.05GiB-b16-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1428749448e73ed66fa47c89e42b502ab2ad78345fd960706d9fe485b122a262,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,1,multi,0.05,16,lru,64,,seed-1-multi-0.05GiB-b16-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/multi,1795543988.2960322,608,608,0,442536,15600,0.035251369380118226,0.09976440884724325,15036,975,14897,975,0.0382555355538632,21.775299109000116,27.921545277359833,67a56c8e80834d239fb00c482a06a739b19133cb801a7c4d7aedd45cdd78d905,0.0257858074167961,6.993542132855191,14.527969593961977,27.910521814817226,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-multi-0.05GiB-b16-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1428749448e73ed66fa47c89e42b502ab2ad78345fd960706d9fe485b122a262,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,1,multi,0.05,32,fifo,64,,seed-1-multi-0.05GiB-b32-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,136,53477376,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/multi,1795544027.4385512,608,608,0,442536,6720,0.015185205271435544,0.006476069116386921,7566,210,7463,210,0.040438387204890854,21.00151452299997,28.950293053110247,761367cecb954cfb00a313e36e2a07703427c64023d885a92e3f301a48b9c6f3,0.0,6.881985030129513,13.766030571117165,28.937521535481267,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-multi-0.05GiB-b32-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1428749448e73ed66fa47c89e42b502ab2ad78345fd960706d9fe485b122a262,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,1,multi,0.05,32,lfu,64,,seed-1-multi-0.05GiB-b32-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,136,53477376,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/multi,1795544131.3694396,608,608,0,442536,7488,0.01692065730245675,0.006492333450541539,7566,234,7439,234,0.08197120302127735,22.172472785000082,27.421388940042746,5f4ccd01d1233b9b478abca9e2df202d4c5d6b5f76f667b5307fae2541a87a2b,0.0,7.129187395129534,14.449430749617012,27.450003722496543,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-multi-0.05GiB-b32-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1428749448e73ed66fa47c89e42b502ab2ad78345fd960706d9fe485b122a262,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,1,multi,0.05,32,lru,64,,seed-1-multi-0.05GiB-b32-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,136,53477376,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/multi,1795544241.0311315,608,608,0,442536,7168,0.016197552289531247,0.006308120053069305,7566,224,7457,224,0.05934817500443452,20.740617870999813,29.31445937539425,ec600000a4273100b2a937bc9fe11949772c96ce3e4b02ddb9e67bb088167292,0.0,6.550586307129393,13.522421664711594,29.305291673092004,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-multi-0.05GiB-b32-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1428749448e73ed66fa47c89e42b502ab2ad78345fd960706d9fe485b122a262,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,1,multi,0.05,8,fifo,64,,seed-1-multi-0.05GiB-b8-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/multi,1795544178.4626327,608,608,0,442536,19928,0.04503136467993565,0.14650274630982366,29976,2491,29727,2491,0.04219859308388666,26.07687630500004,23.315676037601968,63c071976ff137a844ba46c1ce4cf7956a25b2a92cfb7c6b2993537ed6705ac0,0.03836952521163048,9.324494996355407,18.68322665831696,23.303258045867583,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-multi-0.05GiB-b8-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1428749448e73ed66fa47c89e42b502ab2ad78345fd960706d9fe485b122a262,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,1,multi,0.05,8,lfu,64,,seed-1-multi-0.05GiB-b8-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/multi,1795543675.946526,608,608,0,442536,21952,0.049605003886689446,0.14810705829460488,29976,2744,29474,2744,0.04397073603823693,22.083279921000212,27.532142062910644,433d4600872b22474130971360a480d2475dec3f7c30eb66e8a759318b06ecb6,0.03852337373237695,6.8431790836399395,14.756309775967374,27.519910258027835,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-multi-0.05GiB-b8-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1428749448e73ed66fa47c89e42b502ab2ad78345fd960706d9fe485b122a262,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,1,multi,0.05,8,lru,64,,seed-1-multi-0.05GiB-b8-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/multi,1795543829.121197,608,608,0,442536,21800,0.04926152900554983,0.14808297697686887,29976,2725,29538,2725,0.043539957201502576,22.091652946000067,27.52170702147867,0c615e2d77a0380256ef8e77643f5dd1b38faa57a03ad0d4a16001e678798f91,0.03867871112519415,6.929020033139637,14.692819077555486,27.510294427182455,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-multi-0.05GiB-b8-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1428749448e73ed66fa47c89e42b502ab2ad78345fd960706d9fe485b122a262,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,1,multi,0.1,16,fifo,64,,seed-1-multi-0.1GiB-b16-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/multi,1795543893.126202,608,608,0,442536,20896,0.047218757344035286,0.1056478844106789,15036,1306,14642,1306,0.05324712311792179,26.930073467000057,22.57699002362691,57f0beb1a66fe12ea643c6c25e9ca50118bf9700dc4d5a81ed869f1b3878de0b,0.02646817360845055,7.32425007841379,19.8245278480671,22.56199522742917,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-multi-0.1GiB-b16-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1428749448e73ed66fa47c89e42b502ab2ad78345fd960706d9fe485b122a262,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,1,multi,0.1,16,lfu,64,,seed-1-multi-0.1GiB-b16-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/multi,1795544266.3685699,608,608,0,442536,20912,0.047254912594681564,0.10570649418678955,15036,1307,14641,1307,0.0529363182234369,26.559419720999813,22.8920664075831,823cdbdb405399a05583ea39c4ed2604afb0ed107753c0cb4ba2e4f799f8480b,0.02646817360845055,7.254198210913721,19.478836825616984,22.876925691394717,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-multi-0.1GiB-b16-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1428749448e73ed66fa47c89e42b502ab2ad78345fd960706d9fe485b122a262,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,1,multi,0.1,16,lru,64,,seed-1-multi-0.1GiB-b16-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/multi,1795543644.6284206,608,608,0,442536,20896,0.047218757344035286,0.1056478844106789,15036,1306,14642,1306,0.0530255973322556,26.986720504000004,22.52959932311455,2e2adc97644cb200f5f72e78cd84df596e7ec6987844b0ea6603d1182aa321f6,0.02646817360845055,7.22141190241404,19.90350539271744,22.513834445271552,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-multi-0.1GiB-b16-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1428749448e73ed66fa47c89e42b502ab2ad78345fd960706d9fe485b122a262,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,1,multi,0.1,32,fifo,64,,seed-1-multi-0.1GiB-b32-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/multi,1795543924.343159,608,608,0,442536,11968,0.02704412748341378,0.011360141234512403,7566,374,7399,374,0.07012230718185779,27.273679271999754,22.292555175135355,4909d1eb3e7fddf4ba259eaadf1fda08b6e1ae379f69d5c3b9a88dfdf6201e9e,0.0,7.54107018007551,20.237039003168533,22.275728239285797,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-multi-0.1GiB-b32-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1428749448e73ed66fa47c89e42b502ab2ad78345fd960706d9fe485b122a262,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,1,multi,0.1,32,lfu,64,,seed-1-multi-0.1GiB-b32-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/multi,1795543569.9077291,608,608,0,442536,13312,0.03008116853770089,0.012992899564569279,7566,416,7398,416,0.1060087294735439,29.432747356999926,20.657262899224413,623facfa535e0b1348a135c34142e861d01928c2dd5b86dbcbf2a6ab2cfcf290,0.0,8.312509667575572,21.170377504867165,20.644308025668202,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-multi-0.1GiB-b32-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1428749448e73ed66fa47c89e42b502ab2ad78345fd960706d9fe485b122a262,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,1,multi,0.1,32,lru,64,,seed-1-multi-0.1GiB-b32-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/multi,1795543772.4584439,608,608,0,442536,10400,0.023500912920078817,0.01033980588687337,7566,325,7368,325,0.06883907284618825,26.086666595000224,23.306925696536844,1d2d59188b49c7b3996d5995bfdb3dacdf29572a789010bd68e0f1c51916596a,0.0,7.0966846162169706,19.084898518668805,23.296266589192445,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-multi-0.1GiB-b32-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1428749448e73ed66fa47c89e42b502ab2ad78345fd960706d9fe485b122a262,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,1,multi,0.1,8,fifo,64,,seed-1-multi-0.1GiB-b8-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1092,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/multi,1795543955.8585987,608,608,0,442536,27760,0.0627293598712873,0.1550489443208939,29976,3470,29202,3470,0.06548798549770346,28.08240462599997,21.650567609765364,795d535302b0b14f00141109e092edc8cb7fa67d8abd9eb81961070c13fd5406,0.04003405732983856,7.799118101331198,20.875801305170413,21.640303026619204,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-multi-0.1GiB-b8-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1428749448e73ed66fa47c89e42b502ab2ad78345fd960706d9fe485b122a262,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,1,multi,0.1,8,lfu,64,,seed-1-multi-0.1GiB-b8-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1092,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/multi,1795544065.2261708,608,608,0,442536,25744,0.058173798289856644,0.15291064956296488,29976,3218,29189,3218,0.06290986410690626,32.40395522600011,18.76314159057214,20ea30cf281b56e2809d304953d4e74f0a0acbd564fc3dc42f5ba283c3ab4ca7,0.03970226041267583,8.511540305831142,25.115649766768556,18.755975911356614,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-multi-0.1GiB-b8-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1428749448e73ed66fa47c89e42b502ab2ad78345fd960706d9fe485b122a262,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,1,multi,0.1,8,lru,64,,seed-1-multi-0.1GiB-b8-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1092,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/multi,1795543702.429881,608,608,0,442536,27176,0.061409693222698264,0.15453093767399637,29976,3397,29202,3397,0.0650421182554865,27.080633085000045,22.451469213870446,bc032ea14abf6c3c629aa60a23cd01a5440da1f0b3a8485ba4b2cd777db83b8d,0.04003405732983856,7.507192062413871,19.88589643741012,22.44065542562783,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-multi-0.1GiB-b8-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d58560538b0fb2a76e11f4a7e8eca32d915c5341adfe7cb34031bae5d7d91f61,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,1,single,0.05,16,fifo,64,,seed-1-single-0.05GiB-b16-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/single,1795543855.611062,200,200,0,72283,3200,0.044270437032220576,0.22906022843444923,7400,200,7398,200,0.03639950657999862,7.913819558000341,25.27224667358171,75f5def629e8c06ee87bb605a3a4c78b3973f1495fc7f97c9ae046788f8501d7,0.2407239819004525,0.7607608100416061,3.4197689392163757,36.61608770490326,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-single-0.05GiB-b16-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d58560538b0fb2a76e11f4a7e8eca32d915c5341adfe7cb34031bae5d7d91f61,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,1,single,0.05,16,lfu,64,,seed-1-single-0.05GiB-b16-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/single,1795544321.6433322,200,200,0,72283,3184,0.04404908484705947,0.2290292086593426,7400,199,7399,199,0.036519557150752384,7.828398669999842,25.548009041292737,986408dd7cbb14869194cc7e752bc1bba3ee5eb0fbba10e2b8b93f661279a8d7,0.2407239819004525,0.6556385544838766,3.4188042972126573,36.225627591853446,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-single-0.05GiB-b16-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d58560538b0fb2a76e11f4a7e8eca32d915c5341adfe7cb34031bae5d7d91f61,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,1,single,0.05,16,lru,64,,seed-1-single-0.05GiB-b16-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/single,1795544102.635283,200,200,0,72283,3200,0.044270437032220576,0.22906022843444923,7400,200,7398,200,0.038610341070000234,8.328874105000068,24.012849453437425,1ba950c12e1659af8e465b6096e6eee84a4ab8b788a410e02950971fab90ce07,0.2407239819004525,0.8092734164838665,3.7238737691121946,34.10542087738171,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-single-0.05GiB-b16-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d58560538b0fb2a76e11f4a7e8eca32d915c5341adfe7cb34031bae5d7d91f61,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,1,single,0.05,32,fifo,64,,seed-1-single-0.05GiB-b32-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,136,53477376,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/single,1795544333.739895,200,200,0,72283,32,0.00044270437032220577,6.203955021326095e-05,3746,1,3745,1,0.4787755970000944,7.951249869999629,25.153278197759537,d1e0e12ed6b47ae183bb2ab03b53a03c6ac387f3c03aae79a5ef447f5e3e29ad,0.0,0.8479294764838604,3.5855549769159576,35.49706149108531,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-single-0.05GiB-b32-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d58560538b0fb2a76e11f4a7e8eca32d915c5341adfe7cb34031bae5d7d91f61,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,1,single,0.05,32,lfu,64,,seed-1-single-0.05GiB-b32-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,136,53477376,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/single,1795544297.2533724,200,200,0,72283,0,0.0,0.0,3746,0,3746,0,,7.6605417440000565,26.107814131637024,9f399d535198aca3ad94ff32a58588507574c197f50fb4f238fa490861d0d762,0.0,0.6382150359841224,3.2745982432788376,37.55239696327104,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-single-0.05GiB-b32-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d58560538b0fb2a76e11f4a7e8eca32d915c5341adfe7cb34031bae5d7d91f61,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,1,single,0.05,32,lru,64,,seed-1-single-0.05GiB-b32-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,136,53477376,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/single,1795544116.8532503,200,200,0,72283,32,0.00044270437032220577,6.203955021326095e-05,3746,1,3745,1,0.43898034199992253,9.11428178999995,21.943583115834418,80ae2ab898c18168b0d1aaf8d97558bfc5caa6906716e8868ef4f5443dd40285,0.0,0.8885844459837434,4.431316505231306,29.87097502377951,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-single-0.05GiB-b32-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d58560538b0fb2a76e11f4a7e8eca32d915c5341adfe7cb34031bae5d7d91f61,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,1,single,0.05,8,fifo,64,,seed-1-single-0.05GiB-b8-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/single,1795543632.5205872,200,200,0,72283,4776,0.06607362727058921,0.3435438129890142,14690,597,14687,597,0.036443347412060303,7.8175926040003105,25.583323425891848,3e0c1f2cec36a0ea69ff65eb3d8cd96405d08ae295b7a0988177de912632d2ad,0.3610859728506788,0.6689690919841004,3.3514497707735265,36.33275221633981,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-single-0.05GiB-b8-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d58560538b0fb2a76e11f4a7e8eca32d915c5341adfe7cb34031bae5d7d91f61,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,1,single,0.05,8,lfu,64,,seed-1-single-0.05GiB-b8-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/single,1795543867.941285,200,200,0,72283,4784,0.06618430336316976,0.34355932287656754,14690,598,14686,598,0.03676457936622062,7.894885405999958,25.332856617273247,60c828837d62b6a5d9acafab07d5424bdbc4abed268fd58f203589812894981c,0.3610859728506788,0.7023029899842376,3.452379955873268,35.739826117549995,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-single-0.05GiB-b8-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d58560538b0fb2a76e11f4a7e8eca32d915c5341adfe7cb34031bae5d7d91f61,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,1,single,0.05,8,lru,64,,seed-1-single-0.05GiB-b8-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/single,1795544052.7576597,200,200,0,72283,4776,0.06607362727058921,0.3435438129890142,14690,597,14687,597,0.03808641587939842,8.160066649999862,24.50960372976897,ef028cba5b8bf1384925f5ce542db452922ba400b015bfcc162c9c0e1561f4c0,0.3610859728506788,0.7015514124839418,3.535719986512616,34.92439985450981,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-single-0.05GiB-b8-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d58560538b0fb2a76e11f4a7e8eca32d915c5341adfe7cb34031bae5d7d91f61,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,1,single,0.1,16,fifo,64,,seed-1-single-0.1GiB-b16-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/single,1795544223.102583,200,200,0,72283,3184,0.04404908484705947,0.2290292086593426,7400,199,7399,199,0.03872575359799102,9.72776491500008,20.559707368298216,0a607b5375c4955dcafaeb20e773161ae00d4e47ababe633f8e595e264fc569f,0.2407239819004525,2.0284056399841766,4.926386527066463,27.045493438702163,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-single-0.1GiB-b16-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d58560538b0fb2a76e11f4a7e8eca32d915c5341adfe7cb34031bae5d7d91f61,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,1,single,0.1,16,lfu,64,,seed-1-single-0.1GiB-b16-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/single,1795544014.3963416,200,200,0,72283,3200,0.044270437032220576,0.229207382378719,7400,200,7398,200,0.042469348914999046,8.818857497999943,22.678674652057666,363d6242494276af5a31cc29812ce854b8ba4a5592d56c3a8c457a9354d5c4fb,0.2407239819004525,1.0086097474841345,3.9134283421162555,31.270681445606993,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-single-0.1GiB-b16-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d58560538b0fb2a76e11f4a7e8eca32d915c5341adfe7cb34031bae5d7d91f61,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,1,single,0.1,16,lru,64,,seed-1-single-0.1GiB-b16-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/single,1795544164.6123564,200,200,0,72283,3184,0.04404908484705947,0.2290292086593426,7400,199,7399,199,0.03889561947738884,8.905113050000182,22.459007412600553,2f5bde3f58439c1915aa63badd2cf46fc8667e903e404bfa29931cf592655487,0.2407239819004525,1.0279166274840654,3.9474752963663398,31.114259586491368,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-single-0.1GiB-b16-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d58560538b0fb2a76e11f4a7e8eca32d915c5341adfe7cb34031bae5d7d91f61,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,1,single,0.1,32,fifo,64,,seed-1-single-0.1GiB-b32-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/single,1795543759.9123075,200,200,0,72283,64,0.0008854087406444115,0.0002789222686082082,3746,2,3745,2,0.37582326350002404,8.281895604000056,24.14906074201206,a272f03dd961f438b2b024838e2e3224150849c89f5f011dfbd0451071180d7b,0.0,0.8787791254840348,3.594652831416172,32.766885644289005,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-single-0.1GiB-b32-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d58560538b0fb2a76e11f4a7e8eca32d915c5341adfe7cb34031bae5d7d91f61,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,1,single,0.1,32,lfu,64,,seed-1-single-0.1GiB-b32-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/single,1795544309.12093,200,200,0,72283,64,0.0008854087406444115,0.00041838698896604494,3746,2,3744,2,0.3558937180000612,8.311819415999707,24.062120456444603,98cdd1b8b694675b810f048fd3095301b7e26da79894039cf9d1cbb59a9163c4,0.0,0.8731495504839776,3.618231776016094,32.643545038231316,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-single-0.1GiB-b32-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d58560538b0fb2a76e11f4a7e8eca32d915c5341adfe7cb34031bae5d7d91f61,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,1,single,0.1,32,lru,64,,seed-1-single-0.1GiB-b32-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/single,1795544209.4882872,200,200,0,72283,0,0.0,0.0,3746,0,3746,0,,8.79253569299999,22.74656674515705,d7ba7513c61ccbb95c1fabd7a30ede690077bd4f0f104b66099af54761e7e802,0.0,1.1704023674842765,4.06179893276633,30.401885680045662,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-single-0.1GiB-b32-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d58560538b0fb2a76e11f4a7e8eca32d915c5341adfe7cb34031bae5d7d91f61,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,1,single,0.1,8,fifo,64,,seed-1-single-0.1GiB-b8-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1092,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/single,1795543816.1591136,200,200,0,72283,4784,0.06618430336316976,0.3435593228765675,14690,598,14686,598,0.03797684754682301,8.673030668999672,23.059989942716015,a91ad516f2c95b56ac98d48f02409da4cd53bb6c81e55935aacd973d35a7c265,0.3610859728506788,0.9965505179836972,3.793898315362228,31.813123346999568,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-single-0.1GiB-b8-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d58560538b0fb2a76e11f4a7e8eca32d915c5341adfe7cb34031bae5d7d91f61,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,1,single,0.1,8,lfu,64,,seed-1-single-0.1GiB-b8-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1092,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/single,1795543802.7809923,200,200,0,72283,4792,0.06629497945575032,0.3436484097362557,14690,599,14685,599,0.04116706384307137,9.147065428000133,21.8649359813016,5a4fd664f31e0ee1e454b73d1f36bec9ba574bb12dc2cf762c5b61a78ae5eb25,0.3610859728506788,1.0145105674842134,3.905755513462529,30.53477201396675,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-single-0.1GiB-b8-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d58560538b0fb2a76e11f4a7e8eca32d915c5341adfe7cb34031bae5d7d91f61,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,1,single,0.1,8,lru,64,,seed-1-single-0.1GiB-b8-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1092,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-1/single,1795543880.0649853,200,200,0,72283,4776,0.06607362727058921,0.34354381298901415,14690,597,14687,597,0.03826676976381917,8.772463204999895,22.79861372185743,0e6e7762f4ed7b9b482f7c1f4350acb8849539c98334c6bba6f253584204d256,0.3610859728506788,1.0299288869841994,3.8368275987124636,31.553703994634393,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-1-single-0.1GiB-b8-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d7bbb81a89da771af14fdfbef82b849065a02b06e5bbb8b2cdb6e883f34b20a0,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,2,multi,0.05,16,fifo,64,,seed-2-multi-0.05GiB-b16-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/multi,1795545035.4391015,608,608,0,442536,16336,0.03691451090984688,0.10085724197417988,15036,1021,14833,1021,0.035950098714979846,21.666459496999778,28.06180677946905,7a41ac0e2f7549cc7622756e93448facc17753cfbf99b1261d06d0ee45c34b87,0.025682249154917965,6.782586241898095,14.285106514893544,28.089525265658835,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-multi-0.05GiB-b16-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d7bbb81a89da771af14fdfbef82b849065a02b06e5bbb8b2cdb6e883f34b20a0,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,2,multi,0.05,16,lfu,64,,seed-2-multi-0.05GiB-b16-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/multi,1795544536.4801507,608,608,0,442536,15088,0.03409440135943743,0.09928046312358467,15036,943,14911,943,0.039753296183417844,24.548635124000157,24.767161063287965,1d1821beb8b71c39d54f8844d6beb050ac962dbb1e0bf43e5f23824c4002d975,0.025579683474420314,8.391119752398232,17.041101684993844,24.785088471324393,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-multi-0.05GiB-b16-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d7bbb81a89da771af14fdfbef82b849065a02b06e5bbb8b2cdb6e883f34b20a0,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,2,multi,0.05,16,lru,64,,seed-2-multi-0.05GiB-b16-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/multi,1795544934.2822008,608,608,0,442536,15600,0.035251369380118226,0.09976440884724325,15036,975,14897,975,0.038987853218501324,22.110567254000216,27.498163797222407,ac6d5f034b1758898262cc75421d16ba44f7c60542cdbc69fc67cf408eacc43a,0.0257858074167961,6.920225040398215,14.72204678599375,27.52307296920883,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-multi-0.05GiB-b16-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d7bbb81a89da771af14fdfbef82b849065a02b06e5bbb8b2cdb6e883f34b20a0,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,2,multi,0.05,32,fifo,64,,seed-2-multi-0.05GiB-b32-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,136,53477376,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/multi,1795544358.7066677,608,608,0,442536,5440,0.012292785219733536,0.004868998003490175,7566,170,7503,170,0.03765762027648153,20.478224498000145,29.69007396414547,1c976ada71771cf51d9b84d7e5d3b6860155820e114acd0c98ecec11aadc6a66,0.0,6.338517387341467,13.123402775878253,29.71841753655933,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-multi-0.05GiB-b32-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d7bbb81a89da771af14fdfbef82b849065a02b06e5bbb8b2cdb6e883f34b20a0,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,2,multi,0.05,32,lfu,64,,seed-2-multi-0.05GiB-b32-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,136,53477376,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/multi,1795544960.9195797,608,608,0,442536,7488,0.01692065730245675,0.006492333450541539,7566,234,7439,234,0.058021742085433536,22.72816488000035,26.75094989895157,cabba38865ccbd3e16240b405af11992040efc81d89e05cbb55d7e74e66728c8,0.0,6.791767643841281,15.28949060349393,26.773300907995342,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-multi-0.05GiB-b32-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d7bbb81a89da771af14fdfbef82b849065a02b06e5bbb8b2cdb6e883f34b20a0,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,2,multi,0.05,32,lru,64,,seed-2-multi-0.05GiB-b32-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,136,53477376,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/multi,1795544804.882767,608,608,0,442536,7136,0.0161252417882387,0.006287712306288627,7566,223,7458,223,0.05803388752022048,21.092718522999803,28.825113241663377,3d6f830d01a30c13dd10d94e70a3d1a108b4dcf6282b0057463e6618f2d60ee0,0.0,6.671048867840723,13.681709074593337,28.852312932412215,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-multi-0.05GiB-b32-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d7bbb81a89da771af14fdfbef82b849065a02b06e5bbb8b2cdb6e883f34b20a0,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,2,multi,0.05,8,fifo,64,,seed-2-multi-0.05GiB-b8-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/multi,1795544507.8888655,608,608,0,442536,19936,0.04504944230525878,0.14650784824651883,29976,2492,29726,2492,0.04664446246428442,23.923493159999907,25.414348813265125,9433c40ab2d4bc686591797fc416f6f5b9689beb4e220c02231343cede95cf69,0.03836952521163048,7.333431076750812,16.3022134610436,25.435376455676785,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-multi-0.05GiB-b8-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d7bbb81a89da771af14fdfbef82b849065a02b06e5bbb8b2cdb6e883f34b20a0,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,2,multi,0.05,8,lfu,64,,seed-2-multi-0.05GiB-b8-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/multi,1795544843.3653016,608,608,0,442536,19936,0.04504944230525878,0.14650784824651883,29976,2492,29726,2492,0.039779681126379696,24.214408944999832,25.109016758616747,8769f9ae7cf255d81fe6f793700958a94bae40e2389acc2018f8728534225e22,0.03836952521163048,7.904407998898002,16.708702323943378,25.13274271180119,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-multi-0.05GiB-b8-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d7bbb81a89da771af14fdfbef82b849065a02b06e5bbb8b2cdb6e883f34b20a0,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,2,multi,0.05,8,lru,64,,seed-2-multi-0.05GiB-b8-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/multi,1795544764.3604655,608,608,0,442536,21800,0.04926152900554983,0.14808297697686887,29976,2725,29538,2725,0.04377193268658221,22.31787806200009,27.24273330604944,bae7fa92e05d1ecc01bb306551a7945a52da248d43e71ca158f911feb5866b00,0.03867871112519415,6.877799890250926,14.876255717393718,27.266740728509763,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-multi-0.05GiB-b8-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d7bbb81a89da771af14fdfbef82b849065a02b06e5bbb8b2cdb6e883f34b20a0,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,2,multi,0.1,16,fifo,64,,seed-2-multi-0.1GiB-b16-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/multi,1795544988.205939,608,608,0,442536,20912,0.047254912594681564,0.10565808828406924,15036,1307,14641,1307,0.05377602025096539,27.565313312999933,22.05670558125905,291caa7a7292dbeea6eb3935c597f696ad76cc33decbc589053d0384dd65713d,0.02646817360845055,7.381015686250648,20.252408419096597,22.067497884791305,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-multi-0.1GiB-b16-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d7bbb81a89da771af14fdfbef82b849065a02b06e5bbb8b2cdb6e883f34b20a0,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,2,multi,0.1,16,lfu,64,,seed-2-multi-0.1GiB-b16-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/multi,1795544566.8850374,608,608,0,442536,20768,0.04692951533886509,0.10557226452849118,15036,1298,14640,1298,0.06272157654695347,28.25846812499958,21.51567442759281,e25175059a6ee94e2bdc13154df403519d78b87c4a4fadf09a98a3e622823284,0.02646817360845055,7.810986410250634,20.82484821824661,21.524799832950173,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-multi-0.1GiB-b16-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d7bbb81a89da771af14fdfbef82b849065a02b06e5bbb8b2cdb6e883f34b20a0,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,2,multi,0.1,16,lru,64,,seed-2-multi-0.1GiB-b16-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/multi,1795544383.477955,608,608,0,442536,21536,0.04866496736988629,0.10610187994941622,15036,1346,14660,1346,0.0607556905215143,27.65864671600002,21.982275786771705,83ab4c9899990231fc10683312852f9ebb8ccbfabe1e3c7b79fd200834f30679,0.026534069657433282,7.148416798251119,20.21977244700758,21.992779503749432,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-multi-0.1GiB-b16-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d7bbb81a89da771af14fdfbef82b849065a02b06e5bbb8b2cdb6e883f34b20a0,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,2,multi,0.1,32,fifo,64,,seed-2-multi-0.1GiB-b32-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/multi,1795544461.062184,608,608,0,442536,14208,0.032105862573892294,0.014568550217777997,7566,444,7366,444,0.07628931448424316,28.78883892299973,21.119295627940794,284ab65c917df234f6963bbd22c4c1de7e0dbc2228ae39134b9bb183628adbc7,0.0,8.828541393917533,21.631124226410677,21.124504569030204,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-multi-0.1GiB-b32-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d7bbb81a89da771af14fdfbef82b849065a02b06e5bbb8b2cdb6e883f34b20a0,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,2,multi,0.1,32,lfu,64,,seed-2-multi-0.1GiB-b32-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/multi,1795545061.790874,608,608,0,442536,9792,0.022127013395520364,0.009776151196567277,7566,306,7367,306,0.07180666385617764,27.019132908999836,22.502572604670096,d689986d6237318c5f9c3cb644726c2bc129bcf4b7bd4474c820b3fed218d1d9,0.0,7.435631830366587,19.8887774475832,22.524294307810088,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-multi-0.1GiB-b32-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d7bbb81a89da771af14fdfbef82b849065a02b06e5bbb8b2cdb6e883f34b20a0,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,2,multi,0.1,32,lru,64,,seed-2-multi-0.1GiB-b32-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/multi,1795544733.3914247,608,608,0,442536,11136,0.025164054449807474,0.011122811265779886,7566,348,7368,348,0.0632240685689423,26.723955801000102,22.751122795123266,a714c47e9a0ee71787b2361981d4ec7c3dbd170c06a762e9d08be9ade89b053d,0.0,7.00623017836679,19.630250684483308,22.760348840338764,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-multi-0.1GiB-b32-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d7bbb81a89da771af14fdfbef82b849065a02b06e5bbb8b2cdb6e883f34b20a0,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,2,multi,0.1,8,fifo,64,,seed-2-multi-0.1GiB-b8-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1092,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/multi,1795544650.7452765,608,608,0,442536,25160,0.056854131641267604,0.1521810940759572,29976,3145,29230,3145,0.06218251240478791,27.011781297999732,22.508696975309192,bdd5278b4ea20cf64bfb16675586371ee11b828b3b4bdf26525e403b503e15f8,0.03970226041267583,7.3256262756171076,19.77568484379065,22.518839184810055,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-multi-0.1GiB-b8-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d7bbb81a89da771af14fdfbef82b849065a02b06e5bbb8b2cdb6e883f34b20a0,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,2,multi,0.1,8,lfu,64,,seed-2-multi-0.1GiB-b8-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1092,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/multi,1795544415.6740692,608,608,0,442536,25736,0.058155720664533506,0.15288094776897654,29976,3217,29189,3217,0.06525224835928921,27.583229004999794,22.042379443312914,82fe2d8470f8aa67eb11916016d085b8877218fe0c49c6466c85ec8c8023b875,0.03970226041267583,7.433803800617309,20.30281302379058,22.052849760172922,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-multi-0.1GiB-b8-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,d7bbb81a89da771af14fdfbef82b849065a02b06e5bbb8b2cdb6e883f34b20a0,2668af97028042c3f28b98b9376d7cb9120a86a3f051077349a5b20d16c0ef28,2,multi,0.1,8,lru,64,,seed-2-multi-0.1GiB-b8-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1092,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/multi,1795544899.9268308,608,608,0,442536,26536,0.05996348319684726,0.15353428200966895,29976,3317,29219,3317,0.07434231518209303,29.121744572999887,20.877870090368997,990e7ec7de6a07955c40743e164a682b489a36681a03b3853977df0510bd13e8,0.039801104486149916,8.080238976035842,21.69207282835101,20.894262298765558,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-multi-0.1GiB-b8-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1b3c3ebfe0d93151289db59081034cd9071dd3f5d7cdb6c0386909284593bb47,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,2,single,0.05,16,fifo,64,,seed-2-single-0.05GiB-b16-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/single,1795545093.1122487,200,200,0,72283,3184,0.04404908484705947,0.2290292086593426,7400,199,7399,199,0.041272772989950725,9.071303326999896,22.047548493359105,1a399e1145792b33414996a4261359c703d52ae6777b8be4008c9deda12ea20d,0.2407239819004525,1.0529077618483513,4.250010393791647,30.754321350043952,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-single-0.05GiB-b16-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1b3c3ebfe0d93151289db59081034cd9071dd3f5d7cdb6c0386909284593bb47,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,2,single,0.05,16,lfu,64,,seed-2-single-0.05GiB-b16-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/single,1795544613.6646683,200,200,0,72283,3184,0.04404908484705947,0.2290292086593426,7400,199,7399,199,0.03752638878392128,8.04494847900014,24.860320799078234,852cadb50ab499c8586d180a2fef95942c7b506611b03330a289a37befcd806f,0.2407239819004525,0.7207552963487758,3.4861161720920992,34.92564700420976,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-single-0.05GiB-b16-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1b3c3ebfe0d93151289db59081034cd9071dd3f5d7cdb6c0386909284593bb47,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,2,single,0.05,16,lru,64,,seed-2-single-0.05GiB-b16-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/single,1795545106.7101746,200,200,0,72283,3184,0.04404908484705947,0.2290292086593426,7400,199,7399,199,0.03999776990954915,8.57825714899991,23.314759225108663,6cff8c881f944081b3d57d537998ef9d0259d36ce86361bad4377a90804e1814,0.2407239819004525,0.7637573693485735,3.856684189992049,32.73451824685253,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-single-0.05GiB-b16-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1b3c3ebfe0d93151289db59081034cd9071dd3f5d7cdb6c0386909284593bb47,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,2,single,0.05,32,fifo,64,,seed-2-single-0.05GiB-b32-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,136,53477376,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/single,1795544872.867068,200,200,0,72283,0,0.0,0.0,3746,0,3746,0,,8.099417819999871,24.69313282074923,a5590bd75690c19353f1dcdaa4c7983306807c24cafd718267cfb7bd60c94985,0.0,0.5810880773484457,3.3403656119568548,36.21183725501767,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-single-0.05GiB-b32-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1b3c3ebfe0d93151289db59081034cd9071dd3f5d7cdb6c0386909284593bb47,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,2,single,0.05,32,lfu,64,,seed-2-single-0.05GiB-b32-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,136,53477376,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/single,1795544638.7296731,200,200,0,72283,32,0.00044270437032220577,6.203955021326095e-05,3746,1,3745,1,0.4040213110001787,7.776947891999953,25.71702971106923,f6bd78a5b16646c0907852cfe7798541544c08b2d1144cbd1d28e2793db8dd6d,0.0,0.5115423903486005,3.1323092498656733,37.66719018660305,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-single-0.05GiB-b32-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1b3c3ebfe0d93151289db59081034cd9071dd3f5d7cdb6c0386909284593bb47,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,2,single,0.05,32,lru,64,,seed-2-single-0.05GiB-b32-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,136,53477376,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/single,1795544830.935112,200,200,0,72283,0,0.0,0.0,3746,0,3746,0,,7.963762729999871,25.11375674799935,474fb6161de2ddc8817185f21a01e24c6579d5a23239d61fd063c8f5bf6e524d,0.0,0.5790753978484333,3.339898895365221,36.19049799899532,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-single-0.05GiB-b32-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1b3c3ebfe0d93151289db59081034cd9071dd3f5d7cdb6c0386909284593bb47,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,2,single,0.05,8,fifo,64,,seed-2-single-0.05GiB-b8-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/single,1795544495.0969412,200,200,0,72283,4784,0.06618430336316976,0.34355932287656754,14690,598,14686,598,0.038150028020065875,8.29293966799969,24.116900400439217,66d15c7f2faa47b87aa6a2e899be71683ece95718b7e4c22347931923982adbc,0.3610859728506788,0.7202327568485232,3.5633454075654427,34.12042642202207,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-single-0.05GiB-b8-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1b3c3ebfe0d93151289db59081034cd9071dd3f5d7cdb6c0386909284593bb47,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,2,single,0.05,8,lfu,64,,seed-2-single-0.05GiB-b8-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/single,1795544791.1117473,200,200,0,72283,4784,0.06618430336316976,0.34355932287656754,14690,598,14686,598,0.03838013757524892,8.305168327000047,24.08139030124186,a668e87f50fa71735376f48071e0e36155bb1702210741df32e124cc4e0ea25f,0.3610859728506788,0.6554174043486598,3.5652260297156673,34.042809699492125,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-single-0.05GiB-b8-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1b3c3ebfe0d93151289db59081034cd9071dd3f5d7cdb6c0386909284593bb47,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,2,single,0.05,8,lru,64,,seed-2-single-0.05GiB-b8-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,53673984,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/single,1795544600.376921,200,200,0,72283,4776,0.06607362727058921,0.3435438129890142,14690,597,14687,597,0.04012481458793806,8.596787840999696,23.264503405116322,4a18c521a133ebe6341ae9b54726bff5ab5f46f947161ae88fc2c8ff0403e2dd,0.3610859728506788,0.6645286493484179,3.891638746915568,32.32631738773729,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-single-0.05GiB-b8-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1b3c3ebfe0d93151289db59081034cd9071dd3f5d7cdb6c0386909284593bb47,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,2,single,0.1,16,fifo,64,,seed-2-single-0.1GiB-b16-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/single,1795544625.9797595,200,200,0,72283,3200,0.044270437032220576,0.22906022843444923,7400,200,7398,200,0.037233116465001784,8.536312650000127,23.42931991836042,193b924e487051f229f6339dc537b6e8cedb31b7766af7f25b885dd2800cca77,0.2407239819004525,0.8249494553486927,3.5819601001920067,32.45298244193718,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-single-0.1GiB-b16-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1b3c3ebfe0d93151289db59081034cd9071dd3f5d7cdb6c0386909284593bb47,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,2,single,0.1,16,lfu,64,,seed-2-single-0.1GiB-b16-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/single,1795544720.6413078,200,200,0,72283,3216,0.04449178921738168,0.22923840215382563,7400,201,7397,201,0.04043123881592013,8.510983619000399,23.499046520722793,f9cf1f24c9aed767df3bc68096eee5266b51c04df95df9103bbda166016e49f6,0.2407239819004525,0.8252763048486629,3.5690157220922605,32.512069164623455,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-single-0.1GiB-b16-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1b3c3ebfe0d93151289db59081034cd9071dd3f5d7cdb6c0386909284593bb47,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,2,single,0.1,16,lru,64,,seed-2-single-0.1GiB-b16-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,546,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/single,1795544707.9213402,200,200,0,72283,3184,0.04404908484705947,0.2290292086593426,7400,199,7399,199,0.037272606844220464,8.501972300000034,23.523953377265084,c6a281bcc97bb2f665e477646d29b5096ef4e17ec39a57c9791e7fa5d7b3b380,0.2407239819004525,0.8138046158486447,3.556569958842326,32.567572572237644,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-single-0.1GiB-b16-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1b3c3ebfe0d93151289db59081034cd9071dd3f5d7cdb6c0386909284593bb47,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,2,single,0.1,32,fifo,64,,seed-2-single-0.1GiB-b32-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/single,1795544447.659367,200,200,0,72283,96,0.0013281131109666173,0.00034096181882146916,3746,3,3744,3,0.2599048453331913,8.626029740999911,23.1856376577733,0cf78a879be860b979bd65282d9618454bca6e89e0ee5ae2b8a4dca23d470a7f,0.0,0.766911289348505,3.642959961529093,31.738891227143785,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-single-0.1GiB-b32-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1b3c3ebfe0d93151289db59081034cd9071dd3f5d7cdb6c0386909284593bb47,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,2,single,0.1,32,lfu,64,,seed-2-single-0.1GiB-b32-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/single,1795544695.3370087,200,200,0,72283,32,0.00044270437032220577,0.00035634743875278396,3746,1,3745,1,0.7008326640002451,8.3793065320001,23.86832361797617,5b9ef5a7433409f8c178e0cef0956b9ed75d105aa1f7b3433a4a050f24abc431,0.0,0.7131914483485304,3.5389920880423213,32.368363868964394,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-single-0.1GiB-b32-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1b3c3ebfe0d93151289db59081034cd9071dd3f5d7cdb6c0386909284593bb47,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,2,single,0.1,32,lru,64,,seed-2-single-0.1GiB-b32-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,273,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/single,1795544346.1524637,200,200,0,72283,32,0.00044270437032220577,6.203955021326095e-05,3746,1,3745,1,0.010969007000312558,8.335007143999974,23.99518039333316,288ac26c2e26ca4982fec9cd9ec2e0222e83009fed8ba8d39ac366ab8c8171c5,0.0,0.7239426968486584,3.4823296558920425,32.69985769539537,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-single-0.1GiB-b32-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1b3c3ebfe0d93151289db59081034cd9071dd3f5d7cdb6c0386909284593bb47,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,2,single,0.1,8,fifo,64,,seed-2-single-0.1GiB-b8-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1092,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/single,1795544682.1004689,200,200,0,72283,4776,0.06607362727058921,0.34354381298901415,14690,597,14687,597,0.039459810396985276,9.005365080000047,22.208983003274195,faa15e60122aab360396a9f4fc7d663dbb08be747d9f62e6b8061634a5082f11,0.3610859728506788,0.9712344303485367,3.8999775043156784,30.430999891133723,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-single-0.1GiB-b8-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1b3c3ebfe0d93151289db59081034cd9071dd3f5d7cdb6c0386909284593bb47,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,2,single,0.1,8,lfu,64,,seed-2-single-0.1GiB-b8-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1092,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/single,1795545020.7145736,200,200,0,72283,4792,0.06629497945575032,0.3436484097362557,14690,599,14685,599,0.04451955677796347,9.954277656000158,20.091864715009795,45c649645d7f3bb420b1de23ac4947670117b20cbcf864e5502a7c9db558a79e,0.3610859728506788,1.4143263198485472,4.668131212015772,27.262683403746596,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-single-0.1GiB-b8-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,1b3c3ebfe0d93151289db59081034cd9071dd3f5d7cdb6c0386909284593bb47,dc891f64646abf52ebe8b21f01b88494827365b93dcd4a3bbac69f371e43174b,2,single,0.1,8,lru,64,,seed-2-single-0.1GiB-b8-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1092,107347968,200,0.01,0.1,poisson,100,0,4096,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/prepared/seed-2/single,1795544885.6272433,200,200,0,72283,4776,0.06607362727058921,0.34354381298901415,14690,597,14687,597,0.04149821355276205,9.482931211999585,21.090525232000253,516d5dd20207b48f2b33ca19094b0c79bfdd6c78b12e96369e3c605d29c3d230,0.3610859728506788,1.0872144508483559,4.293791058565455,28.818418713693422,,not instrumented in historical event schema,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/m2/runs/seed-2-single-0.1GiB-b8-lru/attempt-001

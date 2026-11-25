@@ -1,0 +1,8 @@
+{
+  "purpose": "correctness smoke; excluded from experiment totals",
+  "conversations": 2,
+  "requests": 7,
+  "failed": 0,
+  "frontend": "multiprocessing default",
+  "weights_or_gpu_required": false
+}

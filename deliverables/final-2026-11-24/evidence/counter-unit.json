@@ -1,0 +1,5 @@
+{
+  "cache_evictions": 1,
+  "definition": "successful evictor allocations of unused cached blocks",
+  "measurement": "opt-in allocator wrapper; not inferred from misses"
+}

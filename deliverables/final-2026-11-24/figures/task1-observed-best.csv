@@ -1,0 +1,9 @@
+workload,highest_observed,gap_to_second_pp,tie
+chat,lfu,0.10757399769550369,False
+agent,lru,0.07400241278699982,False
+coding-agent,lru,1.2428391105932635,False
+quality,fifo,1.1003205889724976,False
+bailian-chat,lfu,1.0885310672124227,False
+bailian-coder,lfu,1.4097744185677996,False
+mooncake-agent,lru,0.01971571162227015,False
+code,"fifo,lfu,lru",0.0,True

@@ -1,0 +1,10 @@
+{
+  "m2": {
+    "completed_runs": 108,
+    "completed_lifecycle_seconds": 2310.81950712204
+  },
+  "mixed": {
+    "completed_runs": 16,
+    "completed_lifecycle_seconds": 4255.622345209122
+  }
+}

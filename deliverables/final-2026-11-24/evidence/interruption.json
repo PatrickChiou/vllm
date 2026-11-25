@@ -1,0 +1,1 @@
+{"session":11750,"exit_code":143,"signal":"SIGTERM","cause":"undetermined external interruption","completed_m2_runs":108,"partial_mixed_attempt":"mixed/runs/skewed-seed-0-lfu/attempt-001","partial_requests":2095,"action":"preserve partial attempt; retry with identical configured cohort in a new numbered attempt; poll live session during long execution"}

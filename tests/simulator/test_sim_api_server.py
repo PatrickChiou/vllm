@@ -65,17 +65,20 @@ def server(request, builder, tmp_path_factory):
     trace_path = tmp_path_factory.mktemp("trace") / "trace.jsonl"
     trace_path.write_text("".join(json.dumps(e) + "\n" for e in entries))
 
+    metrics_path = trace_path.parent / "metrics.jsonl"
     args = [
         "--load-format", "dummy", "--distributed-executor-backend", "sim",
         "--sim-trace-path",
         str(trace_path), "--max-model-len", "1024", "--block-size",
         str(BLOCK_SIZE), "--enable-prefix-caching",
-        "--enable-prompt-tokens-details"
+        "--enable-prompt-tokens-details", "--sim-metrics-path",
+        str(metrics_path)
     ]
     if request.param:
         # Exercises AsyncLLMEngine + SimExecutorAsync instead of MQLLMEngine.
         args.append("--disable-frontend-multiprocessing")
     with RemoteOpenAIServer(MODEL, args) as remote_server:
+        remote_server.sim_metrics_path = metrics_path
         yield remote_server
 
 
@@ -186,3 +189,48 @@ def test_unknown_prompt_stops_at_max_tokens(server):
 
     assert response.usage.completion_tokens == 4
     assert response.choices[0].finish_reason == "length"
+
+
+def test_workload_labels_reach_simulator_metadata(server, builder):
+    """Check both endpoints/frontends preserve labels in block metrics."""
+    for endpoint, label, payload in [
+        (
+            "v1/chat/completions",
+            "coding-agent",
+            {
+                "messages": FIRST_TURN,
+                "chat_template_kwargs": CHAT_TEMPLATE_KWARGS,
+            },
+        ),
+        (
+            "v1/completions",
+            "quality",
+            {
+                "prompt": BlockTokens(builder.tokenizer, BLOCK_SIZE).prompt(
+                    *BLOCK_PROMPTS[0]
+                )
+            },
+        ),
+    ]:
+        response = requests.post(
+            server.url_for(endpoint),
+            json={
+                "model": MODEL,
+                "max_tokens": 100,
+                "workload": label,
+                **payload,
+            },
+        )
+        response.raise_for_status()
+        events = [
+            json.loads(line)
+            for line in server.sim_metrics_path.read_text().splitlines()
+        ]
+        assert any(
+            e.get("event") == "request" and e.get("workload") == label
+            for e in events
+        )
+        assert any(
+            e.get("event") == "block" and e.get("workload") == label
+            for e in events
+        )

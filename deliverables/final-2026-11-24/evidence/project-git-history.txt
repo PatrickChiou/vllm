@@ -1,0 +1,319 @@
+commit 3d501ab40fb9a6b1bed5688d1db338b21f4a185f
+Author:     Thomas Lin <thomaslintexan@gmail.com>
+AuthorDate: Sun Nov 22 14:45:19 2026 -0600
+Commit:     Thomas Lin <thomaslintexan@gmail.com>
+CommitDate: Sun Nov 22 14:45:19 2026 -0600
+
+    Milestone 3-2: Compare eviction policies on mixed workloads
+
+ .gitignore                                         |   6 +-
+ docs/assets/m3-task2/cache_comparison_balanced.pdf | Bin 0 -> 12799 bytes
+ docs/assets/m3-task2/cache_comparison_balanced.png | Bin 0 -> 31278 bytes
+ docs/assets/m3-task2/cache_comparison_heavy.pdf    | Bin 0 -> 12800 bytes
+ docs/assets/m3-task2/cache_comparison_heavy.png    | Bin 0 -> 31373 bytes
+ docs/comp536.md                                    |   2 +-
+ docs/milestone3-task2.md                           | 312 +++++++++
+ tests/simulator/test_eviction_policies.py          | 303 +++++++++
+ tests/simulator/test_mix_workload.py               |  81 +++
+ vllm/config.py                                     |  12 +-
+ vllm/core/block/cpu_gpu_block_allocator.py         |   6 +
+ vllm/core/block/prefix_caching_block.py            |   4 +-
+ vllm/core/block_manager.py                         |   4 +
+ vllm/core/evictor.py                               | 745 +++++++++++++++++++--
+ vllm/core/scheduler.py                             |   5 +-
+ vllm/engine/arg_utils.py                           |  18 +-
+ vllm/entrypoints/openai/protocol.py                |   1 +
+ vllm/entrypoints/openai/serving_completion.py      |   1 +
+ vllm/executor/sim_executor.py                      |   2 +
+ vllm/simulator/analysis.py                         |  35 +-
+ vllm/simulator/mix_workload.py                     |   9 +-
+ vllm/simulator/mixed_prepare.py                    | 117 ++++
+ vllm/simulator/mixed_study.py                      |  87 +++
+ vllm/simulator/replay.py                           |  12 +-
+ vllm/simulator/study.py                            |   7 +-
+ 25 files changed, 1706 insertions(+), 63 deletions(-)
+
+commit d5da4b9fd0b146d3f89c702b10b4c77e241c2f02
+Merge: 1cd7bdfe2f 192f1afe9e
+Author:     Thomas Lin <thomaslintexan@gmail.com>
+AuthorDate: Wed Nov 18 13:43:17 2026 -0600
+Commit:     Thomas Lin <thomaslintexan@gmail.com>
+CommitDate: Wed Nov 18 13:43:17 2026 -0600
+
+    Merge branch 'comp536-sharing' of https://github.com/PatrickChiou/vllm into comp536-sharing
+
+commit 1cd7bdfe2f1eea7df1f6856e45ee23a265062c9f
+Author:     Thomas Lin <thomaslintexan@gmail.com>
+AuthorDate: Wed Nov 18 13:26:15 2026 -0600
+Commit:     Thomas Lin <thomaslintexan@gmail.com>
+CommitDate: Wed Nov 18 13:26:15 2026 -0600
+
+    add the logics that mix different kinds of workload together, pass the workload type from workload all the way to cache
+
+ .gitignore                                 |   4 +
+ vllm/config.py                             |   2 +-
+ vllm/core/block/block_table.py             |   5 +-
+ vllm/core/block/cpu_gpu_block_allocator.py |   6 +
+ vllm/core/block/prefix_caching_block.py    |   5 +
+ vllm/core/block_manager.py                 |   9 ++
+ vllm/core/evictor.py                       | 107 +++++++++++++++--
+ vllm/core/scheduler.py                     |   2 +
+ vllm/engine/arg_utils.py                   |   2 +-
+ vllm/engine/async_llm_engine.py            |   6 +
+ vllm/engine/llm_engine.py                  |  11 +-
+ vllm/engine/protocol.py                    |   1 +
+ vllm/entrypoints/openai/protocol.py        |   3 +
+ vllm/entrypoints/openai/serving_chat.py    |   1 +
+ vllm/sequence.py                           |   4 +
+ vllm/simulator/metrics.py                  |   6 +-
+ vllm/simulator/mix_workload.py             | 186 +++++++++++++++++++++++++++++
+ vllm/simulator/replay.py                   |   1 +
+ 18 files changed, 347 insertions(+), 14 deletions(-)
+
+commit 192f1afe9ea921a5aa5ec63eaf52876b9efb5bf9
+Author:     Yu-Ting Chung <timchung8888@gmail.com>
+AuthorDate: Wed Nov 18 10:11:32 2026 -0600
+Commit:     Yu-Ting Chung <timchung8888@gmail.com>
+CommitDate: Wed Nov 18 10:11:32 2026 -0600
+
+    Milestone 3-1: Add Bailian chat trace and more seeds
+    
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+ docs/assets/m3-task1/policy_comparison.pdf | Bin 18748 -> 18983 bytes
+ docs/milestone3-task1.md                   |  76 +++++++++++++++++------------
+ 2 files changed, 44 insertions(+), 32 deletions(-)
+
+commit ac2fd40057ee7f6f17e905b5e3619ea80e317ba6
+Author:     Yu-Ting Chung <timchung8888@gmail.com>
+AuthorDate: Wed Nov 18 09:44:06 2026 -0600
+Commit:     Yu-Ting Chung <timchung8888@gmail.com>
+CommitDate: Wed Nov 18 09:44:06 2026 -0600
+
+    Remove generated Milestone 3 result files
+    
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+ docs/assets/m3-task1/experiment.json       | 220 -------------------
+ docs/assets/m3-task1/policy_comparison.png | Bin 55933 -> 0 bytes
+ docs/assets/m3-task1/ranking.json          | 332 -----------------------------
+ docs/assets/m3-task1/sources.json          | 179 ----------------
+ docs/milestone3-task1.md                   |   4 +-
+ 5 files changed, 1 insertion(+), 734 deletions(-)
+
+commit 87e20382ee2f5acf8cc7666446d6c9549fce4051
+Author:     Yu-Ting Chung <timchung8888@gmail.com>
+AuthorDate: Wed Nov 18 09:34:15 2026 -0600
+Commit:     Yu-Ting Chung <timchung8888@gmail.com>
+CommitDate: Wed Nov 18 09:34:15 2026 -0600
+
+    Milestone 3-1: Compare eviction policies on diverse workloads
+    
+    Add agent (AgentBank), coding-agent (CC-Bench), shared-document (QuALITY)
+    and production-trace (Qwen Bailian, Mooncake) workloads. Block-hash traces
+    replay through /v1/completions with deterministic stand-in tokens, which now
+    report cached prompt tokens. Size each workload's cache as a fraction of its
+    working set, allow per-source settings and seeds, and record results.
+    
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+ .gitignore                                    |   4 +
+ docs/assets/m3-task1/experiment.json          | 220 ++++++++++++++++
+ docs/assets/m3-task1/policy_comparison.pdf    | Bin 0 -> 18748 bytes
+ docs/assets/m3-task1/policy_comparison.png    | Bin 0 -> 55933 bytes
+ docs/assets/m3-task1/ranking.json             | 332 ++++++++++++++++++++++++
+ docs/assets/m3-task1/sources.json             | 179 +++++++++++++
+ docs/comp536.md                               |   4 +-
+ docs/milestone3-task1.md                      | 278 ++++++++++++++++----
+ requirements-simulator.txt                    |   4 +-
+ tests/simulator/test_eviction_study.py        | 113 ++++++++-
+ tests/simulator/test_sim_api_server.py        |  30 +++
+ tests/simulator/test_workload.py              | 113 ++++++++-
+ vllm/entrypoints/openai/api_server.py         |   1 +
+ vllm/entrypoints/openai/serving_completion.py |   8 +
+ vllm/simulator/eviction_study.py              | 350 +++++++++++++++++++++++---
+ vllm/simulator/replay.py                      |  31 ++-
+ vllm/simulator/study.py                       |   6 +-
+ vllm/simulator/trace_builder.py               |  29 ++-
+ vllm/simulator/workload.py                    | 184 +++++++++++++-
+ 19 files changed, 1754 insertions(+), 132 deletions(-)
+
+commit b1bb0d6176434bea8ccd9ac0c6150c3300e6d6b2
+Author:     PatrickChiou <230899753+PatrickChiou@users.noreply.github.com>
+AuthorDate: Thu Nov 12 13:03:50 2026 -0500
+Commit:     PatrickChiou <230899753+PatrickChiou@users.noreply.github.com>
+CommitDate: Thu Nov 12 13:03:50 2026 -0500
+
+    Add Milestone 3 Task 1 eviction study
+    
+    Compare LRU, LFU, and FIFO across separate text workloads with fixed cache geometry, validated cohorts, and reproducible ranking. Include tests and execution documentation.
+
+ README.md                              |   3 +
+ docs/comp536.md                        |   6 +-
+ docs/milestone3-task1.md               | 152 +++++++++++++++++++
+ tests/simulator/test_eviction_study.py |  90 +++++++++++
+ vllm/simulator/eviction_study.py       | 262 +++++++++++++++++++++++++++++++++
+ 5 files changed, 510 insertions(+), 3 deletions(-)
+
+commit b6833a92ac247878a341db69ac372e32ad8e50b7
+Author:     cryu1211 <crystal901211@gmail.com>
+AuthorDate: Tue Nov 3 01:15:06 2026 -0600
+Commit:     cryu1211 <crystal901211@gmail.com>
+CommitDate: Tue Nov 3 01:15:06 2026 -0600
+
+    Update README
+
+ README.md       |   3 +
+ docs/comp536.md | 216 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 219 insertions(+)
+
+commit 54caccf7d08371fae82db6520a73b607560a9dc9
+Author:     cryu1211 <crystal901211@gmail.com>
+AuthorDate: Mon Nov 2 23:01:08 2026 -0600
+Commit:     cryu1211 <crystal901211@gmail.com>
+CommitDate: Mon Nov 2 23:01:08 2026 -0600
+
+    Milestone 2-3: Automate cache configuration experiments
+
+ tests/simulator/test_study.py |  49 ++++++++
+ vllm/simulator/study.py       | 254 ++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 303 insertions(+)
+
+commit 6e750e9202e0cd056eed1e7e970eb6bc73953c4e
+Author:     cryu1211 <crystal901211@gmail.com>
+AuthorDate: Mon Nov 2 23:00:22 2026 -0600
+Commit:     cryu1211 <crystal901211@gmail.com>
+CommitDate: Mon Nov 2 23:00:22 2026 -0600
+
+    Milestone 2-3: Add FIFO and LFU cache eviction policies
+
+ tests/simulator/test_eviction_policies.py  | 54 +++++++++++++++++
+ tests/simulator/test_prefix_metrics.py     | 69 +++++++++++++++++++++-
+ vllm/config.py                             |  7 +++
+ vllm/core/block/cpu_gpu_block_allocator.py |  5 ++
+ vllm/core/block/prefix_caching_block.py    |  2 +
+ vllm/core/block_manager.py                 |  2 +
+ vllm/core/evictor.py                       | 93 ++++++++++++++++++++++++++++++
+ vllm/core/scheduler.py                     |  5 +-
+ vllm/engine/arg_utils.py                   | 16 +++++
+ vllm/simulator/simulator.py                |  1 +
+ 10 files changed, 252 insertions(+), 2 deletions(-)
+
+commit 0cae572e540ed7e6451aab46e4e833384cde0574
+Author:     cryu1211 <crystal901211@gmail.com>
+AuthorDate: Mon Nov 2 22:45:49 2026 -0600
+Commit:     cryu1211 <crystal901211@gmail.com>
+CommitDate: Mon Nov 2 22:45:49 2026 -0600
+
+    Milestone 2-2: Export measurements and plot sharing results
+
+ requirements-simulator.txt             |   3 +
+ tests/simulator/test_prefix_metrics.py |  14 ++++
+ vllm/simulator/analysis.py             | 129 ++++++++++++++++++++++++++++++++-
+ 3 files changed, 144 insertions(+), 2 deletions(-)
+
+commit 5f2d3d072e0ac3b8ee9e34a56d76296d3a2d71db
+Author:     cryu1211 <crystal901211@gmail.com>
+AuthorDate: Mon Nov 2 22:42:51 2026 -0600
+Commit:     cryu1211 <crystal901211@gmail.com>
+CommitDate: Mon Nov 2 22:42:51 2026 -0600
+
+    Milestone 2-2: Measure prefix sharing and block reuse
+
+ vllm/executor/sim_executor.py | 11 ++++++
+ vllm/simulator/analysis.py    |  9 +++++
+ vllm/simulator/metrics.py     | 83 +++++++++++++++++++++++++++++++++++++++++++
+ vllm/simulator/simulator.py   | 16 ++++++++-
+ 4 files changed, 118 insertions(+), 1 deletion(-)
+
+commit e3061d626bcf4fe078586770371ecdd5aa0a4f79
+Author:     cryu1211 <crystal901211@gmail.com>
+AuthorDate: Mon Nov 2 22:36:58 2026 -0600
+Commit:     cryu1211 <crystal901211@gmail.com>
+CommitDate: Mon Nov 2 22:36:58 2026 -0600
+
+    Milestone 2-2: Replay single-turn and multi-turn conversations online
+
+ tests/simulator/test_study.py |  41 ++++++++++++++++
+ vllm/simulator/replay.py      | 107 ++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 148 insertions(+)
+
+commit 88700413296e7039fb60429eec5ed14c155990b8
+Author:     cryu1211 <crystal901211@gmail.com>
+AuthorDate: Mon Nov 2 22:32:08 2026 -0600
+Commit:     cryu1211 <crystal901211@gmail.com>
+CommitDate: Mon Nov 2 22:32:08 2026 -0600
+
+    Milestone 2-1: Match recorded responses by request ID
+
+ tests/simulator/test_sim_engine.py  |  6 ++++++
+ tests/simulator/test_trace_store.py | 14 ++++++++++++++
+ vllm/simulator/simulator.py         | 10 +++++++---
+ vllm/simulator/trace_store.py       | 16 +++++++++++++++-
+ 4 files changed, 42 insertions(+), 4 deletions(-)
+
+commit 4e49d8693f10d8cbb97eeb54fe25bc8786ceaa8b
+Author:     cryu1211 <crystal901211@gmail.com>
+AuthorDate: Mon Nov 2 22:28:56 2026 -0600
+Commit:     cryu1211 <crystal901211@gmail.com>
+CommitDate: Mon Nov 2 22:28:56 2026 -0600
+
+    Milestone 2-1: Adapt chat templates to prompts
+
+ tests/simulator/test_workload.py |  95 ++++++++++++++++++
+ vllm/simulator/workload.py       | 209 +++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 304 insertions(+)
+
+commit cb36f62820fd47923c4ccf53cd33f39a4d386b7b
+Author:     cryu1211 <crystal901211@gmail.com>
+AuthorDate: Mon Nov 2 22:19:01 2026 -0600
+Commit:     cryu1211 <crystal901211@gmail.com>
+CommitDate: Mon Nov 2 22:22:20 2026 -0600
+
+    Milestone 2-1: Simulate request arrival times
+
+ tests/simulator/test_timing.py | 102 +++++++++++++++++++++++++++++++++++++++++
+ vllm/simulator/timing.py       |  85 ++++++++++++++++++++++++++++++++++
+ 2 files changed, 187 insertions(+)
+
+commit 44dac7927672e6b3493debe0b4e57dcc5b369884
+Author:     Yu-Ting Chung <timchung8888@gmail.com>
+AuthorDate: Mon Oct 26 13:46:43 2026 -0500
+Commit:     Yu-Ting Chung <timchung8888@gmail.com>
+CommitDate: Mon Oct 26 13:46:43 2026 -0500
+
+    optimize vllm for milestone1
+
+ requirements-common.txt                |   2 +-
+ tests/simulator/test_sim_api_server.py | 166 ++++++++++++++++++++++-----------
+ tests/simulator/test_sim_engine.py     | 127 ++++++++++++++++++++++---
+ tests/simulator/test_trace_builder.py  |  59 ++++++++++++
+ vllm/executor/sim_executor.py          |  10 +-
+ vllm/simulator/simulator.py            |  79 +++++++++++-----
+ vllm/simulator/trace_builder.py        | 138 +++++++++++++++++++++++++++
+ 7 files changed, 489 insertions(+), 92 deletions(-)
+
+commit 7d289a9ca9f0b7989426133bdf8df4f4b15c82a7
+Author:     Yu-Ting Chung <timchung8888@gmail.com>
+AuthorDate: Sat Oct 24 12:51:02 2026 -0500
+Commit:     Yu-Ting Chung <timchung8888@gmail.com>
+CommitDate: Sat Oct 24 12:51:02 2026 -0500
+
+    MIlestone 1:vllm initialize
+
+ tests/simulator/__init__.py            |   0
+ tests/simulator/test_sim_api_server.py |  98 +++++++++++++++++
+ tests/simulator/test_sim_engine.py     | 196 +++++++++++++++++++++++++++++++++
+ tests/simulator/test_trace_store.py    |  83 ++++++++++++++
+ vllm/config.py                         |  49 ++++++++-
+ vllm/engine/arg_utils.py               |  82 +++++++++++++-
+ vllm/engine/async_llm_engine.py        |   3 +
+ vllm/engine/llm_engine.py              |   3 +
+ vllm/entrypoints/launcher.py           |  12 +-
+ vllm/entrypoints/openai/api_server.py  |   1 +
+ vllm/executor/sim_executor.py          | 155 ++++++++++++++++++++++++++
+ vllm/platforms/cpu.py                  |   4 +-
+ vllm/simulator/__init__.py             |   6 +
+ vllm/simulator/simulator.py            | 163 +++++++++++++++++++++++++++
+ vllm/simulator/trace_store.py          |  98 +++++++++++++++++
+ 15 files changed, 942 insertions(+), 11 deletions(-)

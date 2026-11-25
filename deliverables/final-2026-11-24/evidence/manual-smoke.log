@@ -1,0 +1,6 @@
+INFO 11-24 22:22:54 config.py:518] This model supports multiple tasks: {'embed', 'reward', 'score', 'generate', 'classify'}. Defaulting to 'generate'.
+INFO 11-24 22:22:54 chat_utils.py:333] Detected the chat template content format to be 'string'. You can set `--chat-template-content-format` to override this.
+Prepared 2 conversations; excluded: {}
+7/7
+7 succeeded; 0 failed
+{"purpose": "correctness smoke; excluded from experiment totals", "conversations": 2, "requests": 7, "failed": 0, "frontend": "multiprocessing default", "weights_or_gpu_required": false}

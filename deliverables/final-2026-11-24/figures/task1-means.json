@@ -1,0 +1,170 @@
+[
+  {
+    "workload": "agent",
+    "policy": "fifo",
+    "mean": 0.4943977860944841,
+    "sd": 0.004344469686890815,
+    "n": 3
+  },
+  {
+    "workload": "agent",
+    "policy": "lfu",
+    "mean": 0.5047170114331159,
+    "sd": 0.0015774810693204818,
+    "n": 3
+  },
+  {
+    "workload": "agent",
+    "policy": "lru",
+    "mean": 0.5054570355609859,
+    "sd": 0.0019050864161177115,
+    "n": 3
+  },
+  {
+    "workload": "bailian-chat",
+    "policy": "fifo",
+    "mean": 0.26745010063365865,
+    "sd": null,
+    "n": 1
+  },
+  {
+    "workload": "bailian-chat",
+    "policy": "lfu",
+    "mean": 0.29524399015554403,
+    "sd": null,
+    "n": 1
+  },
+  {
+    "workload": "bailian-chat",
+    "policy": "lru",
+    "mean": 0.2843586794834198,
+    "sd": null,
+    "n": 1
+  },
+  {
+    "workload": "bailian-coder",
+    "policy": "fifo",
+    "mean": 0.3288002020994855,
+    "sd": null,
+    "n": 1
+  },
+  {
+    "workload": "bailian-coder",
+    "policy": "lfu",
+    "mean": 0.3727907720330854,
+    "sd": null,
+    "n": 1
+  },
+  {
+    "workload": "bailian-coder",
+    "policy": "lru",
+    "mean": 0.3586930278474074,
+    "sd": null,
+    "n": 1
+  },
+  {
+    "workload": "chat",
+    "policy": "fifo",
+    "mean": 0.18205971747915173,
+    "sd": 0.015090297876458282,
+    "n": 3
+  },
+  {
+    "workload": "chat",
+    "policy": "lfu",
+    "mean": 0.18921895249819742,
+    "sd": 0.004754465030710876,
+    "n": 3
+  },
+  {
+    "workload": "chat",
+    "policy": "lru",
+    "mean": 0.1881432125212424,
+    "sd": 0.01020071275847296,
+    "n": 3
+  },
+  {
+    "workload": "code",
+    "policy": "fifo",
+    "mean": 0.2952574275696623,
+    "sd": 0.0,
+    "n": 3
+  },
+  {
+    "workload": "code",
+    "policy": "lfu",
+    "mean": 0.2952574275696623,
+    "sd": 0.0,
+    "n": 3
+  },
+  {
+    "workload": "code",
+    "policy": "lru",
+    "mean": 0.2952574275696623,
+    "sd": 0.0,
+    "n": 3
+  },
+  {
+    "workload": "coding-agent",
+    "policy": "fifo",
+    "mean": 0.4734995075804863,
+    "sd": 0.00098774932818914,
+    "n": 2
+  },
+  {
+    "workload": "coding-agent",
+    "policy": "lfu",
+    "mean": 0.35433316932948533,
+    "sd": 0.01195453626172832,
+    "n": 2
+  },
+  {
+    "workload": "coding-agent",
+    "policy": "lru",
+    "mean": 0.48592789868641895,
+    "sd": 0.004883358828150039,
+    "n": 2
+  },
+  {
+    "workload": "mooncake-agent",
+    "policy": "fifo",
+    "mean": 0.39718740974593036,
+    "sd": null,
+    "n": 1
+  },
+  {
+    "workload": "mooncake-agent",
+    "policy": "lfu",
+    "mean": 0.40251065188394425,
+    "sd": null,
+    "n": 1
+  },
+  {
+    "workload": "mooncake-agent",
+    "policy": "lru",
+    "mean": 0.40270780900016695,
+    "sd": null,
+    "n": 1
+  },
+  {
+    "workload": "quality",
+    "policy": "fifo",
+    "mean": 0.503500434386805,
+    "sd": 0.009990914896911564,
+    "n": 3
+  },
+  {
+    "workload": "quality",
+    "policy": "lfu",
+    "mean": 0.45537824465125276,
+    "sd": 0.0210859311247994,
+    "n": 3
+  },
+  {
+    "workload": "quality",
+    "policy": "lru",
+    "mean": 0.49249722849708005,
+    "sd": 0.014805974469538354,
+    "n": 3
+  }
+]

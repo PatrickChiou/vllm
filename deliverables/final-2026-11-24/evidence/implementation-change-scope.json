@@ -1,0 +1,12 @@
+{
+  "original_snapshot_files": 1025,
+  "changed_files": [
+    "tests/simulator/test_sim_api_server.py",
+    "vllm/engine/multiprocessing/__init__.py",
+    "vllm/engine/multiprocessing/client.py",
+    "vllm/engine/multiprocessing/engine.py",
+    "vllm/simulator/eviction_study.py"
+  ],
+  "executor_scheduler_policy_decisions": "unchanged; transport fix and strict zip guard only",
+  "new_tests_and_tools": "recorded separately in source patch"
+}

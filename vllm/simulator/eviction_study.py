@@ -190,7 +190,7 @@ def interleave(sources: list, destination: Path) -> dict:
     streams = [read_records(path) for path in sources]
     with destination.open("w", encoding="utf-8") as stream:
         for row in zip_longest(*streams):
-            for path, record in zip(sources, row):
+            for path, record in zip(sources, row, strict=True):
                 if record is None:
                     continue
                 raw = record.get("conversations", record.get("messages"))

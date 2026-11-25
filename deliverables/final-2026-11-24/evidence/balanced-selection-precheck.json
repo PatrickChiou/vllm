@@ -1,0 +1,66 @@
+[
+  {
+    "label": "chat",
+    "source": "work/rerun-2026-11-23/task2-skewed/prepared/chat",
+    "available_prompt_tokens": 1393476,
+    "selected_conversations": 114,
+    "selected_requests": 367,
+    "selected_prompt_tokens": 260373
+  },
+  {
+    "label": "agent",
+    "source": "work/final-2026-11-24/experiments/mixed-expanded/agent",
+    "available_prompt_tokens": 728891,
+    "selected_conversations": 101,
+    "selected_requests": 479,
+    "selected_prompt_tokens": 260200
+  },
+  {
+    "label": "coding-agent",
+    "source": "work/rerun-2026-11-23/task2-skewed/prepared/coding-agent",
+    "available_prompt_tokens": 8331851,
+    "selected_conversations": 12,
+    "selected_requests": 87,
+    "selected_prompt_tokens": 267445
+  },
+  {
+    "label": "quality",
+    "source": "work/final-2026-11-24/experiments/mixed-expanded/quality",
+    "available_prompt_tokens": 1940283,
+    "selected_conversations": 41,
+    "selected_requests": 41,
+    "selected_prompt_tokens": 260252
+  },
+  {
+    "label": "bailian-chat",
+    "source": "work/final-2026-11-24/experiments/mixed-expanded/bailian-chat",
+    "available_prompt_tokens": 1694761,
+    "selected_conversations": 88,
+    "selected_requests": 139,
+    "selected_prompt_tokens": 261923
+  },
+  {
+    "label": "bailian-coder",
+    "source": "work/final-2026-11-24/experiments/mixed-expanded/bailian-coder",
+    "available_prompt_tokens": 5363695,
+    "selected_conversations": 50,
+    "selected_requests": 64,
+    "selected_prompt_tokens": 266793
+  },
+  {
+    "label": "mooncake-agent",
+    "source": "work/rerun-2026-11-23/task2-skewed/prepared/mooncake-agent",
+    "available_prompt_tokens": 340959,
+    "selected_conversations": 31,
+    "selected_requests": 31,
+    "selected_prompt_tokens": 282771
+  },
+  {
+    "label": "code",
+    "source": "work/final-2026-11-24/experiments/mixed-expanded/code",
+    "available_prompt_tokens": 429939,
+    "selected_conversations": 4843,
+    "selected_requests": 4843,
+    "selected_prompt_tokens": 260012
+  }
+]

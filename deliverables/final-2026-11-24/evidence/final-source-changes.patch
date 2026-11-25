@@ -1,0 +1,1112 @@
+diff --git a/README.md b/README.md
+index a7922d4cf6..10cd39bfbf 100644
+--- a/README.md
++++ b/README.md
+@@ -1,3 +1,177 @@
++# A Study of Prefix Sharing in LLM Serving
++
++Rice University — COMP536. Authors, in order: Thomas Lin, Yu-Ting Chung, Patrick Chiou and Yu-Xin Lai.
++
++This fork studies prefix-cache behavior using a **CPU-only vLLM v0 online simulator**. It retains real request management, scheduling, continuous batching, sequence/block state and prefix lookup while replacing model computation with recorded token replay. Model configuration and tokenizer files are required; model weights and a GPU are not. Synthetic delays and CPU replay throughput are not measured GPU performance.
++
++## Quick Start for Teaching Assistants
++
++Use the submitted project branch `comp536-sharing`, base commit `3d501ab40fb9a6b1bed5688d1db338b21f4a185f` **plus the included final working-tree patch**. The assignment baseline `94d545a1a18e20ea8763a6760194589b8a3c9065` is a verified ancestor. Full original Git history has been recovered/preserved. The final changes have not been committed or pushed; cloning the base alone does not include them.
++
++Observed runtime: Linux aarch64, Python3.11.17, PyTorch2.5.1, Transformers4.47.1, NumPy1.26.4, PyArrow19.0.1. Linux/macOS empty-target builds are supported by the existing setup; Windows users should use an appropriate Linux environment. Fresh OS installation was not repeated in this final phase. The current environment and exact package list are preserved in the final evidence directory.
++
++```bash
++python3.11 -m venv .venv
++source .venv/bin/activate
++python -m pip install -r requirements-build.txt -r requirements-common.txt \
++  -r requirements-simulator.txt 'transformers==4.47.1' 'pyarrow==19.0.1'
++python -m pip install pytest pytest-asyncio
++VLLM_TARGET_DEVICE=empty python -m pip install -e . --no-build-isolation --no-deps
++export VLLM_USE_V1=0 TOKENIZERS_PARALLELISM=false
++export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
++export MODEL=Qwen/Qwen2.5-0.5B-Instruct
++export MODEL_REVISION=7ae557604adf67be50417f59c2c2f167def9a775
++python -m vllm.simulator.study --help
++```
++
++If the submitted source already contains a working environment, activate it and skip installation. Do not install the upstream prebuilt `vllm` package over this fork. Installation commands correspond to actual requirement/setup files; the original editable setup and current runtime were exercised, but the complete installation recipe was not repeated in a fresh OS image.
++
++A small **correctness** smoke check (not a benchmark) runs four concurrent trace requests and verifies exact tokens/EOS:
++
++```bash
++python -m pytest tests/simulator/test_sim_engine.py::test_concurrent_requests_replay_exact_tokens -q
++```
++
++The first execution needs public model config/tokenizer downloads. The full applicable simulator suite was actually run:
++
++```bash
++python -m pytest tests/simulator -q -p no:cacheprovider
++```
++
++Expected at the final tested source: **146 passed, 0 failed**. Both direct and multiprocessing API frontends are included. The former `workload` regression is fixed through client → RPC serialization → engine submission; do not describe it as still unresolved. Missing labels remain supported. New integration checks confirm labels on both endpoint types and block metrics. Historical reports are preserved but their older136/5 status is superseded.
++
++## Repository and final artifacts
++
++```text
++vllm/executor/sim_executor.py             virtual KV geometry and trace executor
++vllm/simulator/                          traces, client, metrics, analysis, studies
++vllm/core/                              scheduler, allocator and policies
++vllm/engine/multiprocessing/             fixed workload metadata transport
++tests/simulator/                        unit, engine and online API validation
++tools/comp536_final_study.py             resumable M2 / mixed experiment driver
++tools/comp536_final_figures.py           raw validation + figure/table generation
++tools/comp536_counting/sitecustomize.py  opt-in mixed eviction counter
++tools/comp536_diagrams.py                source-based PDF/SVG/PNG diagrams
++deliverables/final-2026-11-24/            final report/slides/notes/QA/evidence
++```
++
++The final report uses the supplied official MLSys2025 style, with four confirmed names/emails and Rice affiliation. No corresponding author or presenter split is designated. See the final requirements checklist, changelog and contribution table for scope and limitations. Older deliverables are historical snapshots; new artifacts supersede their evidence gaps when supported by the final logs.
++
++## Model and dataset preparation
++
++Set model metadata/tokenizer cache paths if desired (`HF_HOME`). Only after required files are cached, set `HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1` to avoid network requests. Do not enable offline mode before the first download.
++
++```bash
++mkdir -p data/m3
++python -m vllm.simulator.study sample --limit 1000 \
++  --output data/m3/sharegpt1000.jsonl
++```
++
++This streams the pinned ShareGPT revision192ab21. The final M2 cohort selects the first200 eligible conversations from this1000-record subset, using full-conversation context 4096 filtering for both modes. It produces200 single-turn and608 multi-turn requests per configuration; arrival seeds change timing, not the dataset sample.
++
++The heterogeneous dataset URLs/formats and source limits are in [Task 1 guide](docs/milestone3-task1.md). The final evidence includes exact dataset SHA256 and URLs; several published sources use mutable main URLs, so verify file hashes instead of assuming later downloads are identical. All four AgentBank shards are interleaved. CC-Bench, QuALITY, Bailian chat/coder, Mooncake and Code Alpaca require their documented formats. No large dataset or model cache belongs in Git.
++
++## Minimal standalone online workflow
++
++The following uses actual subcommands/flags. The standalone prepare/API/replay subcommands were additionally exercised with two conversations and seven successful requests through the default multiprocessing frontend. Exact smoke commands/results are in the evidence directory; this correctness check is excluded from experiment totals.
++
++```bash
++python -m vllm.simulator.study prepare --dataset data/m3/sharegpt1000.jsonl \
++  --output experiments/smoke-prepared-new --model "$MODEL" --revision "$MODEL_REVISION" \
++  --limit 2 --max-model-len 4096 --mode multi --arrival poisson --request-rate 10
++```
++
++Start a server in another terminal with the same environment/model revision:
++
++```bash
++python -m vllm.entrypoints.openai.api_server \
++  --model "$MODEL" --revision "$MODEL_REVISION" --tokenizer-revision "$MODEL_REVISION" \
++  --distributed-executor-backend sim --load-format dummy \
++  --sim-trace-path experiments/smoke-prepared-new/trace.jsonl --sim-strict-trace \
++  --sim-metrics-path experiments/smoke-server-new/blocks.jsonl \
++  --sim-kv-cache-gb 0.1 --max-model-len 4096 --block-size 16 \
++  --enable-prefix-caching --enable-prompt-tokens-details \
++  --host 127.0.0.1 --port 8000
++```
++
++Then replay:
++
++```bash
++python -m vllm.simulator.study replay \
++  --workload experiments/smoke-prepared-new/workload.json \
++  --base-url http://127.0.0.1:8000 --output experiments/smoke-requests-new.jsonl \
++  --concurrency 2
++```
++
++Expected: all selected turns succeed and recorded responses/token counts/stop reasons match. Use fresh output names. The automated study helper still selects the direct frontend for consistent historical experiments; both frontend modes now pass correctness tests.
++
++## Required experiments and resumability
++
++Give `--data` the directory containing the exact downloaded files; `--output` is a **new** experiment root. Existing historical outputs are never replaced. The new driver retains interrupted attempts and resumes only completed attempts whose input/control/implementation fingerprints match. An incompatible implementation/input raises an error rather than silently pooling results.
++
++Milestone 2, actual final configuration (108 runs):
++
++```bash
++python tools/comp536_final_study.py --phase m2 \
++  --data data/m3 --output experiments/final-new --seeds 0 1 2
++```
++
++This reuses the original documented36-cell-per-seed sweep: modes single/multi;0.05/0.10 GiB; blocks 8/16/32; LRU/LFU/FIFO;200 conversations; context 4096; target 100/s; concurrency/max-sequences 64. M2-A reuses matching LRU/block 16 cells rather than running duplicate experiments. The `--pilot` option executes one M2 multi/block 16/0.05 GiB/LRU cell, then that completed cell is resumed in the full batch. Absolute byte capacity is approximately fixed across block sizes, rounded to whole blocks.
++
++Milestone 3 Task 1: the final analysis **reuses** the existing validated51-run experiment at the base source; the fix changes the previously broken multiprocessing path and strict-zip validation, not the direct-mode policy/executor decisions used by that study. Exact expanded command and input hashes are preserved in final evidence. To deliberately rerun it, use the [Task 1 guide](docs/milestone3-task1.md) with a fresh output root; do not rerun it merely to regenerate figures.
++
++Milestone 3 Task 2: prepare the original skewed eight-source cohort at context 32768 using the [Task 2 guide](docs/milestone3-task2.md#run-task-2). All prepared sources must agree on model/revision/tokenizer/template/context. The final run reused the already prepared valid skewed cohort. The balanced preparation expands only labels with insufficient tokens (agent 300, code 8000, quality300, Bailian-chat 1000, Bailian-coder1000) using the same source formats, context 32768 and output cap32. Exact executed expansion command is recorded in final evidence; select a new output directory when repeating preparation.
++
++```bash
++python tools/comp536_final_study.py --phase mixed \
++  --data data/m3 --output experiments/final-new \
++  --mixed-prepared /path/to/skewed/prepared \
++  --expanded-prepared /path/to/expanded/prepared --seeds 0
++```
++
++The driver builds both skewed and equal-token mixtures. Equal-token means the first causal prefix reaching260,000 prompt tokens per label, not equal request counts; overshoot is preserved. It runs all eight policies with a fresh cache, randomized order, block 16, ratio 0.10, context 32768, target 100/s, concurrency 8 and think time 1s. New mixed runs additionally count successful allocator eviction allocations with an isolated opt-in hook; count files are required before declaring a run complete. No victim ordering/reference-count behavior changes. Promotion counters remain unavailable.
++
++This final evaluation uses one seed per mixture (16 runs); it reports no mixed SD/CI. Extra repetitions/ablations are not silently claimed completed. Additional seeds are supported by the driver; do not pool them with incompatible cohorts/settings.
++
++## Regenerate final figures without benchmarks
++
++```bash
++python tools/comp536_final_figures.py \
++  --m2 /path/to/final/experiments/m2 \
++  --mixed /path/to/final/experiments/mixed \
++  --task1 /path/to/existing/task1 \
++  --output /path/to/new/final-figures
++python tools/comp536_diagrams.py --output /path/to/new/diagrams
++```
++
++After extracting the raw-evidence archive elsewhere, point the three input arguments at its `m2`, `mixed` and `task1` directories. The validator resolves the adjacent prepared cohorts without rewriting historical absolute provenance paths.
++
++The figure tool reads completed-run markers/raw logs, validates IDs, token arithmetic, cohort/capacity compatibility and block/gap tables, then writes aggregated CSV/JSON, vector PDFs and high-resolution PNGs. It does not invoke vLLM inference or rewrite source experimental summaries. Keep generated analysis in a separate path. Historical M2/Task 1 eviction counts are null, never inferred from misses. Gap CDFs are successful-hit-associated wall time, not unconditional potential recurrence.
++
++## Troubleshooting and known limits
++
++- PyArrow26 failed with the observed NumPy1.26 environment; PyArrow19.0.1 worked. The final phase restores missing Python/model metadata caches without upgrading major simulator dependencies.
++- If a moved environment's interpreter symlink is broken, recreate an equivalent Python3.11 environment from the recorded package list; do not assume a `/tmp` interpreter persists across reboots.
++- Strict trace mismatches usually require checking IDs, template/date kwargs, tokenizer revision and truncation. Do not use fallback fillers to claim exact replay success.
++- The cache must hold the longest selected request including response/EOS constraints; ratio experiments record feasibility clamps. Capacity in blocks is not the same as bytes across block sizes.
++- One benchmark server runs at a time; real CPU scheduling/HTTP/backlog still introduce timing variation. Identical seeds do not imply identical wall-clock cache retention or hold expiry.
++- The simulator explicitly rejects LoRA, prompt adapters, speculative and multistep scheduling. GPU numerical quality, kernels, calibrated latency and distributed communication are not modeled.
++- Existing project-wide legacy RPC modules have unrelated pyupgrade lint warnings; no mass refactor was performed. The prior B905 and targeted study/regression-test checks pass.
++- The presentation PDF is exported from the editable PPTX with an isolated LibreOffice24.2.7.2 Impress renderer. A separate shared-source layout companion is retained for comparison. Fonts and wrapping can vary in Microsoft PowerPoint; rehearse in the actual presentation environment before delivery.
++
++## Final evidence and preservation
++
++Validated studies: **m2: 108 runs / 43,632 requests / 0 failures; mixed: 16 runs / 74,984 requests / 0 failures; task1: 51 runs / 21,834 requests / 0 failures**. These replay counts are repeated configurations, not independent dataset samples. New completed M2/mixed server/replay/analysis lifecycles total **109.44 minutes** (M2 38.51; mixed 70.93); preparation, tests, failed/interrupted attempts and document work are separate. Task1 was reused, not rerun. Mixed results use one seed per composition; no SD/CI is estimated.
++
++Exact commands, dataset/model versions, hashes, source patch, test logs and evidence index accompany `deliverables/final-2026-11-24/`. Large raw request/block logs and prepared traces remain in their separate experiment trees; the artifact manifest gives exact locations. The original reports/slides, failed/interrupted historical runs, datasets and Git histories are preserved. No remote push was performed.
++
++---
++
++## Original upstream README
++
++The upstream material below is retained for context. Its GPU installation/features concern upstream vLLM; use this fork's CPU-simulator instructions above for the course project.
++
++
+ <p align="center">
+   <picture>
+     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/vllm-project/vllm/main/docs/source/assets/logos/vllm-logo-text-dark.png">
+diff --git a/tests/simulator/test_sim_api_server.py b/tests/simulator/test_sim_api_server.py
+index 6be2c33eb9..d4fe854bbe 100644
+--- a/tests/simulator/test_sim_api_server.py
++++ b/tests/simulator/test_sim_api_server.py
+@@ -65,17 +65,20 @@ def server(request, builder, tmp_path_factory):
+     trace_path = tmp_path_factory.mktemp("trace") / "trace.jsonl"
+     trace_path.write_text("".join(json.dumps(e) + "\n" for e in entries))
+ 
++    metrics_path = trace_path.parent / "metrics.jsonl"
+     args = [
+         "--load-format", "dummy", "--distributed-executor-backend", "sim",
+         "--sim-trace-path",
+         str(trace_path), "--max-model-len", "1024", "--block-size",
+         str(BLOCK_SIZE), "--enable-prefix-caching",
+-        "--enable-prompt-tokens-details"
++        "--enable-prompt-tokens-details", "--sim-metrics-path",
++        str(metrics_path)
+     ]
+     if request.param:
+         # Exercises AsyncLLMEngine + SimExecutorAsync instead of MQLLMEngine.
+         args.append("--disable-frontend-multiprocessing")
+     with RemoteOpenAIServer(MODEL, args) as remote_server:
++        remote_server.sim_metrics_path = metrics_path
+         yield remote_server
+ 
+ 
+@@ -186,3 +189,48 @@ def test_unknown_prompt_stops_at_max_tokens(server):
+ 
+     assert response.usage.completion_tokens == 4
+     assert response.choices[0].finish_reason == "length"
++
++
++def test_workload_labels_reach_simulator_metadata(server, builder):
++    """Check both endpoints/frontends preserve labels in block metrics."""
++    for endpoint, label, payload in [
++        (
++            "v1/chat/completions",
++            "coding-agent",
++            {
++                "messages": FIRST_TURN,
++                "chat_template_kwargs": CHAT_TEMPLATE_KWARGS,
++            },
++        ),
++        (
++            "v1/completions",
++            "quality",
++            {
++                "prompt": BlockTokens(builder.tokenizer, BLOCK_SIZE).prompt(
++                    *BLOCK_PROMPTS[0]
++                )
++            },
++        ),
++    ]:
++        response = requests.post(
++            server.url_for(endpoint),
++            json={
++                "model": MODEL,
++                "max_tokens": 100,
++                "workload": label,
++                **payload,
++            },
++        )
++        response.raise_for_status()
++        events = [
++            json.loads(line)
++            for line in server.sim_metrics_path.read_text().splitlines()
++        ]
++        assert any(
++            e.get("event") == "request" and e.get("workload") == label
++            for e in events
++        )
++        assert any(
++            e.get("event") == "block" and e.get("workload") == label
++            for e in events
++        )
+diff --git a/vllm/engine/multiprocessing/__init__.py b/vllm/engine/multiprocessing/__init__.py
+index 420f540d0b..31388b2d4e 100644
+--- a/vllm/engine/multiprocessing/__init__.py
++++ b/vllm/engine/multiprocessing/__init__.py
+@@ -33,6 +33,7 @@ class RPCProcessRequest:
+     trace_headers: Optional[Mapping[str, str]] = None
+     prompt_adapter_request: Optional[PromptAdapterRequest] = None
+     priority: int = 0
++    workload: Optional[str] = None
+ 
+     @overload
+     def __init__(
+@@ -44,6 +45,7 @@ class RPCProcessRequest:
+         trace_headers: Optional[Mapping[str, str]] = None,
+         prompt_adapter_request: Optional[PromptAdapterRequest] = None,
+         priority: int = 0,
++        workload: Optional[str] = None,
+     ) -> None:
+         ...
+ 
+@@ -59,6 +61,7 @@ class RPCProcessRequest:
+         trace_headers: Optional[Mapping[str, str]] = None,
+         prompt_adapter_request: Optional[PromptAdapterRequest] = None,
+         priority: int = 0,
++        workload: Optional[str] = None,
+     ) -> None:
+         ...
+ 
+@@ -75,6 +78,7 @@ class RPCProcessRequest:
+             trace_headers: Optional[Mapping[str, str]] = None,
+             prompt_adapter_request: Optional[PromptAdapterRequest] = None,
+             priority: int = 0,
++            workload: Optional[str] = None,
+             *,
+             inputs: Optional[PromptType] = None,  # DEPRECATED
+     ) -> None:
+@@ -92,6 +96,7 @@ class RPCProcessRequest:
+         self.trace_headers = trace_headers
+         self.prompt_adapter_request = prompt_adapter_request
+         self.priority = priority
++        self.workload = workload
+ 
+ 
+ @dataclass
+diff --git a/vllm/engine/multiprocessing/client.py b/vllm/engine/multiprocessing/client.py
+index 0a046c71e8..b1a80ae28c 100644
+--- a/vllm/engine/multiprocessing/client.py
++++ b/vllm/engine/multiprocessing/client.py
+@@ -424,6 +424,7 @@ class MQLLMEngineClient(EngineClient):
+         trace_headers: Optional[Mapping[str, str]] = None,
+         prompt_adapter_request: Optional[PromptAdapterRequest] = None,
+         priority: int = 0,
++        workload: Optional[str] = None,
+     ) -> AsyncGenerator[RequestOutput, None]:
+         ...
+ 
+@@ -439,6 +440,7 @@ class MQLLMEngineClient(EngineClient):
+         trace_headers: Optional[Mapping[str, str]] = None,
+         prompt_adapter_request: Optional[PromptAdapterRequest] = None,
+         priority: int = 0,
++        workload: Optional[str] = None,
+     ) -> AsyncGenerator[RequestOutput, None]:
+         ...
+ 
+@@ -455,6 +457,7 @@ class MQLLMEngineClient(EngineClient):
+         trace_headers: Optional[Mapping[str, str]] = None,
+         prompt_adapter_request: Optional[PromptAdapterRequest] = None,
+         priority: int = 0,
++        workload: Optional[str] = None,
+         *,
+         inputs: Optional[PromptType] = None  # DEPRECATED
+     ) -> AsyncGenerator[RequestOutput, None]:
+@@ -465,6 +468,7 @@ class MQLLMEngineClient(EngineClient):
+         from the LLMEngine to the caller.
+ 
+         Args:
++            workload: Optional workload label used by cache eviction policies.
+             prompt: The prompt to the LLM. See :class:`~vllm.inputs.PromptType`
+                 for more details about the format of each input.
+             sampling_params: The sampling parameters of the request.
+@@ -484,7 +488,7 @@ class MQLLMEngineClient(EngineClient):
+ 
+         return self._process_request(prompt, sampling_params, request_id,
+                                      lora_request, trace_headers,
+-                                     prompt_adapter_request, priority)
++                                     prompt_adapter_request, priority, workload)
+ 
+     @overload
+     def encode(
+@@ -568,6 +572,7 @@ class MQLLMEngineClient(EngineClient):
+         trace_headers: Optional[Mapping[str, str]] = None,
+         prompt_adapter_request: Optional[PromptAdapterRequest] = None,
+         priority: int = 0,
++        workload: Optional[str] = None,
+     ) -> Union[AsyncGenerator[RequestOutput, None], AsyncGenerator[
+             PoolingRequestOutput, None]]:
+         """Send an RPCGenerateRequest to the RPCServer and stream responses."""
+@@ -621,6 +626,7 @@ class MQLLMEngineClient(EngineClient):
+                     trace_headers=trace_headers,
+                     prompt_adapter_request=prompt_adapter_request,
+                     priority=priority,
++                    workload=workload,
+                 ))
+ 
+             # 3) Send the RPCGenerateRequest to the MQLLMEngine.
+diff --git a/vllm/engine/multiprocessing/engine.py b/vllm/engine/multiprocessing/engine.py
+index 49a90b321d..375281b98f 100644
+--- a/vllm/engine/multiprocessing/engine.py
++++ b/vllm/engine/multiprocessing/engine.py
+@@ -261,7 +261,8 @@ class MQLLMEngine:
+                 lora_request=request.lora_request,
+                 trace_headers=request.trace_headers,
+                 prompt_adapter_request=request.prompt_adapter_request,
+-                priority=request.priority)
++                priority=request.priority,
++                workload=request.workload)
+ 
+             if self.log_requests:
+                 logger.info("Added request %s.", request.request_id)
+diff --git a/vllm/simulator/eviction_study.py b/vllm/simulator/eviction_study.py
+index 4ff451920e..ece64fd240 100644
+--- a/vllm/simulator/eviction_study.py
++++ b/vllm/simulator/eviction_study.py
+@@ -190,7 +190,7 @@ def interleave(sources: list, destination: Path) -> dict:
+     streams = [read_records(path) for path in sources]
+     with destination.open("w", encoding="utf-8") as stream:
+         for row in zip_longest(*streams):
+-            for path, record in zip(sources, row):
++            for path, record in zip(sources, row, strict=True):
+                 if record is None:
+                     continue
+                 raw = record.get("conversations", record.get("messages"))
+diff --git a/tests/simulator/test_rpc_workload.py b/tests/simulator/test_rpc_workload.py
+new file mode 100644
+index 0000000000..f3f53942de
+--- /dev/null
++++ b/tests/simulator/test_rpc_workload.py
+@@ -0,0 +1,28 @@
++"""Regression: workload labels survive the multiprocessing RPC boundary."""
++
++import pickle
++from unittest.mock import Mock
++
++import pytest
++
++from vllm import SamplingParams
++from vllm.engine.multiprocessing import RPCProcessRequest
++from vllm.engine.multiprocessing.engine import MQLLMEngine
++
++
++@pytest.mark.parametrize("workload", [None, "coding-agent", "quality"])
++def test_rpc_preserves_workload_through_engine_submission(workload):
++    request = RPCProcessRequest(
++        prompt="hello",
++        params=SamplingParams(),
++        request_id="rpc-label",
++        workload=workload,
++    )
++    received = pickle.loads(pickle.dumps(request))
++    backend = object.__new__(MQLLMEngine)
++    backend.engine = Mock()
++    backend._errored_with = None
++    backend.log_requests = False
++    backend._handle_process_request(received)
++    assert backend.engine.add_request.call_count == 1
++    assert backend.engine.add_request.call_args.kwargs["workload"] == workload
+diff --git a/tools/comp536_final_study.py b/tools/comp536_final_study.py
+new file mode 100644
+index 0000000000..93874b18d5
+--- /dev/null
++++ b/tools/comp536_final_study.py
+@@ -0,0 +1,266 @@
++"""Resumable required COMP536 experiments. Never overwrite a prior run.
++
++M2 reuses documented 200-conversation, .05/.10 GiB, block8/16/32 settings.
++Mixed sources reuse existing context32768 prepared data; new equal-token
++cohorts retain the first causal prefix reaching 260k prompt tokens per label.
++Only completed attempts with matching input/control hashes can be resumed.
++"""
++import argparse
++import asyncio
++import copy
++import hashlib
++import itertools
++import os
++import json
++import random
++import subprocess
++import sys
++import time
++from pathlib import Path
++
++from vllm.simulator.analysis import analyze
++from vllm.simulator.eviction_study import cache_blocks, working_set
++from vllm.simulator.mix_workload import mix
++from vllm.simulator.replay import replay
++from vllm.simulator.study import server
++from vllm.simulator.trace_builder import TraceBuilder
++from vllm.simulator.workload import prepare
++
++MODEL = 'Qwen/Qwen2.5-0.5B-Instruct'
++REVISION = '7ae557604adf67be50417f59c2c2f167def9a775'
++POLICIES = ['lru', 'lfu', 'fifo', 'tlru', 'tfifo', 'hlru', 'hfifo', 'rfifo']
++LABELS = ['chat', 'agent', 'coding-agent', 'quality', 'bailian-chat',
++          'bailian-coder', 'mooncake-agent', 'code']
++REPO = Path(__file__).resolve().parents[1]
++
++
++def sha(path):
++    h = hashlib.sha256()
++    with path.open('rb') as f:
++        for block in iter(lambda: f.read(1024 * 1024), b''):
++            h.update(block)
++    return h.hexdigest()
++
++
++def write(path, obj):
++    path.parent.mkdir(parents=True, exist_ok=True)
++    temp = path.with_suffix('.tmp')
++    temp.write_text(json.dumps(obj, indent=2) + '\n')
++    temp.replace(path)
++
++
++def source_state():
++    tracked = subprocess.check_output(['git', 'ls-files', 'vllm'], cwd=REPO,
++                                      text=True).splitlines()
++    hashes = {p: sha(REPO / p) for p in tracked}
++    return {'git_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'],
++                                                 cwd=REPO, text=True).strip(),
++            'driver_sha256': sha(Path(__file__)),
++            'dirty_status': subprocess.check_output(['git', 'status', '--short'],
++                                                    cwd=REPO, text=True),
++            'implementation_sha256': hashlib.sha256(
++                json.dumps(hashes, sort_keys=True).encode()).hexdigest()}
++
++
++def run_one(root, name, prepared, config, source):
++    """A completed attempt is immutable. Interrupted attempts are retained."""
++    fingerprint = {'workload_sha256': sha(prepared / 'workload.json'),
++                   'trace_sha256': sha(prepared / 'trace.jsonl'),
++                   'implementation_sha256': source['implementation_sha256'],
++                   **config}
++    if config.get('mixture'):
++        fingerprint['allocator_counter_sha256'] = sha(REPO / 'tools/comp536_counting/sitecustomize.py')
++    folder = root / 'runs' / name
++    folder.mkdir(parents=True, exist_ok=True)
++    for attempt in sorted(folder.glob('attempt-*')):
++        marker = attempt / 'complete.json'
++        if marker.exists():
++            done = json.loads(marker.read_text())
++            if done['fingerprint'] != fingerprint:
++                raise ValueError(f'Incompatible completed attempt: {attempt}')
++            print('RESUME completed', name, flush=True)
++            return json.loads((attempt / 'summary.json').read_text())
++    attempt = folder / f'attempt-{len(list(folder.glob("attempt-*"))) + 1:03d}'
++    manifest = json.loads((prepared / 'workload.json').read_text())
++    block = config['block_size']
++    sizing = {}
++    if config.get('cache_ratio') is not None:
++        footprint = working_set(prepared / 'trace.jsonl', block)
++        sizing = cache_blocks(config['cache_ratio'], footprint, block)
++        sizing['working_set_blocks'] = footprint['unique_blocks']
++    if config.get('mixture'):
++        hook = REPO / 'tools/comp536_counting'
++        os.environ['VLLM_SIM_EVICTION_COUNTS_PATH'] = str(
++            (attempt / 'eviction_counts.json').resolve())
++        previous = os.environ.get('PYTHONPATH', '')
++        if str(hook) not in previous.split(os.pathsep):
++            os.environ['PYTHONPATH'] = str(hook) + os.pathsep + previous
++        fingerprint['allocator_counter_sha256'] = sha(hook / 'sitecustomize.py')
++    start = time.time()
++    print('START', name, flush=True)
++    with server(manifest, prepared / 'trace.jsonl', attempt,
++                block_size=block, cache_gb=config.get('cache_gb') or .02,
++                policy=config['policy'], prefill_ms=.01, decode_ms=.1,
++                max_num_seqs=config['concurrency'], startup_timeout=120,
++                num_gpu_blocks=sizing.get('num_gpu_blocks'),
++                hold_s=8 if config.get('mixture') else None,
++                hold_budget=1 if config.get('mixture') else None) as (url, cache):
++        metadata = {**source, **fingerprint, **sizing, 'name': name,
++                    'model': MODEL, 'revision': REVISION,
++                    'tokenizer_revision': REVISION,
++                    'num_gpu_blocks': cache['num_gpu_blocks'],
++                    'virtual_cache_bytes': cache['num_gpu_blocks'] * cache['block_bytes'],
++                    'conversations': len(manifest['conversations']),
++                    'prefill_ms_per_token': .01, 'decode_ms_per_seq': .1,
++                    'arrival': manifest['arrival'],
++                    'request_rate': manifest['request_rate'],
++                    'think_time_s': manifest['think_time_s'],
++                    'max_model_len': manifest['max_model_len'],
++                    'chat_template_kwargs': manifest['chat_template_kwargs'],
++                    'command': sys.argv,
++                    'prepared_directory': str(prepared.resolve()),
++                    'started_epoch': start}
++        write(attempt / 'run.json', metadata)
++        rows = asyncio.run(replay(manifest, url, attempt / 'requests.jsonl',
++                                 concurrency=config['concurrency'], timeout=600))
++    expected = sum(len(c['turns']) for c in manifest['conversations'])
++    if len(rows) != expected or not all(r['success'] for r in rows):
++        write(attempt / 'failed.json', {'expected': expected, 'received': len(rows)})
++        raise RuntimeError(f'Failed replay: {attempt}')
++    analyze(attempt, plots=False)
++    summary = json.loads((attempt / 'summary.json').read_text())
++    if config.get('mixture'):
++        counter = attempt / 'eviction_counts.json'
++        if not counter.exists():
++            raise RuntimeError(f'Missing allocator counter after shutdown: {attempt}')
++        summary.update(json.loads(counter.read_text()))
++        write(attempt / 'summary.json', summary)
++    write(attempt / 'complete.json', {'fingerprint': fingerprint,
++                                    'finished_epoch': time.time(),
++                                    'runtime_s': time.time() - start})
++    print('END', name, f'{time.time()-start:.1f}s',
++          f"S={summary['token_weighted_shared_fraction']:.5f}", flush=True)
++    return summary
++
++
++def m2(args, state):
++    root = args.output / 'm2'
++    builder = TraceBuilder(MODEL, revision=REVISION,
++                           chat_template_kwargs={'date_string': '26 Jul 2024'})
++    configs = []
++    for seed in args.seeds:
++        for mode in ['single', 'multi']:
++            dest = root / 'prepared' / f'seed-{seed}' / mode
++            if not (dest / 'workload.json').exists():
++                prepare(args.data / 'sharegpt1000.jsonl', dest, builder, mode=mode,
++                        limit=200, max_model_len=4096, arrival='poisson',
++                        request_rate=100, seed=seed, think_time=0)
++            for capacity, block, policy in itertools.product([.05, .10], [8, 16, 32], POLICIES[:3]):
++                configs.append((dest, {'seed': seed, 'mode': mode, 'cache_gb': capacity,
++                                       'block_size': block, 'policy': policy,
++                                       'concurrency': 64, 'cache_ratio': None}))
++    # Complete all configurations of seed 0 before later seeds.
++    selected = []
++    for seed in args.seeds:
++        batch = [x for x in configs if x[1]['seed'] == seed]
++        random.Random(seed).shuffle(batch)
++        selected.extend(batch)
++    if args.pilot:
++        selected = [x for x in configs if x[1]['seed'] == args.seeds[0] and
++                    x[1]['mode'] == 'multi' and x[1]['policy'] == 'lru' and
++                    x[1]['block_size'] == 16 and x[1]['cache_gb'] == .05]
++    summaries = []
++    for dest, cfg in selected:
++        name = (f"seed-{cfg['seed']}-{cfg['mode']}-{cfg['cache_gb']:g}GiB-"
++                f"b{cfg['block_size']}-{cfg['policy']}")
++        summaries.append(run_one(root, name, dest, cfg, state))
++        write(root / ('pilot-comparison.json' if args.pilot else 'comparison.json'), summaries)
++
++
++def token_total(workload):
++    return sum(t['prompt_tokens'] for c in workload['conversations'] for t in c['turns'])
++
++
++def select_balanced(source, dest):
++    if (dest / 'workload.json').exists():
++        return
++    workload = json.loads((source / 'workload.json').read_text())
++    chosen, count = [], 0
++    for original in workload['conversations']:
++        conv = copy.deepcopy(original)
++        conv['turns'] = []
++        for turn in original['turns']:
++            conv['turns'].append(turn)
++            count += turn['prompt_tokens']
++            if count >= 260000:
++                break
++        chosen.append(conv)
++        if count >= 260000:
++            break
++    if count < 260000:
++        raise ValueError(f'Insufficient tokens: {source}: {count}')
++    workload['conversations'] = chosen
++    workload['balance_selection'] = {'rule': 'first causal prefix reaching token budget',
++                                     'target_prompt_tokens': 260000,
++                                     'actual_prompt_tokens': count,
++                                     'source_workload_sha256': sha(source / 'workload.json')}
++    ids = {(f"cmpl-{t['request_id']}-0" if 'prompt_token_ids' in t
++            else f"chatcmpl-{t['request_id']}") for c in chosen for t in c['turns']}
++    dest.mkdir(parents=True, exist_ok=False)
++    write(dest / 'workload.json', workload)
++    with (source / 'trace.jsonl').open() as fin, (dest / 'trace.jsonl').open('w') as fout:
++        for line in fin:
++            if json.loads(line)['request_id'] in ids:
++                fout.write(line)
++
++
++def mixed(args, state):
++    root = args.output / 'mixed'
++    for mixture in ['skewed', 'equal-token']:
++        inputs = []
++        for label in LABELS:
++            src = args.mixed_prepared / label
++            if mixture == 'equal-token':
++                if token_total(json.loads((src / 'workload.json').read_text())) < 260000:
++                    src = args.expanded_prepared / label
++                dest = root / 'balanced-prepared' / label
++                select_balanced(src, dest)
++                src = dest
++            inputs.append((label, src))
++        for seed in args.seeds:
++            prepared = root / mixture / f'seed-{seed}' / 'prepared'
++            if not (prepared / 'workload.json').exists():
++                mix(inputs, prepared, request_rate=100, think_time=1, seed=seed)
++            order = list(POLICIES)
++            random.Random(seed + 1709).shuffle(order)
++            write(root / mixture / f'seed-{seed}' / 'policy-order.json', order)
++            summaries = []
++            for index, policy in enumerate(order):
++                cfg = {'mixture': mixture, 'seed': seed, 'policy': policy,
++                       'policy_order': index, 'block_size': 16,
++                       'cache_gb': None, 'cache_ratio': .1, 'concurrency': 8,
++                       'hold_s': 8, 'hold_budget': 1}
++                name = f'{mixture}-seed-{seed}-{policy}'
++                summaries.append(run_one(root, name, prepared, cfg, state))
++                write(root / mixture / f'seed-{seed}' / 'comparison.json', summaries)
++
++
++def main():
++    p = argparse.ArgumentParser(description=__doc__)
++    p.add_argument('--phase', required=True, choices=['m2', 'mixed'])
++    p.add_argument('--data', type=Path, required=True)
++    p.add_argument('--output', type=Path, required=True)
++    p.add_argument('--mixed-prepared', type=Path)
++    p.add_argument('--expanded-prepared', type=Path)
++    p.add_argument('--seeds', nargs='+', type=int, default=[0])
++    p.add_argument('--pilot', action='store_true')
++    args = p.parse_args()
++    state = source_state()
++    if args.phase == 'm2':
++        m2(args, state)
++    else:
++        mixed(args, state)
++
++
++if __name__ == '__main__':
++    main()
+diff --git a/tools/comp536_final_figures.py b/tools/comp536_final_figures.py
+new file mode 100644
+index 0000000000..9d67ac5ce6
+--- /dev/null
++++ b/tools/comp536_final_figures.py
+@@ -0,0 +1,280 @@
++"""Validate existing completed experiments and write new figures/tables only.
++Usage: python tools/comp536_final_figures.py --m2 DIR --mixed DIR --task1 DIR --output NEW_DIR
++No model, server or benchmark is launched. Large raw data remain at their source.
++"""
++import argparse
++import csv
++import hashlib
++import json
++import math
++import statistics
++from collections import defaultdict
++from pathlib import Path
++
++import matplotlib
++matplotlib.use('Agg')
++import matplotlib.pyplot as plt
++import numpy as np
++from comp536_prompt_recurrence import analyze as prompt_recurrence
++from matplotlib.patches import FancyBboxPatch,Rectangle
++
++COLORS={'lru':'#167DAD','lfu':'#DE8A29','fifo':'#7256A8','tlru':'#15977B',
++        'tfifo':'#C84C51','hlru':'#64748B','hfifo':'#D87AA0','rfifo':'#699330'}
++POLICIES=list(COLORS)
++LABELS=['chat','agent','coding-agent','quality','bailian-chat','bailian-coder','mooncake-agent','code']
++
++def dump(p,x):p.write_text(json.dumps(x,indent=2)+'\n')
++def csvout(p,rows):
++ if not rows:return
++ fields=list(dict.fromkeys(k for r in rows for k in r))
++ with p.open('w',newline='') as f:
++  w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(rows)
++def readcsv(p):return list(csv.DictReader(p.open()))
++def quant(xs,q):return float(np.percentile(xs,q)) if xs else None
++
++def validate(path):
++ r=json.loads((path/'summary.json').read_text());q=[json.loads(x) for x in (path/'requests.jsonl').read_text().splitlines() if x]
++ assert len(q)==r['requests'] and len({x['request_id'] for x in q})==len(q)
++ assert q and all(x['success'] for x in q) and not r['failed_requests']
++ assert all(0<=x['cached_tokens']<=x['prompt_tokens'] and math.isfinite(x['shared_fraction']) for x in q)
++ assert sum(x['prompt_tokens'] for x in q)==r['prompt_tokens']
++ assert sum(x['cached_tokens'] for x in q)==r['cached_tokens']
++ assert math.isclose(r['cached_tokens']/r['prompt_tokens'],r['token_weighted_shared_fraction'],abs_tol=1e-12)
++ assert math.isclose(statistics.mean(x['shared_fraction'] for x in q),r['mean_request_shared_fraction'],abs_tol=1e-12)
++ assert all(x['prompt_tokens']>0 and math.isclose(x['cached_tokens']/x['prompt_tokens'],x['shared_fraction'],abs_tol=1e-12) for x in q)
++ counter=path/'eviction_counts.json'
++ if counter.exists():
++  measured=json.loads(counter.read_text())
++  assert isinstance(measured['cache_evictions'],int) and measured['cache_evictions']>=0
++  if 'cache_evictions' in r:assert r['cache_evictions']==measured['cache_evictions']
++  r.update(measured)
++ h=readcsv(path/'block_hits.csv');g=readcsv(path/'reuse_gaps.csv')
++ assert len({x['block_key'] for x in h})==len(h)==r['unique_blocks']
++ assert sum(int(x['hits']) for x in h)==r['block_hits']
++ assert len(g)==r['reuse_gap_samples'] and all(math.isfinite(float(x['reuse_gap_s'])) and float(x['reuse_gap_s'])>=0 for x in g)
++ # Independently reconstruct block/access/hit populations from the raw event stream.
++ observed={};gap_index=0;event_hash=hashlib.sha256();label_gaps=defaultdict(list);request_events=set();request_index={x['request_id']:x for x in q}
++ def client_id(server_id):
++  if server_id.startswith('chatcmpl-'):return server_id[len('chatcmpl-'):]
++  assert server_id.startswith('cmpl-') and server_id.endswith('-0'),server_id
++  return server_id[len('cmpl-'):-2]
++ with (path/'blocks.jsonl').open('rb') as stream:
++  for line in stream:
++   event_hash.update(line)
++   if not line.strip():continue
++   event=json.loads(line)
++   if event['event']=='metadata':assert event['block_size']==r['block_size']
++   if event['event']=='cache_config':
++    assert event['num_gpu_blocks']==r['num_gpu_blocks']
++    assert event['eviction_policy']==r['policy']
++    assert event['num_gpu_blocks']*event['block_bytes']==r['virtual_cache_bytes']
++   if event['event'] in ['request','block']:
++    rid=client_id(event['request_id']);assert rid in request_index
++    assert event.get('workload')==request_index[rid].get('workload')
++    if event['event']=='request':
++     assert rid not in request_events;request_events.add(rid)
++     assert event['prompt_tokens']==request_index[rid]['prompt_tokens']
++     assert event['cached_tokens']==request_index[rid]['cached_tokens']
++   if event['event']!='block':continue
++   entry=observed.setdefault(event['block_key'],[0,0]);entry[0]+=1;entry[1]+=int(event['hit'])
++   if event['reuse_gap_s'] is not None:
++    exported=g[gap_index];gap_index+=1
++    label_gaps[event.get('workload')].append(event['reuse_gap_s'])
++    assert exported['block_key']==event['block_key'] and exported['request_id']==event['request_id']
++    assert math.isclose(float(exported['reuse_gap_s']),event['reuse_gap_s'],abs_tol=1e-12)
++    assert math.isclose(float(exported['time_s']),event['time_s'],abs_tol=1e-12)
++ assert request_events==set(request_index)
++ assert gap_index==len(g)
++ if g:assert math.isclose(statistics.mean(float(x['reuse_gap_s']) for x in g),r['mean_reuse_gap_s'],abs_tol=1e-12)
++ else:assert r['mean_reuse_gap_s'] is None
++ assert r['successful_requests']==len(q)
++ assert math.isclose(max(x['finished_s'] for x in q),r['elapsed_s'],abs_tol=1e-12)
++ assert observed=={x['block_key']:[int(x['accesses']),int(x['hits'])] for x in h}
++ assert sum(v[1]==0 for v in observed.values())==r['zero_hit_blocks']
++ r['block_events_sha256']=event_hash.hexdigest()
++ times=[x['sent_s'] for x in q]
++ r.update({'median_request_shared_fraction':statistics.median(x['shared_fraction'] for x in q),
++           'median_dispatch_lag_s':quant([x['dispatch_lag_s'] for x in q],50),
++           'p95_dispatch_lag_s':quant([x['dispatch_lag_s'] for x in q],95),
++           'achieved_dispatch_requests_per_s':(len(times)-1)/(max(times)-min(times)) if len(times)>1 else None,
++           'evictions':r.get('cache_evictions'), 'eviction_count_status':('opt-in allocator counter' if 'cache_evictions' in r else 'not instrumented in historical event schema'),
++           'raw_directory':str(path.resolve())})
++ if r.get('by_workload'):
++  for label,stats in r['by_workload'].items():
++   subset=[x for x in q if x.get('workload')==label]
++   if label_gaps[label]:assert math.isclose(statistics.mean(label_gaps[label]),stats['mean_reuse_gap_s'],abs_tol=1e-12)
++   else:assert stats['mean_reuse_gap_s'] is None
++   assert subset and math.isclose(sum(x['cached_tokens'] for x in subset)/sum(x['prompt_tokens'] for x in subset),stats['token_weighted_shared_fraction'],abs_tol=1e-12)
++ return r,q
++
++def main():
++ p=argparse.ArgumentParser(description=__doc__)
++ for n in ['m2','mixed','task1','output']:p.add_argument('--'+n,type=Path,required=True)
++ p.add_argument('--allow-incomplete',action='store_true',help='Preview completed runs only; never use as a final completion claim')
++ a=p.parse_args();a.output.mkdir(parents=True,exist_ok=True)
++ out=a.output
++ plt.rcParams.update({'font.family':'DejaVu Sans','font.size':14,'axes.spines.top':False,'axes.spines.right':False,'pdf.fonttype':42,'savefig.dpi':320})
++ def save(name):
++  plt.tight_layout();plt.savefig(out/(name+'.pdf'),bbox_inches='tight');plt.savefig(out/(name+'.png'),bbox_inches='tight');plt.close()
++ families={};req={};checked=[];input_hashes={};prepared_manifests={}
++ for family,root in [('m2',a.m2),('mixed',a.mixed),('task1',a.task1)]:
++  paths=[x.parent for x in root.rglob('complete.json')] if family!='task1' else [x.parent for x in root.rglob('summary.json')]
++  rs=[]
++  for d in sorted(paths):
++   if family=='mixed':assert (d/'eviction_counts.json').exists(),d
++   r,q=validate(d);rs.append(r);req[str(d.resolve())]=q
++   checked.append({'family':family,'directory':str(d.resolve()),'requests':r['requests'],'status':'passed'})
++   if len(checked)%25==0:print('Validated',len(checked),'completed raw runs',flush=True)
++   input_hashes[str((d/'blocks.jsonl').resolve())]=r['block_events_sha256']
++   for f in ['run.json','summary.json','requests.jsonl','block_hits.csv','reuse_gaps.csv']+(['eviction_counts.json'] if (d/'eviction_counts.json').exists() else []):
++    z=d/f;input_hashes[str(z.resolve())]=hashlib.sha256(z.read_bytes()).hexdigest()
++  for r in rs:
++   local=(root/'prepared'/r['workload']/f"seed-{r['seed']}") if family=='task1' else ((root/'prepared'/f"seed-{r['seed']}"/r['mode']) if family=='m2' else root/r['mixture']/f"seed-{r['seed']}"/'prepared')
++   prepared=local if local.exists() else Path(r['prepared_directory'])
++   for name,key in [('workload.json','workload_sha256'),('trace.jsonl','trace_sha256')]:
++    z=prepared/name;namekey=str(z.resolve())
++    if namekey not in input_hashes:input_hashes[namekey]=hashlib.sha256(z.read_bytes()).hexdigest()
++    assert input_hashes[namekey]==r[key]
++   prepared_key=str(prepared.resolve())
++   if prepared_key not in prepared_manifests:prepared_manifests[prepared_key]=json.loads((prepared/'workload.json').read_text())
++   manifest=prepared_manifests[prepared_key]
++   assert r['model']==manifest['model'] and r['revision']==manifest['revision']
++   if 'tokenizer_revision' in r:assert r['tokenizer_revision']==manifest['tokenizer_revision']
++   actual={q['request_id']:q for q in req[r['raw_directory']]}
++   expected={t['request_id']:t['prompt_tokens'] for c in manifest['conversations'] for t in c['turns']}
++   assert {k:v['prompt_tokens'] for k,v in actual.items()}==expected
++   for c in manifest['conversations']:
++    previous=None
++    for t in c['turns']:
++     q=actual[t['request_id']]
++     assert q.get('workload')==c.get('workload')
++     assert all(math.isfinite(q[k]) for k in ['sent_s','finished_s','dispatch_lag_s','latency_s'])
++     assert q['finished_s']>=q['sent_s']
++     if previous is not None:assert q['sent_s']>=previous['finished_s']+manifest['think_time_s']-1e-6
++     previous=q
++  identities=[(r.get('workload') if family=='task1' else r.get('mixture',r.get('mode')),r['policy'],r['seed'],r.get('block_size'),r.get('cache_gb')) for r in rs]
++  assert len(set(identities))==len(identities)
++  families[family]=rs
++  csvout(out/(family+'-runs.csv'),[{k:v for k,v in r.items() if not isinstance(v,(dict,list))} for r in rs]);dump(out/(family+'-runs.json'),rs)
++ # Cohort/capacity compatibility within compared policies.
++ cohorts={}
++ for fam in families:
++  for r in families[fam]:
++   group=(fam,r.get('workload') if fam=='task1' else r.get('mixture',r.get('mode')),r.get('seed'),r.get('block_size'),r.get('cache_gb'),r.get('cache_ratio'))
++   identity=(r['workload_sha256'],r['trace_sha256'],r['prompt_tokens'],r['requests'],r['virtual_cache_bytes'],frozenset((q['request_id'],q['prompt_tokens']) for q in req[r['raw_directory']]))
++   assert cohorts.setdefault(group,identity)==identity
++ # Matched first-turn cohorts across M2 modes; exact trace/tokenization equality.
++ for seed in sorted({r['seed'] for r in families['m2']}):
++  prep=a.m2/'prepared'/f'seed-{seed}'
++  x=json.loads((prep/'single/workload.json').read_text());y=json.loads((prep/'multi/workload.json').read_text())
++  assert [c['id'] for c in x['conversations']]==[c['id'] for c in y['conversations']]
++  assert [c['turns'][0] for c in x['conversations']]==[c['turns'][0] for c in y['conversations']]
++ # Repeated-seed summaries, not confidence intervals.
++ groups=defaultdict(list)
++ for r in families['m2']:groups[(r['mode'],r['cache_gb'],r['block_size'],r['policy'])].append(r)
++ m2=[]
++ for key,rs in sorted(groups.items()):
++  vals=[r['token_weighted_shared_fraction'] for r in rs]
++  m2.append(dict(zip(['mode','cache_gb','block_size','policy'],key),mean=statistics.mean(vals),sd=statistics.stdev(vals) if len(vals)>1 else None,n=len(vals),seeds=sorted(r['seed'] for r in rs)))
++ dump(out/'m2-means.json',m2);csvout(out/'m2-means.csv',m2)
++ tgroups=defaultdict(list)
++ for r in families['task1']:tgroups[(r['workload'],r['policy'])].append(r)
++ t1=[]
++ for (label,policy),rs in tgroups.items():
++  vals=[r['token_weighted_shared_fraction'] for r in rs]
++  t1.append({'workload':label,'policy':policy,'mean':statistics.mean(vals),'sd':statistics.stdev(vals) if len(vals)>1 else None,'n':len(vals)})
++ winners=[]
++ for label in LABELS:
++  rs=sorted([r for r in t1 if r['workload']==label],key=lambda x:-x['mean'])
++  winners.append({'workload':label,'highest_observed':','.join(r['policy'] for r in rs if abs(r['mean']-rs[0]['mean'])<1e-12),'gap_to_second_pp':100*(rs[0]['mean']-rs[1]['mean']),'tie':abs(rs[0]['mean']-rs[1]['mean'])<1e-12})
++ dump(out/'task1-means.json',t1);csvout(out/'task1-means.csv',t1);csvout(out/'task1-observed-best.csv',winners)
++ fig,ax=plt.subplots(figsize=(10.6,3.5));xx=np.arange(8)
++ for j,policy in enumerate(POLICIES[:3]):
++  rs=[next(r for r in t1 if r['workload']==l and r['policy']==policy) for l in LABELS]
++  ax.bar(xx+(j-1)*.24,[r['mean']*100 for r in rs],.23,yerr=[r['sd']*100 if r['sd'] is not None else np.nan for r in rs],color=COLORS[policy],label=policy.upper(),capsize=2)
++ ax.set_xticks(xx,LABELS,rotation=18,ha='right');ax.set_ylabel('Cached prompt tokens (%)');ax.legend(ncol=3,frameon=False);ax.grid(axis='y',alpha=.15);save('m3_task1')
++ # M2-A reuses M2-B .05 GiB block16 LRU settings.
++ fig,axs=plt.subplots(1,2,figsize=(8.6,3))
++ for j,cap in enumerate([.05,.1]):
++  rs=[next(r for r in m2 if r['mode']==mode and r['cache_gb']==cap and r['block_size']==16 and r['policy']=='lru') for mode in ['single','multi']]
++  axs[j].bar(['Single','Multi'],[r['mean']*100 for r in rs],yerr=[(r['sd'] or 0)*100 for r in rs],capsize=3,color=['#A5CDE0',COLORS['lru']]);axs[j].set_title(f'LRU · {cap:g} GiB · block 16');axs[j].set_ylabel('Cached prompt tokens (%)');axs[j].grid(axis='y',alpha=.15)
++ save('m2_single_multi')
++ fig,axs=plt.subplots(1,2,figsize=(10.4,3.4))
++ for mode,style in [('single','--'),('multi','-')]:
++  for policy in POLICIES[:3]:
++   rs=[next(r for r in m2 if r['mode']==mode and r['cache_gb']==cap and r['block_size']==16 and r['policy']==policy) for cap in [.05,.1]]
++   axs[0].errorbar([.05,.1],[r['mean']*100 for r in rs],yerr=[(r['sd'] or 0)*100 for r in rs],label=mode+' '+policy.upper(),color=COLORS[policy],linestyle=style,marker='o',capsize=2)
++   rs=[next(r for r in m2 if r['mode']==mode and r['cache_gb']==.05 and r['block_size']==b and r['policy']==policy) for b in [8,16,32]]
++   axs[1].errorbar([8,16,32],[r['mean']*100 for r in rs],yerr=[(r['sd'] or 0)*100 for r in rs],color=COLORS[policy],linestyle=style,marker='o',capsize=2)
++ axs[0].set_xlabel('Virtual cache (GiB), block 16');axs[1].set_xlabel('Tokens/block, 0.05 GiB');axs[0].set_xticks([.05,.1]);axs[1].set_xticks([8,16,32]);axs[0].set_ylabel('Cached prompt tokens (%)');fig.legend(*axs[0].get_legend_handles_labels(),loc='upper center',bbox_to_anchor=(.5,1.22),fontsize=13,ncol=3,frameon=False);axs[1].grid(alpha=.15);axs[0].grid(alpha=.15);save('m2_sensitivity')
++ def cdf(values,ax,label,color):
++  v=np.sort(values);ax.step(v,np.arange(1,len(v)+1)/len(v),where='post',label=label,color=color)
++ refs={mode:next(r for r in families['m2'] if r['mode']==mode and r['cache_gb']==.05 and r['block_size']==16 and r['policy']=='lru' and r['seed']==0) for mode in ['single','multi']}
++ stats={}
++ for kind,field,xlabel in [('request','shared_fraction','Per-request cached fraction'),('blocks','hits','Hits per logical full prefix block'),('gaps','reuse_gap_s','Hit-associated reuse gap (seconds)')]:
++  fig,ax=plt.subplots(figsize=(6.3,3.3))
++  for mode,color in [('single','#DE8A29'),('multi','#167DAD')]:
++   r=refs[mode];d=Path(r['raw_directory']);qs=req[r['raw_directory']] if kind=='request' else readcsv(d/('block_hits.csv' if kind=='blocks' else 'reuse_gaps.csv'))
++   values=[float(q[field]) for q in qs];cdf(values,ax,mode,color);stats.setdefault(mode,{})[kind]={'n':len(values),'median':statistics.median(values) if values else None,'p95':quant(values,95)}
++  if kind!='request':ax.set_xscale('symlog',linthresh=1 if kind=='blocks' else .001)
++  ax.set_xlabel(xlabel);ax.set_ylabel('Empirical CDF');ax.legend(frameon=False);ax.grid(alpha=.15);save('m2_cdf_'+kind)
++ dump(out/'m2-cdf-statistics.json',stats)
++ planned={mode:prompt_recurrence(a.m2/'prepared'/'seed-0'/mode) for mode in ['single','multi']}
++ dump(out/'m2-planned-prompt-recurrence.json',planned)
++ fig,ax=plt.subplots(figsize=(6.3,3.3))
++ for mode,color in [('single','#94A3B8'),('multi','#167DAD')]:
++  cdf(planned[mode]['planned_recurrence_gaps_s'],ax,mode,color)
++ ax.set_xlabel('Gap between planned prompt recurrences (s)');ax.set_ylabel('Empirical CDF');ax.set_title('Prompt-only recurrence · no cache/availability model',fontsize=12);ax.legend(frameon=False);ax.grid(alpha=.15);save('m2_planned_prompt_recurrence')
++ # Heterogeneous request/block/gap distributions; seed0 LRU only.
++ for kind,field,xlabel in [('request','shared_fraction','Per-request cached fraction'),('blocks','hits','Hits per logical full prefix block'),('gaps','reuse_gap_s','Hit-associated reuse gap (seconds)')]:
++  fig,ax=plt.subplots(figsize=(6.3,3.3))
++  for label,color in zip(['chat','agent','coding-agent','quality'],['#167DAD','#DE8A29','#7256A8','#15977B']):
++   r=next(r for r in families['task1'] if r['workload']==label and r['policy']=='lru' and r['seed']==0);d=Path(r['raw_directory']);qs=req[r['raw_directory']] if kind=='request' else readcsv(d/('block_hits.csv' if kind=='blocks' else 'reuse_gaps.csv'));cdf([float(q[field]) for q in qs],ax,label,color)
++  if kind!='request':ax.set_xscale('symlog',linthresh=1 if kind=='blocks' else .001)
++  ax.set_xlabel(xlabel);ax.set_ylabel('Empirical CDF');ax.legend(frameon=False,ncol=2,fontsize=13);ax.grid(alpha=.15);save('m3_cdf_'+kind)
++ # Complete source-specific CDF supplement: all eight sources, seed0, all baselines.
++ supplement=out/'task1_by_source';supplement.mkdir(exist_ok=True)
++ for label in LABELS:
++  for kind,field,xlabel in [('request','shared_fraction','Per-request cached fraction'),('blocks','hits','Hits per logical full prefix block'),('gaps','reuse_gap_s','Hit-associated reuse gap (seconds)')]:
++   fig,ax=plt.subplots(figsize=(6.3,3.3))
++   for policy in POLICIES[:3]:
++    r=next(r for r in families['task1'] if r['workload']==label and r['policy']==policy and r['seed']==0);d=Path(r['raw_directory'])
++    population=req[r['raw_directory']] if kind=='request' else readcsv(d/('block_hits.csv' if kind=='blocks' else 'reuse_gaps.csv'))
++    cdf([float(q[field]) for q in population],ax,policy.upper(),COLORS[policy])
++   if kind!='request':ax.set_xscale('symlog',linthresh=1 if kind=='blocks' else .001)
++   ax.set_xlabel(xlabel);ax.set_ylabel('Empirical CDF');ax.set_title(label+' · seed0',fontsize=13);ax.legend(frameon=False,fontsize=13);ax.grid(alpha=.15);save('task1_by_source/'+label+'-'+kind)
++ # Complete mixed experiments are required; no documentary values substituted.
++ mixed=families['mixed']
++ if len(mixed)<16 and a.allow_incomplete:
++  dump(out/'validation.json',{'incomplete':True,'checked_runs':checked,'totals':{k:{'runs':len(v),'requests':sum(r['requests'] for r in v),'failures':sum(r['failed_requests'] for r in v)} for k,v in families.items()},'input_sha256':input_hashes})
++  print('PREVIEW ONLY: mixed evaluation incomplete; no final mixed figures or conclusions generated.')
++  return
++ assert len(mixed)>=16
++ fig,axs=plt.subplots(1,2,figsize=(10.8,3.6),sharey=True);mixed_best=[];composition=[];per=[]
++ for ax,mixture in zip(axs,['skewed','equal-token']):
++  rs=[next(r for r in mixed if r['mixture']==mixture and r['policy']==p) for p in POLICIES]
++  ax.bar(np.arange(8),[100*r['token_weighted_shared_fraction'] for r in rs],color=[COLORS[p] for p in POLICIES]);ax.set_xticks(np.arange(8),[p.upper() for p in POLICIES],rotation=45,ha='right');ax.set_title(mixture);ax.grid(axis='y',alpha=.15)
++  for i,r in enumerate(rs):ax.text(i,100*r['token_weighted_shared_fraction']+.6,f"{100*r['token_weighted_shared_fraction']:.1f}",ha='center',fontsize=12)
++  best=max(rs,key=lambda r:r['token_weighted_shared_fraction']);baseline=max(rs[:3],key=lambda r:r['token_weighted_shared_fraction']);new=best['token_weighted_shared_fraction'];base=baseline['token_weighted_shared_fraction']
++  mixed_best.append({'mixture':mixture,'best_observed':best['policy'],'strongest_baseline':baseline['policy'],'best_fraction':new,'baseline_fraction':base,'gain_pp':100*(new-base),'relative_gain_percent':100*(new-base)/base if base else None,'n':1,'sd':None})
++  q=req[rs[0]['raw_directory']];total=sum(x['prompt_tokens'] for x in q)
++  for label in LABELS:
++   sub=[x for x in q if x['workload']==label];composition.append({'mixture':mixture,'workload':label,'requests':len(sub),'request_share':len(sub)/len(q),'prompt_tokens':sum(x['prompt_tokens'] for x in sub),'token_share':sum(x['prompt_tokens'] for x in sub)/total})
++  for r in rs:
++   for label,v in r['by_workload'].items():per.append({'mixture':mixture,'policy':r['policy'],'workload':label,**v})
++ axs[0].set_ylabel('Cached prompt tokens (%)');save('mixed_overall');dump(out/'mixed-best.json',mixed_best);csvout(out/'mixed-best.csv',mixed_best);csvout(out/'mixed-composition.csv',composition);csvout(out/'mixed-by-workload.csv',per)
++ fig,axs=plt.subplots(1,2,figsize=(10.6,3.7))
++ for ax,mixture in zip(axs,['skewed','equal-token']):
++  mat=np.array([[100*next(v['token_weighted_shared_fraction'] for v in per if v['mixture']==mixture and v['policy']==p and v['workload']==l) for l in LABELS] for p in POLICIES]);im=ax.imshow(mat,vmin=0,vmax=100,cmap='YlGnBu',aspect='auto');ax.set_xticks(np.arange(8),LABELS,rotation=45,ha='right',fontsize=13);ax.set_yticks(np.arange(8),[p.upper() for p in POLICIES],fontsize=13);ax.set_title(mixture)
++ fig.colorbar(im,ax=axs.ravel().tolist(),label='Cached prompt tokens (%)',fraction=.025,pad=.03);plt.savefig(out/'mixed_by_workload.pdf',bbox_inches='tight');plt.savefig(out/'mixed_by_workload.png',bbox_inches='tight');plt.close()
++ fig,axs=plt.subplots(1,2,figsize=(9,3.1),sharey=True)
++ for ax,kind in zip(axs,['request_share','token_share']):
++  bottom=np.zeros(2)
++  for label,c in zip(LABELS,plt.cm.tab10.colors):
++   vals=[100*next(r[kind] for r in composition if r['mixture']==m and r['workload']==label) for m in ['skewed','equal-token']];ax.bar(['Skewed','Equal-token'],vals,bottom=bottom,label=label,color=c);bottom+=vals
++  ax.set_title('Requests' if kind=='request_share' else 'Prompt tokens');ax.set_ylabel('Composition (%)')
++ axs[1].legend(bbox_to_anchor=(1.01,1),frameon=False,fontsize=13);save('mixed_composition')
++ dump(out/'validation.json',{'checked_runs':checked,'totals':{k:{'runs':len(v),'requests':sum(r['requests'] for r in v),'failures':sum(r['failed_requests'] for r in v)} for k,v in families.items()},'input_sha256':input_hashes,'mixed_uncertainty':'one seed per mixture; no SD/CI estimate','m2_controls':'original documented absolute-byte sweep, 3 seeds','eviction_counts':'mixed: opt-in successful allocator-eviction counter; M2/old Task1 unavailable (null), never inferred from misses'})
++ print(json.dumps({'totals':{k:len(v) for k,v in families.items()},'mixed_best':mixed_best}))
++
++if __name__=='__main__':main()
+diff --git a/tools/comp536_diagrams.py b/tools/comp536_diagrams.py
+new file mode 100644
+index 0000000000..7e1dbb068b
+--- /dev/null
++++ b/tools/comp536_diagrams.py
+@@ -0,0 +1,34 @@
++"""Source-based vector diagrams, independent of benchmark execution."""
++from pathlib import Path
++import argparse
++import matplotlib
++matplotlib.use('Agg')
++import matplotlib.pyplot as plt
++from matplotlib.patches import FancyBboxPatch,Rectangle
++p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);a=p.parse_args();a.output.mkdir(parents=True,exist_ok=True)
++plt.rcParams.update({'font.family':'DejaVu Sans','font.size':11,'pdf.fonttype':42,'svg.fonttype':'none'})
++def box(ax,x,y,w,h,text,fc='#E8F2F8',size=11):
++ ax.add_patch(FancyBboxPatch((x,y),w,h,boxstyle='round,pad=.04',fc=fc,ec='#167DAD',lw=1));ax.text(x+w/2,y+h/2,text,ha='center',va='center',fontsize=size)
++def arrow(ax,x,y,xx,yy):ax.annotate('',xy=(xx,yy),xytext=(x,y),arrowprops={'arrowstyle':'->','color':'#167DAD','lw':1.3})
++def save(fig,name):
++ fig.tight_layout()
++ for ext in ['pdf','svg','png']:fig.savefig(a.output/(name+'.'+ext),bbox_inches='tight',dpi=320)
++ plt.close(fig)
++fig,ax=plt.subplots(figsize=(7.2,2.8));ax.set_xlim(0,12);ax.set_ylim(0,3.3);ax.axis('off')
++for x,t in [(0.05,'HTTP API +\nclient replay'),(2.5,'v0 engine /\nscheduler'),(5.05,'Virtual blocks /\nevictor')]:box(ax,x,2.1,2.15,.7,t,size=10)
++arrow(ax,2.2,2.45,2.45,2.45);arrow(ax,4.65,2.45,5,2.45)
++box(ax,8,2.4,3.6,.62,'Original: GPU model /\nreal KV tensors','#F1EDE8',10);box(ax,8,1.45,3.6,.62,'Simulator: trace tokens /\nno model weights','#DEF3E8',10);arrow(ax,7.22,2.45,7.9,2.7);arrow(ax,7.22,2.4,7.9,1.76)
++ax.text(.05,1.5,'Identical leading prefix; different suffix',fontsize=10,color='#167DAD')
++for row,label in enumerate(['Request A','Request B']):
++ y=.75-row*.62;ax.text(.05,y+.16,label,fontsize=10)
++ for j,word in enumerate(['P₀','P₁', 'A₂' if row==0 else 'B₂']):
++  x=1.55+j*1.05;box(ax,x,y,.9,.4,word,'#D1E8F3' if j<2 else '#F6DCBF',10)
++ ax.text(5,y+.1,'P₁ chains P₀',fontsize=10)
++ax.text(8.05,.65,'Retained: batching, refcounts,\nprefix lookup and completion.',fontsize=10)
++save(fig,'system_prefix')
++fig,ax=plt.subplots(figsize=(7.2,2.7));ax.set_xlim(0,12);ax.set_ylim(0,3);ax.axis('off')
++texts=['Normalize / filter','Template /\ntokenize','Assign arrivals','Causal HTTP\nreplay','Schedule /\nprefix lookup','Allocate / evict','Trace prefill +\ndecode','Validate / export']
++for i,t in enumerate(texts):
++ x=.1+i%4*3;y=1.95-i//4*1.55;box(ax,x,y,2.6,.75,t,size=10)
++ if i%4<3:arrow(ax,x+2.62,y+.37,x+2.95,y+.37)
++arrow(ax,10.35,1.92,1.4,1.2);save(fig,'workflow')
+diff --git a/tools/comp536_prompt_recurrence.py b/tools/comp536_prompt_recurrence.py
+new file mode 100644
+index 0000000000..28603d01e7
+--- /dev/null
++++ b/tools/comp536_prompt_recurrence.py
+@@ -0,0 +1,41 @@
++"""Policy-independent *planned prompt* recurrence, not cache-hit availability.
++
++Prompt blocks only: ignores decode-produced blocks, actual completion time,
++capacity and causality delays. It is not an infinite-cache serving bound.
++"""
++import hashlib
++import json
++import struct
++from pathlib import Path
++
++
++def analyze(prepared: Path, block_size: int = 16):
++    workload = json.loads((prepared / 'workload.json').read_text())
++    traces = {e['request_id']: e for e in
++              (json.loads(line) for line in
++               (prepared / 'trace.jsonl').read_text().splitlines())}
++    turns = sorted((t for c in workload['conversations'] for t in c['turns']),
++                   key=lambda t: (t['arrival_time_s'], t['request_id']))
++    last, gaps, repeated, total, prompt = {}, [], 0, 0, 0
++    for turn in turns:
++        key = 'chatcmpl-' + turn['request_id']
++        tokens = traces[key]['prompt_token_ids']
++        prompt += len(tokens)
++        digest = b''
++        for offset in range(0, len(tokens) - block_size + 1, block_size):
++            chunk = tokens[offset:offset + block_size]
++            digest = hashlib.sha256(digest + struct.pack(
++                f'!{len(chunk)}q', *chunk)).digest()
++            total += 1
++            if digest in last:
++                repeated += 1
++                gaps.append(turn['arrival_time_s'] - last[digest])
++            last[digest] = turn['arrival_time_s']
++    return {'block_size': block_size, 'requests': len(turns),
++            'prompt_tokens': prompt, 'full_prompt_block_accesses': total,
++            'repeated_prompt_block_accesses': repeated,
++            'unique_prompt_blocks': len(last),
++            'planned_prompt_recurrence_fraction': repeated * block_size / prompt,
++            'planned_recurrence_gaps_s': gaps,
++            'definition': 'prior full prompt block seen at a preceding planned arrival',
++            'limitations': 'prompt-only; no decode blocks, capacity, availability, actual dispatch or completion; not a serving-cache upper bound'}
+diff --git a/tools/comp536_counting/sitecustomize.py b/tools/comp536_counting/sitecustomize.py
+new file mode 100644
+index 0000000000..97b7c667d6
+--- /dev/null
++++ b/tools/comp536_counting/sitecustomize.py
+@@ -0,0 +1,38 @@
++"""Opt-in allocator counter for isolated COMP536 experiment subprocesses.
++
++Activated only by VLLM_SIM_EVICTION_COUNTS_PATH and this directory in
++PYTHONPATH. It counts successful unused-block eviction allocations without
++changing the allocator return value, victim order or reference counts.
++No model weights are loaded by this hook. The normal API shutdown flushes
++an atomic JSON counter; a missing file means unavailable, never zero.
++"""
++import atexit
++import json
++import os
++from pathlib import Path
++
++path = os.getenv('VLLM_SIM_EVICTION_COUNTS_PATH')
++if path:
++    from vllm.core.block.prefix_caching_block import PrefixCachingBlockAllocator
++
++    original = PrefixCachingBlockAllocator._maybe_allocate_evicted_block_id
++    counts = {'cache_evictions': 0,
++              'definition': 'successful evictor allocations of unused cached blocks',
++              'measurement': 'opt-in allocator wrapper; not inferred from misses'}
++
++    def counted(self):
++        result = original(self)
++        if result is not None:
++            counts['cache_evictions'] += 1
++        return result
++
++    PrefixCachingBlockAllocator._maybe_allocate_evicted_block_id = counted
++
++    def flush():
++        destination = Path(path)
++        destination.parent.mkdir(parents=True, exist_ok=True)
++        temporary = destination.with_suffix('.tmp')
++        temporary.write_text(json.dumps(counts, indent=2) + '\n')
++        temporary.replace(destination)
++
++    atexit.register(flush)

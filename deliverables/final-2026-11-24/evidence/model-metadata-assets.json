@@ -1,0 +1,62 @@
+[
+  {
+    "file": "hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/config.json",
+    "bytes": 659,
+    "sha256": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45"
+  },
+  {
+    "file": "hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/generation_config.json",
+    "bytes": 242,
+    "sha256": "e558847a8b4402616f1273797b015104dc266fe4b520056fca88823ba8f8ebe6"
+  },
+  {
+    "file": "hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/merges.txt",
+    "bytes": 1671839,
+    "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+  },
+  {
+    "file": "hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/tokenizer.json",
+    "bytes": 7031645,
+    "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+  },
+  {
+    "file": "hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/tokenizer_config.json",
+    "bytes": 7305,
+    "sha256": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+  },
+  {
+    "file": "hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/vocab.json",
+    "bytes": 2776833,
+    "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+  },
+  {
+    "file": "hub/models--unsloth--Llama-3.2-1B-Instruct/snapshots/5a8abab4a5d6f164389b1079fb721cfab8d7126c/chat_template.jinja",
+    "bytes": 3827,
+    "sha256": "5816fce10444e03c2e9ee1ef8a4a1ea61ae7e69e438613f3b17b69d0426223a4"
+  },
+  {
+    "file": "hub/models--unsloth--Llama-3.2-1B-Instruct/snapshots/5a8abab4a5d6f164389b1079fb721cfab8d7126c/config.json",
+    "bytes": 894,
+    "sha256": "dfb67fd8afe73a1c75245824ef9d64a6ba8983025447e3bf76aa1ea57ee46152"
+  },
+  {
+    "file": "hub/models--unsloth--Llama-3.2-1B-Instruct/snapshots/5a8abab4a5d6f164389b1079fb721cfab8d7126c/generation_config.json",
+    "bytes": 239,
+    "sha256": "6d4f979915331212d7672c68b22a4ddad9e21ed8126cf2bd1ea6b2b88f595c1c"
+  },
+  {
+    "file": "hub/models--unsloth--Llama-3.2-1B-Instruct/snapshots/5a8abab4a5d6f164389b1079fb721cfab8d7126c/special_tokens_map.json",
+    "bytes": 454,
+    "sha256": "94e708c3f5e64acf85bbe5ad01467a1248faadb73e83b41793087ecced586e8f"
+  },
+  {
+    "file": "hub/models--unsloth--Llama-3.2-1B-Instruct/snapshots/5a8abab4a5d6f164389b1079fb721cfab8d7126c/tokenizer.json",
+    "bytes": 17209920,
+    "sha256": "6b9e4e7fb171f92fd137b777cc2714bf87d11576700a1dcd7a399e7bbe39537b"
+  },
+  {
+    "file": "hub/models--unsloth--Llama-3.2-1B-Instruct/snapshots/5a8abab4a5d6f164389b1079fb721cfab8d7126c/tokenizer_config.json",
+    "bytes": 54669,
+    "sha256": "9ddd255c19fe319c8d4e891163540382e9fbda99f394674f2a929efc47d57458"
+  }
+]

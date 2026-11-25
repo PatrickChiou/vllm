@@ -1,0 +1,8 @@
+{
+  "branch": "comp536-sharing",
+  "head": "3d501ab40fb9a6b1bed5688d1db338b21f4a185f",
+  "shallow": false,
+  "assignment_baseline_is_ancestor": true,
+  "remote_main": "unrelated upstream development, not project integration",
+  "fetched_history": "Full original objects fetched without reset, rebase, commit or push."
+}
