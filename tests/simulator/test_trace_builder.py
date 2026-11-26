@@ -39,6 +39,23 @@ def test_next_turn_prompt_extends_previous_turn_and_reply(model):
     assert builder.eos_token_id not in first["output_token_ids"]
 
 
+def test_reply_omits_tokens_that_stop_generation():
+    builder = TraceBuilder(QWEN)
+    end = builder.tokenizer.convert_tokens_to_ids("<|endoftext|>")
+    messages = [
+        {"role": "user", "content": "ignore"},
+        {"role": "assistant", "content": "Skipped 1 messages<|endoftext|>"},
+    ]
+
+    reply = builder.reply_token_ids(messages)
+
+    assert end not in reply
+    assert builder.eos_token_id not in reply
+    assert builder.tokenizer.decode(reply,
+                                    skip_special_tokens=True) == (
+                                        "Skipped 1 messages")
+
+
 def test_reply_matches_template_rendering_not_raw_text():
     # The Llama 3 template trims message content, so the reply the model
     # must have generated is the trimmed text.

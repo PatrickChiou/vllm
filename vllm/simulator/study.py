@@ -31,7 +31,9 @@ def server(workload: dict, trace_path: Path, directory: Path, *,
            block_size: int, cache_gb: float, policy: str,
            prefill_ms: float, decode_ms: float, max_num_seqs: int,
            startup_timeout: float, num_gpu_blocks: Optional[int] = None,
-           hold_s: Optional[float] = None, hold_budget: Optional[float] = None):
+           hold_s: Optional[float] = None, hold_budget: Optional[float] = None,
+           rfifo_window: Optional[int] = None,
+           rfifo_threshold: Optional[float] = None):
     """Start a simulator server; ``num_gpu_blocks`` overrides ``cache_gb``."""
     directory.mkdir(parents=True, exist_ok=False)
     with socket.socket() as sock:
@@ -66,6 +68,10 @@ def server(workload: dict, trace_path: Path, directory: Path, *,
         command.extend(["--sim-tlru-hold-s", str(hold_s)])
     if hold_budget is not None:
         command.extend(["--sim-tlru-hold-budget", str(hold_budget)])
+    if rfifo_window is not None:
+        command.extend(["--sim-rfifo-window", str(rfifo_window)])
+    if rfifo_threshold is not None:
+        command.extend(["--sim-rfifo-threshold", str(rfifo_threshold)])
     env = dict(os.environ, VLLM_USE_V1="0", TOKENIZERS_PARALLELISM="false")
     base_url = f"http://127.0.0.1:{port}"
     with (directory / "server.log").open("w") as log:

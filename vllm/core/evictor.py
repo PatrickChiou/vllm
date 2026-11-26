@@ -820,7 +820,14 @@ class RFIFOEvictor(Evictor):
     _LOW = "low"
     _HIGH = "high"
 
-    def __init__(self):
+    def __init__(self, window: Optional[int] = None,
+                 threshold: Optional[float] = None):
+        self.window = self.WINDOW if window is None else window
+        self.threshold = self.THRESHOLD if threshold is None else threshold
+        if self.window < 1:
+            raise ValueError("RFIFO window must be >= 1")
+        if not 0 <= self.threshold <= 1:
+            raise ValueError("RFIFO threshold must be in [0, 1]")
         self.free_table: Dict[int, BlockMetaData] = {}
         self._workloads: Dict[int, Set[str]] = {}
         self._version: Dict[int, int] = {}
@@ -844,8 +851,8 @@ class RFIFOEvictor(Evictor):
     def _admits(self, labels: Set[str]) -> bool:
         for label in labels:
             window = self._rates.get(label)
-            if (window is not None and len(window) >= self.WINDOW
-                    and sum(window) / len(window) >= self.THRESHOLD):
+            if (window is not None and len(window) >= self.window
+                    and sum(window) / len(window) >= self.threshold):
                 return True
         return False
 
@@ -854,7 +861,7 @@ class RFIFOEvictor(Evictor):
             return
         self._resolved.add(block_id)
         for label in self._labels[block_id]:
-            window = self._rates.setdefault(label, deque(maxlen=self.WINDOW))
+            window = self._rates.setdefault(label, deque(maxlen=self.window))
             window.append(hit)
 
     def _clear_residency(self, block_id: int) -> None:
@@ -966,9 +973,11 @@ class RFIFOEvictor(Evictor):
         return len(self.free_table)
 
 
-def make_evictor(eviction_policy: EvictionPolicy, 
-                 hold_s: Optional[float] = None, 
-                 hold_budget: Optional[float] = None) -> Evictor:
+def make_evictor(eviction_policy: EvictionPolicy,
+                 hold_s: Optional[float] = None,
+                 hold_budget: Optional[float] = None,
+                 rfifo_window: Optional[int] = None,
+                 rfifo_threshold: Optional[float] = None) -> Evictor:
     if eviction_policy == EvictionPolicy.LRU:
         return LRUEvictor()
     elif eviction_policy in (EvictionPolicy.LFU, EvictionPolicy.FIFO):
@@ -986,6 +995,6 @@ def make_evictor(eviction_policy: EvictionPolicy,
             raise ValueError("HLRU requires hold_s and hold_budget")
         return HLRUEvictor(hold_s, hold_budget)
     elif eviction_policy == EvictionPolicy.RFIFO:
-        return RFIFOEvictor()
+        return RFIFOEvictor(rfifo_window, rfifo_threshold)
     else:
         raise ValueError(f"Unknown cache eviction policy: {eviction_policy}")

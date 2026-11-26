@@ -213,6 +213,8 @@ class EngineArgs:
     sim_tlru_hold_s: float = 1.0
     # sim_tlru_hold_budget: float = 0.5
     sim_tlru_hold_budget: float = 1.0
+    sim_rfifo_window: int = 100
+    sim_rfifo_threshold: float = 0.05
 
     def __post_init__(self):
         if not self.tokenizer:
@@ -1036,6 +1038,14 @@ class EngineArgs:
                                help="Fraction of the free table TLRU and HLRU "
                                "may protect. LRU, LFU, FIFO, TFIFO, HFIFO, and "
                                "RFIFO ignore it.")
+        sim_group.add_argument("--sim-rfifo-window", type=int,
+                               default=EngineArgs.sim_rfifo_window,
+                               help="Resolved blocks RFIFO remembers per label. "
+                               "Other policies ignore it.")
+        sim_group.add_argument("--sim-rfifo-threshold", type=float,
+                               default=EngineArgs.sim_rfifo_threshold,
+                               help="Hit rate at which RFIFO admits a label. "
+                               "Other policies ignore it.")
 
         return parser
 
@@ -1155,6 +1165,8 @@ class EngineArgs:
                                           if use_simulator else "lru"),
             hold_s=self.sim_tlru_hold_s,
             hold_budget=self.sim_tlru_hold_budget,
+            rfifo_window=self.sim_rfifo_window,
+            rfifo_threshold=self.sim_rfifo_threshold,
         )
         parallel_config = ParallelConfig(
             pipeline_parallel_size=self.pipeline_parallel_size,

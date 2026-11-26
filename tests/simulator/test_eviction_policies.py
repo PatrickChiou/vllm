@@ -316,6 +316,16 @@ def _resolve_rfifo(evictor, label, hits, misses, start_id):
         assert evictor.evict()[0] == block_id
 
 
+def test_rfifo_window_argument_admits_after_fewer_blocks():
+    evictor = make_evictor(EvictionPolicy.RFIFO, rfifo_window=4,
+                           rfifo_threshold=0.5)
+    _resolve_rfifo(evictor, "agent", hits=2, misses=2, start_id=1000)
+    _add(evictor, 1, 101, "agent", 1)
+    _add(evictor, 2, 102, "chat", 2)
+    assert evictor.evict()[0] == 2
+    assert evictor.evict()[0] == 1
+
+
 def test_rfifo_waits_for_a_full_window_before_protecting():
     evictor = make_evictor(EvictionPolicy.RFIFO)
     _resolve_rfifo(evictor, "agent", hits=50, misses=0, start_id=1000)

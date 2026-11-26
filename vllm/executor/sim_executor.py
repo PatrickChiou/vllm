@@ -110,6 +110,8 @@ class SimExecutor(ExecutorBase):
                 self.cache_config.prefix_cache_eviction_policy,
                 "hold_s": self.cache_config.hold_s,
                 "hold_budget": self.cache_config.hold_budget,
+                "rfifo_window": self.cache_config.rfifo_window,
+                "rfifo_threshold": self.cache_config.rfifo_threshold,
             })
             self.simulator.metrics.flush()
 

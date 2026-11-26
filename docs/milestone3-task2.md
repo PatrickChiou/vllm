@@ -103,7 +103,8 @@ been hit or evicted with no hit. Until that window is full, the label's new
 blocks stay in tier 0. After that, a hit rate of at least 5% puts new blocks
 of that label straight into tier 1. A lower rate leaves them in tier 0, which
 is emptied first. A later hit does not move a block that is already cached,
-and it does not change its serial.
+and it does not change its serial. The sweep below also runs windows of
+20, 100, and 500 and thresholds of 2%, 5%, and 20%.
 
 ## Run Task 2
 
@@ -278,31 +279,204 @@ Observations:
   not clear the tier-1 rule. Replay is about 8 minutes per policy on the
   skewed mix and about 2.5 minutes on the equal-token mix.
 
+## Hold and admission sweep
+
+The two mixes above use one hold (8 s, budget 1) and one RFIFO window
+(100 blocks, threshold 5%). This sweep varies both on five mixes. Each mix
+is replayed 25 times: LRU, LFU, FIFO, and TFIFO once; RFIFO at windows 20,
+100, and 500 and thresholds 0.02, 0.05, and 0.2; TLRU and HLRU at holds of
+3, 8, and 30 seconds and budgets 0.25 and 1. HFIFO stays at the two-mix
+result above. Cache ratio, block size, think time, request rate, seed, and
+concurrency match that run. All 125 replays finished with no failed
+requests, and no cache was clamped.
+
+The reported run is `experiments/m3-hold-grid3`. A smaller run,
+`experiments/m3-hold-grid2`, uses half of these limits. `coding-agent` stays
+at 12 on the protected and balanced mixes in both runs, because the next
+CC-Bench sessions exceed 32,768 tokens. Chat is read from `data/sharegpt.json`.
+Same exports as Task 1:
+
+```bash
+python -m vllm.simulator.hold_grid \
+  --output experiments/m3-hold-grid3 \
+  --revision "$MODEL_REVISION"
+```
+
+Every mix keeps a small background (chat 40, agent 30, coding-agent 6,
+quality 10, code 400, bailian-chat 40, bailian-coder 16, mooncake-agent 8)
+except where that mix raises the label. Mooncake's limit of 62 keeps 60
+requests; two scanned records exceed the context limit.
+
+| Mix | Requests | Prompt tokens | Cache blocks | What is large |
+| --- | ---: | ---: | --- | --- |
+| chat-heavy | 4,682 | 3,235,776 | 11,474 / 114,738 | `chat` 86.5% (limit 1200; `code` 600) |
+| protected-heavy | 1,958 | 2,040,836 | 7,289 / 72,888 | `bailian-coder` 28.6%, `bailian-chat` 24.9%, `agent` 22.7%, `coding-agent` 13.1% |
+| trace-heavy | 1,874 | 3,733,235 | 15,287 / 152,868 | `bailian-coder` 43.3%, `bailian-chat` 35.4%, `mooncake-agent` 12.9% |
+| template-heavy | 10,248 | 1,469,927 | 7,284 / 72,832 | `code` 36.0%, `quality` 35.1% |
+| balanced | 12,029 | 3,849,896 | 15,686 / 156,854 | 6.9–15.2% per label; `coding-agent` is the 6.9% |
+
+Plots:
+[chat-heavy](assets/m3-task2/hold_chat_heavy.png),
+[protected-heavy](assets/m3-task2/hold_protected_heavy.png),
+[trace-heavy](assets/m3-task2/hold_trace_heavy.png),
+[template-heavy](assets/m3-task2/hold_template_heavy.png),
+and [balanced](assets/m3-task2/hold_balanced.png).
+Values are token-weighted shared fractions, in percent. Bold is the best
+of that mix.
+
+| Setting | Chat | Protected | Trace | Template | Balanced |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| `lru` | 13.7 | 37.7 | 25.4 | 33.2 | 37.9 |
+| `lfu` | 12.3 | 30.1 | 27.7 | **47.6** | 37.3 |
+| `fifo` | 13.1 | 36.5 | 23.1 | 32.2 | 35.9 |
+| `tfifo` | 8.4 | 34.8 | 20.3 | 24.5 | 25.5 |
+| `rfifo-w20-t0.02` | 18.0 | 30.5 | 19.7 | 37.5 | 31.4 |
+| `rfifo-w20-t0.05` | 8.9 | 31.1 | 19.6 | 40.3 | 34.3 |
+| `rfifo-w20-t0.2` | 13.7 | 23.6 | 16.7 | 40.7 | 37.3 |
+| `rfifo-w100-t0.02` | 21.5 | 35.0 | 21.1 | 40.7 | 35.9 |
+| `rfifo-w100-t0.05` | 22.6 | 30.0 | 17.8 | 44.0 | 36.2 |
+| `rfifo-w100-t0.2` | 22.7 | 21.3 | 18.0 | 45.6 | 36.8 |
+| `rfifo-w500-t0.02` | 21.3 | 31.0 | 16.9 | 42.5 | 30.1 |
+| `rfifo-w500-t0.05` | **23.6** | 28.0 | 18.7 | 42.0 | 38.3 |
+| `rfifo-w500-t0.2` | 15.2 | 21.7 | 21.5 | 47.4 | 36.6 |
+| `tlru-h3-b0.25` | 13.1 | 37.5 | 25.3 | 33.6 | 37.9 |
+| `tlru-h3-b1` | 13.0 | 37.4 | 25.5 | 33.7 | 37.9 |
+| `tlru-h8-b0.25` | 12.6 | 37.7 | 25.5 | 33.6 | 37.9 |
+| `tlru-h8-b1` | 12.9 | 39.1 | 22.8 | 33.6 | 37.9 |
+| `tlru-h30-b0.25` | 12.8 | 37.6 | 25.4 | 32.5 | 38.0 |
+| `tlru-h30-b1` | 12.7 | 37.3 | 22.0 | 31.7 | 36.6 |
+| `hlru-h3-b0.25` | 13.3 | 37.6 | 25.4 | 33.6 | 37.8 |
+| `hlru-h3-b1` | 12.9 | 37.7 | 25.4 | 33.6 | 37.8 |
+| `hlru-h8-b0.25` | 13.2 | 39.1 | 26.3 | 33.4 | 37.8 |
+| `hlru-h8-b1` | 13.3 | **39.3** | 26.5 | 33.6 | 37.7 |
+| `hlru-h30-b0.25` | 13.2 | 36.2 | 27.7 | 39.6 | 40.0 |
+| `hlru-h30-b1` | 13.4 | 35.8 | **27.8** | 45.0 | **40.1** |
+
+`hlru-h30-b1` has the highest mean of the five scores, 32.4, and the
+smallest mean gap to the per-mix best, 3.3. Its worst gap is chat-heavy,
+10.2. `hlru-h30-b0.25` averages 31.3 (mean gap 4.3). LFU averages 31.0
+(mean gap 4.7). `rfifo-w100-t0.02` averages 30.8 and has the smallest worst
+gap in the sweep, 6.9. LRU averages 29.6 (mean gap 6.1). `tlru-h8-b0.25`
+averages 29.5 (mean gap 6.2). TFIFO averages 22.7 (mean gap 13.0).
+
+Selected per-label scores on the larger run. Share is that label's fraction
+of prompt tokens.
+
+| Mix | Label | Share | LRU | LFU | TFIFO | HLRU h8 b1 | HLRU h30 b1 | TLRU h8 b0.25 | RFIFO w500 t0.05 |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| chat-heavy | `chat` | 86.5 | 13.3 | 11.7 | 4.3 | 12.9 | 12.9 | 12.1 | 26.1 |
+| protected-heavy | `coding-agent` | 13.1 | 94.2 | 67.0 | 94.4 | 94.0 | 86.6 | 94.2 | 48.7 |
+| protected-heavy | `agent` | 22.7 | 61.3 | 42.0 | 65.8 | 61.5 | 53.5 | 60.8 | 56.7 |
+| protected-heavy | `bailian-coder` | 28.6 | 11.4 | 15.6 | 8.7 | 14.9 | 14.5 | 11.6 | 10.2 |
+| trace-heavy | `bailian-coder` | 43.3 | 20.8 | 24.4 | 20.1 | 22.6 | 24.6 | 20.8 | 19.0 |
+| trace-heavy | `mooncake-agent` | 12.9 | 24.2 | 28.5 | 1.5 | 26.2 | 28.5 | 24.2 | 19.5 |
+| template-heavy | `quality` | 35.1 | 35.7 | 76.1 | 12.4 | 35.7 | 68.7 | 35.6 | 79.2 |
+| template-heavy | `code` | 36.0 | 29.9 | 30.0 | 29.7 | 29.9 | 29.9 | 29.9 | 29.7 |
+| balanced | `quality` | 13.4 | 37.3 | 69.2 | 3.5 | 37.3 | 47.4 | 37.3 | 58.8 |
+| balanced | `chat` | 12.9 | 55.8 | 28.5 | 3.0 | 55.1 | 54.8 | 55.6 | 62.9 |
+| balanced | `coding-agent` | 6.9 | 86.6 | 74.4 | 87.7 | 85.4 | 86.9 | 86.6 | 50.6 |
+
+The smaller run has about half the tokens: chat-heavy 1,598,533,
+protected-heavy 1,164,767, trace-heavy 1,746,870, template-heavy 722,573,
+balanced 2,072,368. Cache blocks are 5,928, 3,853, 8,063, 3,880, and 8,323.
+`coding-agent` is 23.0% of protected tokens and 12.9% of balanced tokens.
+Scores below are from that run. A percent here and the same cell above are
+separate measurements: each cache is 10% of its own working set, and the
+protected and balanced mixes have different label shares.
+
+| Setting | Chat | Protected | Trace | Template | Balanced |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| `lru` | 11.0 | 43.2 | 17.2 | 30.0 | 38.6 |
+| `lfu` | 11.2 | 30.1 | **21.6** | **37.1** | 31.4 |
+| `hlru-h8-b0.25` | 11.0 | 43.6 | 19.6 | 30.0 | 39.5 |
+| `hlru-h30-b0.25` | 11.1 | 39.5 | 21.2 | 31.1 | 40.4 |
+| `hlru-h30-b1` | 11.3 | 31.3 | **21.6** | 34.7 | **40.5** |
+| `tlru-h8-b0.25` | 11.4 | 44.7 | 17.3 | 31.0 | 38.8 |
+| `tlru-h8-b1` | 11.3 | **45.7** | 14.2 | 29.9 | 39.0 |
+| `tlru-h30-b0.25` | 12.0 | 42.0 | 17.2 | 31.6 | 38.8 |
+| `tlru-h30-b1` | 11.9 | **45.7** | 14.4 | 27.5 | 33.8 |
+| `rfifo-w500-t0.02` | **21.1** | 29.5 | 11.4 | 34.5 | 25.2 |
+
+Observations:
+
+- On the larger run, HLRU hold 30 s and budget 1 is first on trace-heavy
+  (27.8) and balanced (40.1), and 45.0 on template-heavy, 2.6 behind LFU.
+  Protected-heavy is 35.8, 3.5 behind `hlru-h8-b1`. `coding-agent` there
+  falls from 94.0 at hold 8 to 86.6 at hold 30, and that label is 13.1% of
+  the tokens.
+- Hold 8 barely moves with the budget. HLRU hold 8 is 39.3 at budget 1 and
+  39.1 at budget 0.25 on protected-heavy, and 33.6 against 33.4 on
+  template-heavy. Hold 30 does move: template-heavy falls from 45.0 to 39.6
+  at budget 0.25, and `quality` falls from 68.7 to 53.2.
+- TLRU stays next to LRU. `tlru-h8-b0.25` averages 29.5 against LRU's 29.6.
+  Budget 1 at hold 8 or 30 raises protected-heavy to 39.1 and 37.3, and
+  drops trace-heavy to 22.8 and 22.0, because `mooncake-agent` falls from
+  24.2 to 1.4 and 1.2. Mooncake is a tier-0 label.
+- Chat-heavy moves under RFIFO. `chat` is 86.5% of tokens and is not a TLRU
+  label, so LRU, HLRU, and TLRU stay at 12.6–13.7. Window 500 and threshold
+  0.05 reaches 23.6, with `chat` at 26.1. Window 20 and threshold 0.05 stays
+  at 8.9.
+- LFU wins template-heavy through `quality` (76.1, against LRU 35.7). The
+  same count order puts protected-heavy at 30.1 (`coding-agent` 67.0,
+  `agent` 42.0). On trace-heavy LFU is 27.7, 0.1 behind HLRU hold 30
+  budget 1, from `bailian-coder` (24.4 vs LRU 20.8) and `mooncake-agent`
+  (28.5 vs 24.2).
+- RFIFO's window and threshold change which labels are admitted. On
+  protected-heavy, window 500 and threshold 0.05 puts `coding-agent` at 48.7
+  (LRU 94.2) and the mix at 28.0. Window 100 and threshold 0.02 keeps
+  `coding-agent` at 94.6 and the mix at 35.0. Window 100 and threshold 0.2
+  is the low end of that mix, 21.3. The window fills while the label's
+  blocks are still in tier 0, so an early miss streak leaves later blocks
+  in tier 0.
+- TFIFO is the low end on chat-heavy (8.4), trace-heavy (20.3),
+  template-heavy (24.5), and balanced (25.5). `chat` on chat-heavy is 4.3.
+  `code` stays near 30 on every mix and setting. The reused tokens are the
+  shared template.
+- On the smaller run the high region is budget 0.25. HLRU hold 8 and hold
+  30 at that budget both average 28.7 (mean gaps 4.5). TLRU hold 8 budget
+  0.25 averages 28.6 and scores 44.7 on protected-heavy. TLRU hold 30 budget
+  0.25 has the smallest worst gap among those rows, 9.1, at mean 28.3.
+  HLRU hold 30 budget 1 is first on balanced and tied with LFU on trace, and
+  scores 31.3 on protected-heavy, 14.4 behind TLRU, with `coding-agent` at
+  56.3. Doubling the other labels cuts that label from 23.0% to 13.1% of
+  protected tokens, so the hold-30 drop costs 3.5 points on the larger run.
+  Chat-heavy's RFIFO winner also moves, from window 500 threshold 0.02
+  (21.1) to window 500 threshold 0.05 (23.6).
+
 ## Limitations
 
 - Dataset limits from Task 1 still apply: missing agent system prompts, CC-Bench
   truncated at the context limit, synthetic trace outputs, and Mooncake's
   512-token hash blocks.
-- The cohort is the first eligible records, at the limits above, and one
-  arrival seed. Bailian and Mooncake are short windows, not their full traces.
+- The two-mix cohort is the first eligible records, at the limits in Run
+  Task 2, and one arrival seed. Bailian and Mooncake are short windows, not
+  their full traces. The sweep uses the same seed and the limits in the
+  sweep section.
 - TLRU compares `--hold-s` with wall-clock time. A prefix that waits longer
   than the hold is evicted with the one-shot tier. TFIFO does not use the
-  hold. At this arrival rate the median dispatch lag is about 150 s, far
-  past the 8 s hold.
+  hold. On the skewed mix the median dispatch lag is about 150 s, far past
+  the 8 s hold.
 - Tier 2 is "two labels," so the shared chat-template prefix is protected as a
   shared prefix even when the rest of a request is one-shot.
 - Text arrivals are Poisson at 100 requests/s with concurrency 8, which
   saturates the server the same way Task 1 does. Every policy sees the same
   requests.
+- The sweep cannot raise `coding-agent` past 12. The larger protected and
+  balanced mixes therefore give that label a smaller share than the
+  half-size run (13.1% and 6.9%, against 23.0% and 12.9%).
+- Shared fractions from the two sweep scales are separate measurements. Each
+  cache is 10% of that mix's working set, and the label shares differ.
 
 ## Validation
 
 ```bash
-python -m pytest tests/simulator/test_mix_workload.py tests/simulator/test_eviction_policies.py -q
+python -m pytest tests/simulator/test_mix_workload.py tests/simulator/test_eviction_policies.py tests/simulator/test_hold_grid.py -q
 ```
 
 The mix tests check unique retagged ids for chat and block traces, stable
-order and arrivals for a seed, and `cmpl-` trace ids. The policy tests check
+order and arrivals for a seed, and `cmpl-` trace ids. The hold-grid tests
+check five mixes, 25 settings, 125 runs, and a `coding-agent` limit of at
+most 12. The policy tests check
 that an expired multi-turn block goes before a fresh one, that the budget
 keeps the newest protected blocks, that a one-shot block goes before a
 protected one, that `CacheConfig` accepts `tlru`, `tfifo`, `hfifo`, `hlru`, and `rfifo`, and that

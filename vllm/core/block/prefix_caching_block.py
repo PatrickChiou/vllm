@@ -67,8 +67,10 @@ class PrefixCachingBlockAllocator(BlockAllocator):
         block_size: int,
         block_ids: Optional[Iterable[int]] = None,
         eviction_policy: EvictionPolicy = EvictionPolicy.LRU,
-        hold_s: Optional[float] = None, 
+        hold_s: Optional[float] = None,
         hold_budget: Optional[float] = None,
+        rfifo_window: Optional[int] = None,
+        rfifo_threshold: Optional[float] = None,
     ):
         if block_ids is None:
             block_ids = range(num_blocks)
@@ -107,7 +109,8 @@ class PrefixCachingBlockAllocator(BlockAllocator):
 
         # Evitor used to maintain how we want to handle those computed blocks
         # if we find memory pressure is high.
-        self.evictor: Evictor = make_evictor(eviction_policy, hold_s, hold_budget)
+        self.evictor: Evictor = make_evictor(
+            eviction_policy, hold_s, hold_budget, rfifo_window, rfifo_threshold)
 
         # We share the refcounter between allocators. This allows us to promote
         # blocks originally allocated in the hashless allocator to immutable

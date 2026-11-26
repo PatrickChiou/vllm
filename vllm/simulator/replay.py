@@ -33,7 +33,8 @@ def validate_response(payload: dict, turn: dict) -> dict:
 async def replay(workload: dict, base_url: str, output: Path, *,
                  concurrency: int = 256, time_scale: float = 1.0,
                  timeout: float = 300.0,
-                 api_key: Optional[str] = None) -> List[dict]:
+                 api_key: Optional[str] = None,
+                 progress_prefix: str = "") -> List[dict]:
     if concurrency <= 0 or timeout <= 0 or not math.isfinite(timeout):
         raise ValueError("concurrency and timeout must be positive")
     if time_scale < 0 or not math.isfinite(time_scale):
@@ -119,7 +120,8 @@ async def replay(workload: dict, base_url: str, output: Path, *,
                     stream.flush()
                     done += 1
                     if done % 100 == 0 or done == total:
-                        print(f"{done}/{total}", flush=True)
+                        label = f"{progress_prefix} " if progress_prefix else ""
+                        print(f"{label}{done}/{total}", flush=True)
 
             await asyncio.gather(*(conversation_replay(c)
                                    for c in workload["conversations"]))

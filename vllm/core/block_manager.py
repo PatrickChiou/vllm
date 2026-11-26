@@ -66,8 +66,10 @@ class SelfAttnBlockSpaceManager(BlockSpaceManager):
         sliding_window: Optional[int] = None,
         enable_caching: bool = False,
         eviction_policy: str = "lru",
-        hold_s: Optional[float] = None, 
-        hold_budget: Optional[float] = None
+        hold_s: Optional[float] = None,
+        hold_budget: Optional[float] = None,
+        rfifo_window: Optional[int] = None,
+        rfifo_threshold: Optional[float] = None,
     ) -> None:
         self.block_size = block_size
         self.num_total_gpu_blocks = num_gpu_blocks
@@ -99,8 +101,10 @@ class SelfAttnBlockSpaceManager(BlockSpaceManager):
             num_cpu_blocks=num_cpu_blocks,
             block_size=block_size,
             eviction_policy=eviction_policy,
-            hold_s=hold_s, 
+            hold_s=hold_s,
             hold_budget=hold_budget,
+            rfifo_window=rfifo_window,
+            rfifo_threshold=rfifo_threshold,
         )
 
         self.block_tables: Dict[SeqId, BlockTable] = {}

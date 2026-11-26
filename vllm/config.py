@@ -981,6 +981,8 @@ class CacheConfig:
         prefix_cache_eviction_policy: str = "lru",
         hold_s: Optional[float] = None,
         hold_budget: Optional[float] = None,
+        rfifo_window: Optional[int] = None,
+        rfifo_threshold: Optional[float] = None,
     ) -> None:
         self.block_size = block_size
         self.gpu_memory_utilization = gpu_memory_utilization
@@ -1007,10 +1009,17 @@ class CacheConfig:
         self.num_cpu_blocks: Optional[int] = None
         self.hold_s = hold_s
         self.hold_budget = hold_budget
+        self.rfifo_window = rfifo_window
+        self.rfifo_threshold = rfifo_threshold
         if hold_s is not None and hold_s < 0:
             raise ValueError("hold_s must be >= 0")
         if hold_budget is not None and not 0 <= hold_budget <= 1:
             raise ValueError("hold_budget must be in [0, 1]")
+        if rfifo_window is not None and rfifo_window < 1:
+            raise ValueError("rfifo_window must be >= 1")
+        if (rfifo_threshold is not None
+                and not 0 <= rfifo_threshold <= 1):
+            raise ValueError("rfifo_threshold must be in [0, 1]")
 
     def metrics_info(self):
         # convert cache_config to dict(key: str, value: str) for prometheus

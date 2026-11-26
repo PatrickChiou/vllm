@@ -109,13 +109,33 @@ class TraceBuilder:
         if rendered[:len(prompt)] == prompt:
             reply = rendered[len(prompt):]
             if eos in reply:
-                return reply[:reply.index(eos)]
-        # The template does not render the reply after the generation prompt
-        # (or ends it without EOS); fall back to tokenizing the text alone.
-        content = messages[-1].get("content") or ""
-        if not isinstance(content, str):
-            raise ValueError("Only string message content is supported.")
-        return self.tokenizer(content, add_special_tokens=False).input_ids
+                reply = reply[:reply.index(eos)]
+        else:
+            # The template does not render the reply after the generation
+            # prompt (or ends it without EOS); fall back to the text alone.
+            content = messages[-1].get("content") or ""
+            if not isinstance(content, str):
+                raise ValueError("Only string message content is supported.")
+            reply = self.tokenizer(content, add_special_tokens=False).input_ids
+        # A stop token inside the reply ends the request. The replay then
+        # appends the model EOS, so leaving one in the recorded tokens makes
+        # the completion one token shorter than the workload expects.
+        stop = self.stop_token_ids()
+        return [token for token in reply if token not in stop]
+
+    def stop_token_ids(self) -> set:
+        """Token ids that end a generation, including generation_config."""
+        ids = set()
+        eos = self.eos_token_id
+        if isinstance(eos, int):
+            ids.add(eos)
+        extra = self.model_config.try_get_generation_config().get(
+            "eos_token_id")
+        if isinstance(extra, int):
+            ids.add(extra)
+        elif isinstance(extra, (list, tuple, set)):
+            ids.update(token for token in extra if isinstance(token, int))
+        return ids
 
     def chat_entries(
         self,

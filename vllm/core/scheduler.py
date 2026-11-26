@@ -361,7 +361,9 @@ class Scheduler:
             enable_caching=self.cache_config.enable_prefix_caching,
             **({"eviction_policy": self.cache_config.prefix_cache_eviction_policy,
                 "hold_s": self.cache_config.hold_s,
-                "hold_budget": self.cache_config.hold_budget,}
+                "hold_budget": self.cache_config.hold_budget,
+                "rfifo_window": self.cache_config.rfifo_window,
+                "rfifo_threshold": self.cache_config.rfifo_threshold,}
                if version == "selfattn" else {}))
 
         # Sequence groups in the WAITING state.
