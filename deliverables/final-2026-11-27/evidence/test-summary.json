@@ -1,0 +1,14 @@
+{
+  "source_commit": "ad1d8265420c2515882300710d1cdf5d375515ba",
+  "command": "python -m pytest tests/simulator -q -p no:cacheprovider",
+  "passed": 153,
+  "failed": 0,
+  "seconds": 73.93,
+  "fresh_experiments_executed": 0,
+  "historical_test_count": 146,
+  "new_tests": {
+    "hold_grid": 5,
+    "rfifo_window": 1,
+    "stop_tokens": 1
+  }
+}

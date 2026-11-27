@@ -1,0 +1,82 @@
+/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/review-vllm/.venv/lib/python3.11/site-packages/pytest_asyncio/plugin.py:306: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to "function" scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session". Set it to "fixture-scope" to keep the current behavior.
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+...........F........F                                                    [100%]
+=================================== FAILURES ===================================
+_____________ test_workload_labels_reach_simulator_metadata[False] _____________
+
+server = <tests.utils.RemoteOpenAIServer object at 0xf44d61b49710>
+
+    def test_workload_labels_reach_simulator_metadata(server):
+        """Exercise both HTTP endpoints and both frontend modes, without dropping labels."""
+        for endpoint, label, payload in [
+            ("v1/chat/completions", "coding-agent",
+             {"messages": FIRST_TURN, "chat_template_kwargs": CHAT_TEMPLATE_KWARGS}),
+            ("v1/completions", "quality", {"prompt": COMPLETION_PROMPT}),
+        ]:
+            response = requests.post(
+                server.url_for(endpoint),
+                json={"model": MODEL, "max_tokens": 100, "workload": label, **payload})
+            response.raise_for_status()
+            events = [json.loads(line) for line in server.sim_metrics_path.read_text().splitlines()]
+            assert any(e.get("event") == "request" and e.get("workload") == label
+                       for e in events)
+>           assert any(e.get("event") == "block" and e.get("workload") == label
+                       for e in events)
+E           assert False
+E            +  where False = any(<generator object test_workload_labels_reach_simulator_metadata.<locals>.<genexpr> at 0xf44d62f1db60>)
+
+work/review-vllm/tests/simulator/test_sim_api_server.py:207: AssertionError
+----------------------------- Captured stdout call -----------------------------
+INFO 11-24 12:50:18 logger.py:37] Received request chatcmpl-f81e67ea3b5747feaf7481f03def2594: prompt: '<|im_start|>system\nYou are a terse assistant.<|im_end|>\n<|im_start|>user\nList the planets of the solar system in order.<|im_end|>\n<|im_start|>assistant\n', params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.0, temperature=1.0, top_p=1.0, top_k=-1, min_p=0.0, seed=None, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=100, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None), prompt_token_ids: None, lora_request: None, prompt_adapter_request: None.
+INFO 11-24 12:50:18 engine.py:268] Added request chatcmpl-f81e67ea3b5747feaf7481f03def2594.
+INFO:     127.0.0.1:33926 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO 11-24 12:50:18 logger.py:37] Received request cmpl-88bc09f83e304755a19b1ca31aa172f0-0: prompt: 'Once upon a time', params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.0, temperature=1.0, top_p=1.0, top_k=-1, min_p=0.0, seed=None, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=100, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None), prompt_token_ids: [12522, 5193, 264, 882], lora_request: None, prompt_adapter_request: None.
+INFO 11-24 12:50:18 engine.py:268] Added request cmpl-88bc09f83e304755a19b1ca31aa172f0-0.
+INFO:     127.0.0.1:33932 - "POST /v1/completions HTTP/1.1" 200 OK
+_____________ test_workload_labels_reach_simulator_metadata[True] ______________
+
+server = <tests.utils.RemoteOpenAIServer object at 0xf44d60fd3210>
+
+    def test_workload_labels_reach_simulator_metadata(server):
+        """Exercise both HTTP endpoints and both frontend modes, without dropping labels."""
+        for endpoint, label, payload in [
+            ("v1/chat/completions", "coding-agent",
+             {"messages": FIRST_TURN, "chat_template_kwargs": CHAT_TEMPLATE_KWARGS}),
+            ("v1/completions", "quality", {"prompt": COMPLETION_PROMPT}),
+        ]:
+            response = requests.post(
+                server.url_for(endpoint),
+                json={"model": MODEL, "max_tokens": 100, "workload": label, **payload})
+            response.raise_for_status()
+            events = [json.loads(line) for line in server.sim_metrics_path.read_text().splitlines()]
+            assert any(e.get("event") == "request" and e.get("workload") == label
+                       for e in events)
+>           assert any(e.get("event") == "block" and e.get("workload") == label
+                       for e in events)
+E           assert False
+E            +  where False = any(<generator object test_workload_labels_reach_simulator_metadata.<locals>.<genexpr> at 0xf44d63263ca0>)
+
+work/review-vllm/tests/simulator/test_sim_api_server.py:207: AssertionError
+----------------------------- Captured stdout call -----------------------------
+INFO 11-24 12:50:25 logger.py:37] Received request chatcmpl-ace3c7bc1ea745a092470e394a484f0d: prompt: '<|im_start|>system\nYou are a terse assistant.<|im_end|>\n<|im_start|>user\nList the planets of the solar system in order.<|im_end|>\n<|im_start|>assistant\n', params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.0, temperature=1.0, top_p=1.0, top_k=-1, min_p=0.0, seed=None, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=100, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None), prompt_token_ids: None, lora_request: None, prompt_adapter_request: None.
+INFO 11-24 12:50:25 async_llm_engine.py:211] Added request chatcmpl-ace3c7bc1ea745a092470e394a484f0d.
+INFO 11-24 12:50:25 async_llm_engine.py:179] Finished request chatcmpl-ace3c7bc1ea745a092470e394a484f0d.
+INFO:     127.0.0.1:37202 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO 11-24 12:50:25 logger.py:37] Received request cmpl-ef904397c8d04e25b94445a5a3caebf4-0: prompt: 'Once upon a time', params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.0, temperature=1.0, top_p=1.0, top_k=-1, min_p=0.0, seed=None, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=100, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None), prompt_token_ids: [12522, 5193, 264, 882], lora_request: None, prompt_adapter_request: None.
+INFO 11-24 12:50:25 async_llm_engine.py:211] Added request cmpl-ef904397c8d04e25b94445a5a3caebf4-0.
+INFO 11-24 12:50:25 async_llm_engine.py:179] Finished request cmpl-ef904397c8d04e25b94445a5a3caebf4-0.
+INFO:     127.0.0.1:37216 - "POST /v1/completions HTTP/1.1" 200 OK
+--------------------------- Captured stdout teardown ---------------------------
+INFO 11-24 12:50:25 launcher.py:63] Shutting down FastAPI HTTP server.
+INFO 11-24 12:50:26 async_llm_engine.py:65] Engine is gracefully shutting down.
+INFO 11-24 12:50:26 sim_executor.py:156] Simulator stats: SimulatorStats(num_steps=89, num_requests=9, num_trace_hits=8, num_trace_misses=1, num_prefill_tokens=291, num_computed_prefill_tokens=195, num_generated_tokens=89, simulated_time_s=0.0)
+--------------------------- Captured stderr teardown ---------------------------
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+=========================== short test summary info ============================
+FAILED work/review-vllm/tests/simulator/test_sim_api_server.py::test_workload_labels_reach_simulator_metadata[False]
+FAILED work/review-vllm/tests/simulator/test_sim_api_server.py::test_workload_labels_reach_simulator_metadata[True]
+2 failed, 19 passed in 22.24s

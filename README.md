@@ -1,3 +1,7 @@
+# November 27 update
+
+Latest English [report and presentation](deliverables/final-2026-11-27/README.md) integrate commit `ad1d826542`. Current simulator tests: **153 passed, 0 failed**. The new 125-cell sweep is repository-reported from rounded summaries; its raw logs were not supplied, so it is kept separate from the 175 historical raw-validated runs. See the dated README for current findings, provenance, rebuild commands and the grid resume-completeness caveat. The following original November24 guide and its 146-test/24-slide references are historical snapshots.
+
 # A Study of Prefix Sharing in LLM Serving
 
 Rice University — COMP536. Authors, in order: Thomas Lin, Yu-Ting Chung, Patrick Chiou and Yu-Xin Lai.

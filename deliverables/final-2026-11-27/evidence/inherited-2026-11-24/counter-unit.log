@@ -1,0 +1,1 @@
+Allocator instrumentation check passed: one real eviction, no count for empty table.

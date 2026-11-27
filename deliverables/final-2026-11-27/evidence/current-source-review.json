@@ -1,0 +1,27 @@
+{
+  "head": "ad1d8265420c2515882300710d1cdf5d375515ba",
+  "branch": "comp536-sharing",
+  "reviewed_commit": "ad1d8265420c2515882300710d1cdf5d375515ba",
+  "previous_deliverables_commit": "f5d84b66cd2b522cd3c009471efc1a86497e14dd",
+  "simulator_source_changed_by_document_update": false,
+  "benchmarks_executed_in_update": 0,
+  "test_passed": 153,
+  "test_failed": 0,
+  "new_commit_or_push_in_update": false,
+  "review_findings": [
+    "hold_grid.run_succeeded does not verify expected request count/IDs or source fingerprints; partial successful prefixes can be resumed as complete",
+    "Fixed settings order; one seed/cell; rounded source table; no new raw logs/manifests available",
+    "Changed reply preparation means old traces are not current-code reruns"
+  ],
+  "documents": {
+    "report": {
+      "pages": 15,
+      "main_pages": 6,
+      "first_reference_page": 7
+    },
+    "slides": {
+      "pages": 28,
+      "creator": "Impress"
+    }
+  }
+}

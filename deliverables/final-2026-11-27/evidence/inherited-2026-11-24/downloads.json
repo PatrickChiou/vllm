@@ -1,0 +1,75 @@
+[
+  {
+    "file": "agentbank_alfworld.parquet",
+    "url": "https://huggingface.co/datasets/Solaris99/AgentBank/resolve/main/alfworld/train-00000-of-00001.parquet",
+    "bytes": 1574975,
+    "sha256": "b2fb04225acd0b5dc0de4a3c833531dca80f13f6900695f529f3ca255eeb9eb7",
+    "reused_after_verification": true
+  },
+  {
+    "file": "agentbank_webshop.parquet",
+    "url": "https://huggingface.co/datasets/Solaris99/AgentBank/resolve/main/webshop/train-00000-of-00001.parquet",
+    "bytes": 6459287,
+    "sha256": "bafe873b28e4f25a3a2bd0a0364518bbf7e6417bb3a610a023aba2c145b843b8",
+    "reused_after_verification": true
+  },
+  {
+    "file": "agentbank_intercode_bash.parquet",
+    "url": "https://huggingface.co/datasets/Solaris99/AgentBank/resolve/main/intercode_bash/train-00000-of-00001.parquet",
+    "bytes": 85054,
+    "sha256": "fc8d5eef5ffd09e9a8c7565c07fdc692c026e66f0ad8e2dac7402cd4e9d308e4",
+    "reused_after_verification": true
+  },
+  {
+    "file": "agentbank_mind2web.parquet",
+    "url": "https://huggingface.co/datasets/Solaris99/AgentBank/resolve/main/mind2web/train-00000-of-00001.parquet",
+    "bytes": 3005901,
+    "sha256": "6f51adb409b9b93d6795a9fdd6681066fcdffb236bc18627a065c2272d029a97",
+    "reused_after_verification": true
+  },
+  {
+    "file": "cc_bench.parquet",
+    "url": "https://huggingface.co/datasets/zai-org/CC-Bench-trajectories/resolve/main/train.parquet",
+    "bytes": 42646383,
+    "sha256": "6cd74e6720de678ac7640dc19046cf45f2419dc4052fb8d5d847448d774c3249",
+    "reused_after_verification": true
+  },
+  {
+    "file": "quality_validation.parquet",
+    "url": "https://huggingface.co/datasets/emozilla/quality/resolve/main/data/validation-00000-of-00001-77baeb9538209706.parquet",
+    "bytes": 6791206,
+    "sha256": "c797bdff9b8ea6be13dca89dc2926fb01f450c6bfd84e135c226c8f464b9d41d",
+    "reused_after_verification": true
+  },
+  {
+    "file": "mooncake_toolagent.jsonl",
+    "url": "https://raw.githubusercontent.com/kvcache-ai/Mooncake/main/FAST25-release/traces/toolagent_trace.jsonl",
+    "bytes": 4415857,
+    "sha256": "48a2db1a13d3bc05e6330140c64f604ba366df20d3c9e128b5c35a01c1fa5f71",
+    "reused_after_verification": true
+  },
+  {
+    "file": "bailian_traceA.jsonl",
+    "url": "https://media.githubusercontent.com/media/alibaba-edu/qwen-bailian-usagetraces-anon/main/qwen_traceA_blksz_16.jsonl",
+    "bytes": 56354493,
+    "sha256": "07cedc9ed8aff301994ac68ed4aede8123b7603673575eeba9dd677de663db17",
+    "reused_after_verification": true
+  },
+  {
+    "file": "bailian_coder.jsonl",
+    "url": "https://media.githubusercontent.com/media/alibaba-edu/qwen-bailian-usagetraces-anon/main/qwen_coder_blksz_16.jsonl",
+    "bytes": 132054902,
+    "sha256": "3d74974cebb7bccb69b1ca6ea210a44d9a3033443c0271ed015327284dea1aff",
+    "reused_after_verification": true
+  },
+  {
+    "file": "code_alpaca.json",
+    "sha256": "58d136bb7ea8e4b7c5b6ef08831da905d0abfafeb56f8fa519083089dd6a210e",
+    "source": "existing pinned 0d265112 dataset"
+  },
+  {
+    "file": "sharegpt1000.jsonl",
+    "sha256": "2c540dfb982237ca215cafd624a1f7ac40b8355d96e31eee74c92e0039b5663a",
+    "source": "study.sample, pinned 192ab21, first 1000 raw records"
+  }
+]

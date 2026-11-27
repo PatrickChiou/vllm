@@ -1,0 +1,11 @@
+INFO 11-24 12:51:24 config.py:518] This model supports multiple tasks: {'score', 'classify', 'reward', 'generate', 'embed'}. Defaulting to 'generate'.
+INFO 11-24 12:51:24 chat_utils.py:333] Detected the chat template content format to be 'string'. You can set `--chat-template-content-format` to override this.
+START seed-0-multi-0.05GiB-b16-lru
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-0-multi-0.05GiB-b16-lru 26.7s S=0.03522

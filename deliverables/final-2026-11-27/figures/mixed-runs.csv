@@ -1,0 +1,209 @@
+git_commit,driver_sha256,dirty_status,implementation_sha256,workload_sha256,trace_sha256,mixture,seed,policy,policy_order,block_size,cache_gb,cache_ratio,concurrency,hold_s,hold_budget,allocator_counter_sha256,num_gpu_blocks,cache_clamped,working_set_blocks,name,model,revision,tokenizer_revision,virtual_cache_bytes,conversations,prefill_ms_per_token,decode_ms_per_seq,arrival,request_rate,think_time_s,max_model_len,prepared_directory,started_epoch,requests,successful_requests,failed_requests,prompt_tokens,cached_tokens,token_weighted_shared_fraction,mean_request_shared_fraction,unique_blocks,block_hits,zero_hit_blocks,reuse_gap_samples,mean_reuse_gap_s,elapsed_s,requests_per_s,cache_evictions,definition,measurement,block_events_sha256,median_request_shared_fraction,median_dispatch_lag_s,p95_dispatch_lag_s,achieved_dispatch_requests_per_s,evictions,eviction_count_status,raw_directory
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f,ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_counting/
+?? tools/comp536_diagrams.py
+?? tools/comp536_final_figures.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,09b1bf27c2fcf837fc3a9d10b8dedc97751e06ae97d9532b38714a71a1329726,516465e0ad6229b586ca2eb7a624dbf288f75956542a0fc15746ccf62ff82c5b,equal-token,0,fifo,2,16,,0.1,8,8,1,597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12,8043,False,80429,equal-token-seed-0-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1581318144,5280,0.01,0.1,poisson,100,1,32768,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/equal-token/seed-0/prepared,1795549331.4333324,6051,6051,0,2119769,743312,0.35065707631350396,0.33438776199789644,80429,46457,66141,46457,2.339501091588383,129.69531429200015,46.65550203592233,101684,successful evictor allocations of unused cached blocks,opt-in allocator wrapper; not inferred from misses,ca65cd73a3020a5a4b9bd0686dfccf1b38f1e89a899a4f439cc55086bea6b751,0.32,14.47938385080959,54.592521588088744,46.683192632602044,101684,opt-in allocator counter,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/equal-token-seed-0-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f,ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_counting/
+?? tools/comp536_diagrams.py
+?? tools/comp536_final_figures.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,09b1bf27c2fcf837fc3a9d10b8dedc97751e06ae97d9532b38714a71a1329726,516465e0ad6229b586ca2eb7a624dbf288f75956542a0fc15746ccf62ff82c5b,equal-token,0,hfifo,3,16,,0.1,8,8,1,597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12,8043,False,80429,equal-token-seed-0-hfifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1581318144,5280,0.01,0.1,poisson,100,1,32768,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/equal-token/seed-0/prepared,1795549466.303652,6051,6051,0,2119769,632064,0.2981758861460848,0.31298680170674426,80429,39504,72377,39504,3.54634389631808,126.67407693099995,47.76825808879596,109040,successful evictor allocations of unused cached blocks,opt-in allocator wrapper; not inferred from misses,a6b95f475ef7729c9aa0611f99e8a7c08a960c0d5474b901c7491612868ebc69,0.3137254901960784,13.907946951644437,51.70912508160635,47.79573831117481,109040,opt-in allocator counter,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/equal-token-seed-0-hfifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f,ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_counting/
+?? tools/comp536_diagrams.py
+?? tools/comp536_final_figures.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,09b1bf27c2fcf837fc3a9d10b8dedc97751e06ae97d9532b38714a71a1329726,516465e0ad6229b586ca2eb7a624dbf288f75956542a0fc15746ccf62ff82c5b,equal-token,0,hlru,1,16,,0.1,8,8,1,597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12,8043,False,80429,equal-token-seed-0-hlru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1581318144,5280,0.01,0.1,poisson,100,1,32768,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/equal-token/seed-0/prepared,1795549200.5269222,6051,6051,0,2119769,787776,0.3716329467975048,0.3384154390508384,80429,49236,66893,49236,2.2516218522240155,125.71648896399984,48.132110989297225,99239,successful evictor allocations of unused cached blocks,opt-in allocator wrapper; not inferred from misses,ce3d1e1432c15586ec28416c2c2c3ebcf7f9f1ae24e604b7ab559d83ec0a1e06,0.32,13.93355671511734,51.34232453131801,48.16139989764248,99239,opt-in allocator counter,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/equal-token-seed-0-hlru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f,ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_counting/
+?? tools/comp536_diagrams.py
+?? tools/comp536_final_figures.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,09b1bf27c2fcf837fc3a9d10b8dedc97751e06ae97d9532b38714a71a1329726,516465e0ad6229b586ca2eb7a624dbf288f75956542a0fc15746ccf62ff82c5b,equal-token,0,lfu,0,16,,0.1,8,8,1,597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12,8043,False,80429,equal-token-seed-0-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1581318144,5280,0.01,0.1,poisson,100,1,32768,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/equal-token/seed-0/prepared,1795549064.712734,6051,6051,0,2119769,634912,0.29951942876794596,0.3126012995619714,80429,39682,72481,39682,3.6296435732716956,130.57398809200004,46.341542357859026,108810,successful evictor allocations of unused cached blocks,opt-in allocator wrapper; not inferred from misses,90fb923f478dd719b61f62755e1e65aa769a659b3655255e49eb1ccd954e553a,0.3137254901960784,14.372410212660675,54.073034964910875,46.36771725262144,108810,opt-in allocator counter,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/equal-token-seed-0-lfu/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f,ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_counting/
+?? tools/comp536_diagrams.py
+?? tools/comp536_final_figures.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,09b1bf27c2fcf837fc3a9d10b8dedc97751e06ae97d9532b38714a71a1329726,516465e0ad6229b586ca2eb7a624dbf288f75956542a0fc15746ccf62ff82c5b,equal-token,0,lru,7,16,,0.1,8,8,1,597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12,8043,False,80429,equal-token-seed-0-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1581318144,5280,0.01,0.1,poisson,100,1,32768,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/equal-token/seed-0/prepared,1795550003.2581336,6051,6051,0,2119769,759872,0.3584692483001686,0.33660896715350014,80429,47492,67316,47492,2.108976120768307,125.99371315899953,48.0262058184114,101001,successful evictor allocations of unused cached blocks,opt-in allocator wrapper; not inferred from misses,038884cd660adc1eccf7a634cefff49320daf9da44086e8a2e1fd906c0557ca3,0.32,14.203107141698283,51.46930895824758,48.02770439385089,101001,opt-in allocator counter,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/equal-token-seed-0-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f,ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_counting/
+?? tools/comp536_diagrams.py
+?? tools/comp536_final_figures.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,09b1bf27c2fcf837fc3a9d10b8dedc97751e06ae97d9532b38714a71a1329726,516465e0ad6229b586ca2eb7a624dbf288f75956542a0fc15746ccf62ff82c5b,equal-token,0,rfifo,4,16,,0.1,8,8,1,597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12,8043,False,80429,equal-token-seed-0-rfifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1581318144,5280,0.01,0.1,poisson,100,1,32768,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/equal-token/seed-0/prepared,1795549598.0871096,6051,6051,0,2119769,872832,0.41175807363915595,0.3574149986624372,80429,54552,62925,54552,4.697001987792234,126.19578864399955,47.94930215199156,93637,successful evictor allocations of unused cached blocks,opt-in allocator wrapper; not inferred from misses,68f59fdca6d9417896d4bcfdc9b39cdf2c23604f360eb436aab3880c8f438ab6,0.33195020746887965,13.979027808012063,51.40839214380216,47.97498353000378,93637,opt-in allocator counter,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/equal-token-seed-0-rfifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f,ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_counting/
+?? tools/comp536_diagrams.py
+?? tools/comp536_final_figures.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,09b1bf27c2fcf837fc3a9d10b8dedc97751e06ae97d9532b38714a71a1329726,516465e0ad6229b586ca2eb7a624dbf288f75956542a0fc15746ccf62ff82c5b,equal-token,0,tfifo,6,16,,0.1,8,8,1,597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12,8043,False,80429,equal-token-seed-0-tfifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1581318144,5280,0.01,0.1,poisson,100,1,32768,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/equal-token/seed-0/prepared,1795549860.7254689,6051,6051,0,2119769,709360,0.33464023674277715,0.3342048494750735,80429,44335,67933,44335,3.991773354697041,137.6138609569989,43.97086135015713,104400,successful evictor allocations of unused cached blocks,opt-in allocator wrapper; not inferred from misses,46c5e872d34a4f19eb7cef2faa54b9016b53b0458204b34bd2da06372566dc92,0.32,16.387496084675547,62.57547525746591,43.99373461644697,104400,opt-in allocator counter,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/equal-token-seed-0-tfifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f,ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_counting/
+?? tools/comp536_diagrams.py
+?? tools/comp536_final_figures.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,09b1bf27c2fcf837fc3a9d10b8dedc97751e06ae97d9532b38714a71a1329726,516465e0ad6229b586ca2eb7a624dbf288f75956542a0fc15746ccf62ff82c5b,equal-token,0,tlru,5,16,,0.1,8,8,1,597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12,8043,False,80429,equal-token-seed-0-tlru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,1581318144,5280,0.01,0.1,poisson,100,1,32768,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/equal-token/seed-0/prepared,1795549729.2588356,6051,6051,0,2119769,785808,0.37070454374981426,0.34006719953793074,80429,49113,66495,49113,2.3146379832031547,126.35726591400089,47.88802572001144,99380,successful evictor allocations of unused cached blocks,opt-in allocator wrapper; not inferred from misses,72f37f0777395b1d4402137091c6d8255f77091374ca3ce7b556299d644118dc,0.32,14.275381037900903,51.82402612807468,47.914372974530885,99380,opt-in allocator counter,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/equal-token-seed-0-tlru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f,ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_counting/
+?? tools/comp536_diagrams.py
+?? tools/comp536_final_figures.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,481dd5a465c378709e734b1465edfb4de57bbaa6e2a2fe19567abd261e1f11d7,34b101c43fed904fc696085e2325debc2c8cd482bfc2fd774841ef860d5e24dd,skewed,0,fifo,2,16,,0.1,8,8,1,597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12,12360,False,123593,skewed-seed-0-fifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,2430074880,858,0.01,0.1,poisson,100,1,32768,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/skewed/seed-0/prepared,1795546667.9562175,3322,3322,0,10517812,5166272,0.49119265489818603,0.18157760093671974,123593,322892,95941,322892,2.7625314461531816,396.236504124,8.383881761081756,402998,successful evictor allocations of unused cached blocks,opt-in allocator wrapper; not inferred from misses,ca36e0a3ef5893e5d5977e11408dae925efc727f6c62a541b03cba2ae3054070,0.03863801239570139,102.73617891707545,307.5709234460529,8.38997593442158,402998,opt-in allocator counter,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/skewed-seed-0-fifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f,ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_counting/
+?? tools/comp536_diagrams.py
+?? tools/comp536_final_figures.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,481dd5a465c378709e734b1465edfb4de57bbaa6e2a2fe19567abd261e1f11d7,34b101c43fed904fc696085e2325debc2c8cd482bfc2fd774841ef860d5e24dd,skewed,0,hfifo,3,16,,0.1,8,8,1,597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12,12360,False,123593,skewed-seed-0-hfifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,2430074880,858,0.01,0.1,poisson,100,1,32768,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/skewed/seed-0/prepared,1795547072.8537433,3322,3322,0,10517812,3872800,0.3682134649297782,0.1662913617318946,123593,242050,100996,242050,2.098005972449981,364.846824147,9.105190946273762,477284,successful evictor allocations of unused cached blocks,opt-in allocator wrapper; not inferred from misses,4e9efe1910c5b14668548da514b287018ca79505e26bd118dd08654506d85efe,0.04050632911392405,96.39061520868572,284.3708240361279,9.110613846933779,477284,opt-in allocator counter,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/skewed-seed-0-hfifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f,ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_counting/
+?? tools/comp536_diagrams.py
+?? tools/comp536_final_figures.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,481dd5a465c378709e734b1465edfb4de57bbaa6e2a2fe19567abd261e1f11d7,34b101c43fed904fc696085e2325debc2c8cd482bfc2fd774841ef860d5e24dd,skewed,0,hlru,1,16,,0.1,8,8,1,597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12,12360,False,123593,skewed-seed-0-hlru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,2430074880,858,0.01,0.1,poisson,100,1,32768,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/skewed/seed-0/prepared,1795546295.1015685,3322,3322,0,10517812,4442608,0.4223889911704069,0.16477606731122008,123593,277663,99674,277663,2.1754259438800365,364.2398243260004,9.12036460084265,427848,successful evictor allocations of unused cached blocks,opt-in allocator wrapper; not inferred from misses,a69025f60a7b8535969f056c443ce2777400e478cbbb8590dfce2f72f395e8a2,0.039072097322440213,96.24355539715656,284.3026208346385,9.125602960224244,427848,opt-in allocator counter,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/skewed-seed-0-hlru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f,ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_counting/
+?? tools/comp536_diagrams.py
+?? tools/comp536_final_figures.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,481dd5a465c378709e734b1465edfb4de57bbaa6e2a2fe19567abd261e1f11d7,34b101c43fed904fc696085e2325debc2c8cd482bfc2fd774841ef860d5e24dd,skewed,0,lfu,0,16,,0.1,8,8,1,597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12,12360,False,123593,skewed-seed-0-lfu,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,2430074880,858,0.01,0.1,poisson,100,1,32768,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/skewed/seed-0/prepared,1795545867.1915865,3322,3322,0,10517812,2177616,0.20704077996450213,0.12971873632429423,123593,136101,109777,136101,2.543269720468763,419.32153530100004,7.922321465353266,576115,successful evictor allocations of unused cached blocks,opt-in allocator wrapper; not inferred from misses,67bdd3e77190102b834d22675af7c9d6019796bf94e40bb75c2589eebb961d93,0.03520356295686693,96.54166792182154,315.8120549813902,7.928099688437785,576115,opt-in allocator counter,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/skewed-seed-0-lfu/attempt-002
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f,ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_counting/
+?? tools/comp536_diagrams.py
+?? tools/comp536_final_figures.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,481dd5a465c378709e734b1465edfb4de57bbaa6e2a2fe19567abd261e1f11d7,34b101c43fed904fc696085e2325debc2c8cd482bfc2fd774841ef860d5e24dd,skewed,0,lru,7,16,,0.1,8,8,1,597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12,12360,False,123593,skewed-seed-0-lru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,2430074880,858,0.01,0.1,poisson,100,1,32768,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/skewed/seed-0/prepared,1795548668.113558,3322,3322,0,10517812,4767040,0.45323495038701966,0.1707849402762904,123593,297940,98876,297940,2.375124235198086,386.25091512499966,8.60062687210702,407571,successful evictor allocations of unused cached blocks,opt-in allocator wrapper; not inferred from misses,38a05fd52fd674063c2ea4a401d4c0170c83b3fbd56d99ddede62353df28baff,0.03897691531659842,96.38601963410628,301.973802209217,8.606691355752249,407571,opt-in allocator counter,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/skewed-seed-0-lru/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f,ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_counting/
+?? tools/comp536_diagrams.py
+?? tools/comp536_final_figures.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,481dd5a465c378709e734b1465edfb4de57bbaa6e2a2fe19567abd261e1f11d7,34b101c43fed904fc696085e2325debc2c8cd482bfc2fd774841ef860d5e24dd,skewed,0,rfifo,4,16,,0.1,8,8,1,597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12,12360,False,123593,skewed-seed-0-rfifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,2430074880,858,0.01,0.1,poisson,100,1,32768,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/skewed/seed-0/prepared,1795547446.2629173,3322,3322,0,10517812,6337136,0.602514667499286,0.3053980473417929,123593,396071,76260,396071,5.31239199231514,415.5602903200006,7.994026564573595,314077,successful evictor allocations of unused cached blocks,opt-in allocator wrapper; not inferred from misses,08273f592d00962ad7328bd1e0797f1d7cc2639ec78150001eba28e13fe3e8b1,0.0826878906041344,100.10649712373156,321.7749528831607,8.000111512313762,314077,opt-in allocator counter,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/skewed-seed-0-rfifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f,ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_counting/
+?? tools/comp536_diagrams.py
+?? tools/comp536_final_figures.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,481dd5a465c378709e734b1465edfb4de57bbaa6e2a2fe19567abd261e1f11d7,34b101c43fed904fc696085e2325debc2c8cd482bfc2fd774841ef860d5e24dd,skewed,0,tfifo,6,16,,0.1,8,8,1,597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12,12360,False,123593,skewed-seed-0-tfifo,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,2430074880,858,0.01,0.1,poisson,100,1,32768,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/skewed/seed-0/prepared,1795548278.1646433,3322,3322,0,10517812,6266288,0.5957786657529152,0.3154551385292872,123593,391643,81307,391643,4.943266118974159,381.4859612279997,8.708053080922069,331382,successful evictor allocations of unused cached blocks,opt-in allocator wrapper; not inferred from misses,4c8c35f7c7925791bf00caf63cb7352fa255e8bb660a57de7afab9d1dd8a67e1,0.07748592870544091,98.24992974360629,292.9577568923213,8.714853573173984,331382,opt-in allocator counter,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/skewed-seed-0-tfifo/attempt-001
+3d501ab40fb9a6b1bed5688d1db338b21f4a185f,ce33005fc7560df11671f2c39f58713baa4c0b3e739ffbecdfe53533de24da5f," M README.md
+ M tests/simulator/test_sim_api_server.py
+ M vllm/engine/multiprocessing/__init__.py
+ M vllm/engine/multiprocessing/client.py
+ M vllm/engine/multiprocessing/engine.py
+ M vllm/simulator/eviction_study.py
+?? deliverables/
+?? tests/simulator/test_rpc_workload.py
+?? tools/comp536_counting/
+?? tools/comp536_diagrams.py
+?? tools/comp536_final_figures.py
+?? tools/comp536_final_study.py
+",04186b55ae0bbe359550f7c1fd148d27ba3397e7644e62b47d305cbcfc47f1f4,481dd5a465c378709e734b1465edfb4de57bbaa6e2a2fe19567abd261e1f11d7,34b101c43fed904fc696085e2325debc2c8cd482bfc2fd774841ef860d5e24dd,skewed,0,tlru,5,16,,0.1,8,8,1,597d187627931677f5f2cd3e41222fa48830eb188c09e574bb8d93ec7a964b12,12360,False,123593,skewed-seed-0-tlru,Qwen/Qwen2.5-0.5B-Instruct,7ae557604adf67be50417f59c2c2f167def9a775,7ae557604adf67be50417f59c2c2f167def9a775,2430074880,858,0.01,0.1,poisson,100,1,32768,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/skewed/seed-0/prepared,1795547871.7811105,3322,3322,0,10517812,4649392,0.4420493539911153,0.1671333838397836,123593,290587,98812,290587,2.5417314055866314,397.87188435999997,8.349421335321619,414919,successful evictor allocations of unused cached blocks,opt-in allocator wrapper; not inferred from misses,6c04326c9c30697818a6c200645c6e7cf85c01659c61ca5bc85ee47d8fcc913f,0.03863801239570139,99.21714978670133,309.6605816243267,8.356966784568815,414919,opt-in allocator counter,/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/experiments/mixed/runs/skewed-seed-0-tlru/attempt-001

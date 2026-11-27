@@ -1,0 +1,63 @@
+Expanding deficient balanced labels
+INFO 11-24 13:32:08 config.py:518] This model supports multiple tasks: {'generate', 'score', 'reward', 'embed', 'classify'}. Defaulting to 'generate'.
+INFO 11-24 13:32:08 chat_utils.py:333] Detected the chat template content format to be 'string'. You can set `--chat-template-content-format` to override this.
+agent: 300
+code: 8000
+quality: 300
+bailian-chat: 1000
+bailian-coder: 1000
+{
+  "quality": {
+    "conversations": 10,
+    "turns": 10
+  },
+  "chat": {
+    "conversations": 600,
+    "turns": 1890
+  },
+  "bailian-coder": {
+    "conversations": 20,
+    "turns": 20
+  },
+  "agent": {
+    "conversations": 100,
+    "turns": 476
+  },
+  "coding-agent": {
+    "conversations": 50,
+    "turns": 848
+  },
+  "bailian-chat": {
+    "conversations": 20,
+    "turns": 20
+  },
+  "code": {
+    "conversations": 20,
+    "turns": 20
+  },
+  "mooncake-agent": {
+    "conversations": 38,
+    "turns": 38
+  }
+}
+START skewed-seed-0-lfu
+100/3322
+200/3322
+300/3322
+400/3322
+500/3322
+600/3322
+700/3322
+800/3322
+900/3322
+1000/3322
+1100/3322
+1200/3322
+1300/3322
+1400/3322
+1500/3322
+1600/3322
+1700/3322
+1800/3322
+1900/3322
+2000/3322

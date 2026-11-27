@@ -1,0 +1,8 @@
+Validated 25 completed raw runs
+Validated 50 completed raw runs
+Validated 75 completed raw runs
+Validated 100 completed raw runs
+Validated 125 completed raw runs
+Validated 150 completed raw runs
+Validated 175 completed raw runs
+{"totals": {"m2": 108, "mixed": 16, "task1": 51}, "mixed_best": [{"mixture": "skewed", "best_observed": "rfifo", "strongest_baseline": "fifo", "best_fraction": 0.602514667499286, "baseline_fraction": 0.49119265489818603, "gain_pp": 11.132201260109992, "relative_gain_percent": 22.663615078726014, "n": 1, "sd": null}, {"mixture": "equal-token", "best_observed": "rfifo", "strongest_baseline": "lru", "best_fraction": 0.41175807363915595, "baseline_fraction": 0.3584692483001686, "gain_pp": 5.328882533898738, "relative_gain_percent": 14.865661585109061, "n": 1, "sd": null}]}

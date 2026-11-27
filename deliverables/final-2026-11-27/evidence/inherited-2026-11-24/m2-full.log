@@ -1,0 +1,696 @@
+INFO 11-24 12:53:47 config.py:518] This model supports multiple tasks: {'score', 'classify', 'embed', 'reward', 'generate'}. Defaulting to 'generate'.
+INFO 11-24 12:53:47 chat_utils.py:333] Detected the chat template content format to be 'string'. You can set `--chat-template-content-format` to override this.
+START seed-0-single-0.05GiB-b8-lru
+100/200
+200/200
+END seed-0-single-0.05GiB-b8-lru 12.7s S=0.06618
+START seed-0-multi-0.05GiB-b8-lfu
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-0-multi-0.05GiB-b8-lfu 27.7s S=0.04503
+START seed-0-single-0.1GiB-b16-fifo
+100/200
+200/200
+END seed-0-single-0.1GiB-b16-fifo 13.2s S=0.04427
+RESUME completed seed-0-multi-0.05GiB-b16-lru
+START seed-0-multi-0.05GiB-b16-lfu
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-0-multi-0.05GiB-b16-lfu 26.5s S=0.03406
+START seed-0-single-0.1GiB-b32-fifo
+100/200
+200/200
+END seed-0-single-0.1GiB-b32-fifo 12.9s S=0.00000
+START seed-0-multi-0.1GiB-b32-lru
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-0-multi-0.1GiB-b32-lru 31.9s S=0.02422
+START seed-0-multi-0.1GiB-b16-lru
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-0-multi-0.1GiB-b16-lru 32.1s S=0.04537
+START seed-0-single-0.05GiB-b32-lfu
+100/200
+200/200
+END seed-0-single-0.05GiB-b32-lfu 12.2s S=0.00044
+START seed-0-single-0.05GiB-b16-fifo
+100/200
+200/200
+END seed-0-single-0.05GiB-b16-fifo 12.3s S=0.04405
+START seed-0-single-0.1GiB-b8-lfu
+100/200
+200/200
+END seed-0-single-0.1GiB-b8-lfu 13.4s S=0.06629
+START seed-0-single-0.1GiB-b16-lfu
+100/200
+200/200
+END seed-0-single-0.1GiB-b16-lfu 13.2s S=0.04427
+START seed-0-multi-0.1GiB-b32-fifo
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-0-multi-0.1GiB-b32-fifo 32.1s S=0.02560
+START seed-0-single-0.05GiB-b8-lfu
+100/200
+200/200
+END seed-0-single-0.05GiB-b8-lfu 12.6s S=0.06607
+START seed-0-multi-0.1GiB-b8-lfu
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-0-multi-0.1GiB-b8-lfu 33.1s S=0.06450
+START seed-0-multi-0.05GiB-b16-fifo
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-0-multi-0.05GiB-b16-fifo 26.4s S=0.03695
+START seed-0-single-0.05GiB-b32-fifo
+100/200
+200/200
+END seed-0-single-0.05GiB-b32-fifo 12.4s S=0.00000
+START seed-0-single-0.05GiB-b16-lru
+100/200
+200/200
+END seed-0-single-0.05GiB-b16-lru 12.3s S=0.04405
+START seed-0-multi-0.05GiB-b8-fifo
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-0-multi-0.05GiB-b8-fifo 27.3s S=0.04505
+START seed-0-multi-0.1GiB-b8-lru
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-0-multi-0.1GiB-b8-lru 32.9s S=0.06036
+START seed-0-single-0.05GiB-b16-lfu
+100/200
+200/200
+END seed-0-single-0.05GiB-b16-lfu 12.3s S=0.04427
+START seed-0-multi-0.1GiB-b16-fifo
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-0-multi-0.1GiB-b16-fifo 32.5s S=0.04725
+START seed-0-single-0.05GiB-b32-lru
+100/200
+200/200
+END seed-0-single-0.05GiB-b32-lru 12.1s S=0.00000
+START seed-0-multi-0.05GiB-b8-lru
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-0-multi-0.05GiB-b8-lru 27.2s S=0.04630
+START seed-0-single-0.1GiB-b8-fifo
+100/200
+200/200
+END seed-0-single-0.1GiB-b8-fifo 13.8s S=0.06607
+START seed-0-single-0.1GiB-b32-lru
+100/200
+200/200
+END seed-0-single-0.1GiB-b32-lru 13.2s S=0.00000
+START seed-0-single-0.1GiB-b8-lru
+100/200
+200/200
+END seed-0-single-0.1GiB-b8-lru 13.4s S=0.06607
+START seed-0-multi-0.1GiB-b32-lfu
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-0-multi-0.1GiB-b32-lfu 32.0s S=0.02553
+START seed-0-multi-0.05GiB-b32-lfu
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-0-multi-0.05GiB-b32-lfu 25.6s S=0.01685
+START seed-0-multi-0.1GiB-b8-fifo
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-0-multi-0.1GiB-b8-fifo 32.6s S=0.06631
+START seed-0-single-0.1GiB-b16-lru
+100/200
+200/200
+END seed-0-single-0.1GiB-b16-lru 13.1s S=0.04427
+START seed-0-multi-0.1GiB-b16-lfu
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-0-multi-0.1GiB-b16-lfu 33.0s S=0.04729
+START seed-0-single-0.1GiB-b32-lfu
+100/200
+200/200
+END seed-0-single-0.1GiB-b32-lfu 12.8s S=0.00089
+START seed-0-single-0.05GiB-b8-fifo
+100/200
+200/200
+END seed-0-single-0.05GiB-b8-fifo 12.3s S=0.06607
+START seed-0-multi-0.05GiB-b32-fifo
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-0-multi-0.05GiB-b32-fifo 25.1s S=0.01222
+START seed-0-multi-0.05GiB-b32-lru
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-0-multi-0.05GiB-b32-lru 26.0s S=0.01258
+START seed-1-multi-0.1GiB-b32-lfu
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-1-multi-0.1GiB-b32-lfu 34.2s S=0.03008
+START seed-1-multi-0.05GiB-b16-lfu
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-1-multi-0.05GiB-b16-lfu 28.4s S=0.03406
+START seed-1-single-0.05GiB-b8-fifo
+100/200
+200/200
+END seed-1-single-0.05GiB-b8-fifo 12.1s S=0.06607
+START seed-1-multi-0.1GiB-b16-lru
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-1-multi-0.1GiB-b16-lru 31.3s S=0.04722
+START seed-1-multi-0.05GiB-b8-lfu
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-1-multi-0.05GiB-b8-lfu 26.5s S=0.04961
+START seed-1-multi-0.1GiB-b8-lru
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-1-multi-0.1GiB-b8-lru 31.5s S=0.06141
+START seed-1-multi-0.05GiB-b16-fifo
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-1-multi-0.05GiB-b16-fifo 26.0s S=0.03406
+START seed-1-single-0.1GiB-b32-fifo
+100/200
+200/200
+END seed-1-single-0.1GiB-b32-fifo 12.5s S=0.00089
+START seed-1-multi-0.1GiB-b32-lru
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-1-multi-0.1GiB-b32-lru 30.3s S=0.02350
+START seed-1-single-0.1GiB-b8-lfu
+100/200
+200/200
+END seed-1-single-0.1GiB-b8-lfu 13.4s S=0.06629
+START seed-1-single-0.1GiB-b8-fifo
+100/200
+200/200
+END seed-1-single-0.1GiB-b8-fifo 13.0s S=0.06618
+START seed-1-multi-0.05GiB-b8-lru
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-1-multi-0.05GiB-b8-lru 26.5s S=0.04926
+START seed-1-single-0.05GiB-b16-fifo
+100/200
+200/200
+END seed-1-single-0.05GiB-b16-fifo 12.3s S=0.04427
+START seed-1-single-0.05GiB-b8-lfu
+100/200
+200/200
+END seed-1-single-0.05GiB-b8-lfu 12.1s S=0.06618
+START seed-1-single-0.1GiB-b8-lru
+100/200
+200/200
+END seed-1-single-0.1GiB-b8-lru 13.1s S=0.06607
+START seed-1-multi-0.1GiB-b16-fifo
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-1-multi-0.1GiB-b16-fifo 31.2s S=0.04722
+START seed-1-multi-0.1GiB-b32-fifo
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-1-multi-0.1GiB-b32-fifo 31.5s S=0.02704
+START seed-1-multi-0.1GiB-b8-fifo
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-1-multi-0.1GiB-b8-fifo 32.4s S=0.06273
+START seed-1-multi-0.05GiB-b16-lru
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-1-multi-0.05GiB-b16-lru 26.1s S=0.03525
+START seed-1-single-0.1GiB-b16-lfu
+100/200
+200/200
+END seed-1-single-0.1GiB-b16-lfu 13.0s S=0.04427
+START seed-1-multi-0.05GiB-b32-fifo
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-1-multi-0.05GiB-b32-fifo 25.3s S=0.01519
+START seed-1-single-0.05GiB-b8-lru
+100/200
+200/200
+END seed-1-single-0.05GiB-b8-lru 12.5s S=0.06607
+START seed-1-multi-0.1GiB-b8-lfu
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-1-multi-0.1GiB-b8-lfu 37.4s S=0.05817
+START seed-1-single-0.05GiB-b16-lru
+100/200
+200/200
+END seed-1-single-0.05GiB-b16-lru 14.2s S=0.04427
+START seed-1-single-0.05GiB-b32-lru
+100/200
+200/200
+END seed-1-single-0.05GiB-b32-lru 14.5s S=0.00044
+START seed-1-multi-0.05GiB-b32-lfu
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-1-multi-0.05GiB-b32-lfu 33.2s S=0.01692
+START seed-1-single-0.1GiB-b16-lru
+100/200
+200/200
+END seed-1-single-0.1GiB-b16-lru 13.8s S=0.04405
+START seed-1-multi-0.05GiB-b8-fifo
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-1-multi-0.05GiB-b8-fifo 31.0s S=0.04503
+START seed-1-single-0.1GiB-b32-lru
+100/200
+200/200
+END seed-1-single-0.1GiB-b32-lru 13.6s S=0.00000
+START seed-1-single-0.1GiB-b16-fifo
+100/200
+200/200
+END seed-1-single-0.1GiB-b16-fifo 17.9s S=0.04405
+START seed-1-multi-0.05GiB-b32-lru
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-1-multi-0.05GiB-b32-lru 25.3s S=0.01620
+START seed-1-multi-0.1GiB-b16-lfu
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-1-multi-0.1GiB-b16-lfu 30.9s S=0.04725
+START seed-1-single-0.05GiB-b32-lfu
+100/200
+200/200
+END seed-1-single-0.05GiB-b32-lfu 11.9s S=0.00000
+START seed-1-single-0.1GiB-b32-lfu
+100/200
+200/200
+END seed-1-single-0.1GiB-b32-lfu 12.5s S=0.00089
+START seed-1-single-0.05GiB-b16-lfu
+100/200
+200/200
+END seed-1-single-0.05GiB-b16-lfu 12.1s S=0.04405
+START seed-1-single-0.05GiB-b32-fifo
+100/200
+200/200
+END seed-1-single-0.05GiB-b32-fifo 12.4s S=0.00044
+START seed-2-single-0.1GiB-b32-lru
+100/200
+200/200
+END seed-2-single-0.1GiB-b32-lru 12.5s S=0.00044
+START seed-2-multi-0.05GiB-b32-fifo
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-2-multi-0.05GiB-b32-fifo 24.8s S=0.01229
+START seed-2-multi-0.1GiB-b16-lru
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-2-multi-0.1GiB-b16-lru 32.2s S=0.04866
+START seed-2-multi-0.1GiB-b8-lfu
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-2-multi-0.1GiB-b8-lfu 32.0s S=0.05816
+START seed-2-single-0.1GiB-b32-fifo
+100/200
+200/200
+END seed-2-single-0.1GiB-b32-fifo 13.4s S=0.00133
+START seed-2-multi-0.1GiB-b32-fifo
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-2-multi-0.1GiB-b32-fifo 34.0s S=0.03211
+START seed-2-single-0.05GiB-b8-fifo
+100/200
+200/200
+END seed-2-single-0.05GiB-b8-fifo 12.8s S=0.06618
+START seed-2-multi-0.05GiB-b8-fifo
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-2-multi-0.05GiB-b8-fifo 28.6s S=0.04505
+START seed-2-multi-0.05GiB-b16-lfu
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-2-multi-0.05GiB-b16-lfu 30.4s S=0.03409
+START seed-2-multi-0.1GiB-b16-lfu
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-2-multi-0.1GiB-b16-lfu 33.5s S=0.04693
+START seed-2-single-0.05GiB-b8-lru
+100/200
+200/200
+END seed-2-single-0.05GiB-b8-lru 13.3s S=0.06607
+START seed-2-single-0.05GiB-b16-lfu
+100/200
+200/200
+END seed-2-single-0.05GiB-b16-lfu 12.3s S=0.04405
+START seed-2-single-0.1GiB-b16-fifo
+100/200
+200/200
+END seed-2-single-0.1GiB-b16-fifo 12.7s S=0.04427
+START seed-2-single-0.05GiB-b32-lfu
+100/200
+200/200
+END seed-2-single-0.05GiB-b32-lfu 12.0s S=0.00044
+START seed-2-multi-0.1GiB-b8-fifo
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-2-multi-0.1GiB-b8-fifo 31.4s S=0.05685
+START seed-2-single-0.1GiB-b8-fifo
+100/200
+200/200
+END seed-2-single-0.1GiB-b8-fifo 13.2s S=0.06607
+START seed-2-single-0.1GiB-b32-lfu
+100/200
+200/200
+END seed-2-single-0.1GiB-b32-lfu 12.6s S=0.00044
+START seed-2-single-0.1GiB-b16-lru
+100/200
+200/200
+END seed-2-single-0.1GiB-b16-lru 12.7s S=0.04405
+START seed-2-single-0.1GiB-b16-lfu
+100/200
+200/200
+END seed-2-single-0.1GiB-b16-lfu 12.7s S=0.04449
+START seed-2-multi-0.1GiB-b32-lru
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-2-multi-0.1GiB-b32-lru 31.0s S=0.02516
+START seed-2-multi-0.05GiB-b8-lru
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-2-multi-0.05GiB-b8-lru 26.7s S=0.04926
+START seed-2-single-0.05GiB-b8-lfu
+100/200
+200/200
+END seed-2-single-0.05GiB-b8-lfu 13.8s S=0.06618
+START seed-2-multi-0.05GiB-b32-lru
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-2-multi-0.05GiB-b32-lru 26.0s S=0.01613
+START seed-2-single-0.05GiB-b32-lru
+100/200
+200/200
+END seed-2-single-0.05GiB-b32-lru 12.4s S=0.00000
+START seed-2-multi-0.05GiB-b8-lfu
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-2-multi-0.05GiB-b8-lfu 29.5s S=0.04505
+START seed-2-single-0.05GiB-b32-fifo
+100/200
+200/200
+END seed-2-single-0.05GiB-b32-fifo 12.8s S=0.00000
+START seed-2-single-0.1GiB-b8-lru
+100/200
+200/200
+END seed-2-single-0.1GiB-b8-lru 14.3s S=0.06607
+START seed-2-multi-0.1GiB-b8-lru
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-2-multi-0.1GiB-b8-lru 34.3s S=0.05996
+START seed-2-multi-0.05GiB-b16-lru
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-2-multi-0.05GiB-b16-lru 26.6s S=0.03525
+START seed-2-multi-0.05GiB-b32-lfu
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-2-multi-0.05GiB-b32-lfu 27.3s S=0.01692
+START seed-2-multi-0.1GiB-b16-fifo
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-2-multi-0.1GiB-b16-fifo 32.5s S=0.04725
+START seed-2-single-0.1GiB-b8-lfu
+100/200
+200/200
+END seed-2-single-0.1GiB-b8-lfu 14.7s S=0.06629
+START seed-2-multi-0.05GiB-b16-fifo
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-2-multi-0.05GiB-b16-fifo 26.3s S=0.03691
+START seed-2-multi-0.1GiB-b32-lfu
+100/608
+200/608
+300/608
+400/608
+500/608
+600/608
+608/608
+END seed-2-multi-0.1GiB-b32-lfu 31.3s S=0.02213
+START seed-2-single-0.05GiB-b16-fifo
+100/200
+200/200
+END seed-2-single-0.05GiB-b16-fifo 13.6s S=0.04405
+START seed-2-single-0.05GiB-b16-lru
+100/200
+200/200
+END seed-2-single-0.05GiB-b16-lru 13.5s S=0.04405

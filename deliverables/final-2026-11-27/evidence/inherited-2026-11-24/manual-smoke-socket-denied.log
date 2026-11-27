@@ -1,0 +1,10 @@
+INFO 11-24 21:50:07 config.py:518] This model supports multiple tasks: {'classify', 'score', 'reward', 'generate', 'embed'}. Defaulting to 'generate'.
+INFO 11-24 21:50:08 chat_utils.py:333] Detected the chat template content format to be 'string'. You can set `--chat-template-content-format` to override this.
+Prepared 2 conversations; excluded: {}
+Traceback (most recent call last):
+  File "/home/p4/Documents/Codex/2026-11-12/https-github-com-patrickchiou-vllm-git/work/final-2026-11-24/manual_smoke.py", line 8, in <module>
+    with socket.socket() as s:s.bind(('127.0.0.1',0));port=s.getsockname()[1]
+         ^^^^^^^^^^^^^^^
+  File "/tmp/m3task1-python/cpython-3.11.17-linux-aarch64-gnu/lib/python3.11/socket.py", line 232, in __init__
+    _socket.socket.__init__(self, family, type, proto, fileno)
+PermissionError: [Errno 1] Operation not permitted

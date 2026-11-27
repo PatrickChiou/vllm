@@ -1,0 +1,10 @@
+{
+  "branch": "comp536-sharing",
+  "head": "3d501ab40fb9a6b1bed5688d1db338b21f4a185f",
+  "shallow": "false",
+  "baseline_ancestor": true,
+  "status": "M README.md\n M tests/simulator/test_sim_api_server.py\n M vllm/engine/multiprocessing/__init__.py\n M vllm/engine/multiprocessing/client.py\n M vllm/engine/multiprocessing/engine.py\n M vllm/simulator/eviction_study.py\n?? deliverables/\n?? tests/simulator/test_rpc_workload.py\n?? tools/comp536_counting/\n?? tools/comp536_diagrams.py\n?? tools/comp536_final_figures.py\n?? tools/comp536_final_study.py\n?? tools/comp536_prompt_recurrence.py",
+  "final_commit_created": false,
+  "remote_push_performed": false,
+  "patch_scope": "implementation, tests, new study/analysis tools and README; dated deliverables supplied separately"
+}

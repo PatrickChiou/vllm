@@ -1,0 +1,8 @@
+{
+  "main_slides": 15,
+  "backup_slides": 13,
+  "seconds": 810,
+  "spoken_words": 1589,
+  "planned_words_per_minute": 117.70370370370371,
+  "native_pptx_render": "Native LibreOffice export is run separately; see presentation/VALIDATION.md. Shared-source layout companion retained for comparison."
+}

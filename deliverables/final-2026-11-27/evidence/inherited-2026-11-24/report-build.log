@@ -1,0 +1,110 @@
+note: Running TeX ...
+warning: main.tex:39: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.tex:45: Underfull \hbox (badness 2626) in paragraph at lines 44--45
+warning: main.tex:45: Underfull \hbox (badness 1460) in paragraph at lines 44--45
+warning: main.tex:45: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.tex:66: Underfull \hbox (badness 1286) in paragraph at lines 65--66
+warning: main.tex:69: Underfull \hbox (badness 1052) in paragraph at lines 68--69
+warning: main.tex:75: Underfull \hbox (badness 4181) in paragraph at lines 74--75
+warning: main.tex:77: Underfull \hbox (badness 5331) in paragraph at lines 76--77
+warning: main.tex:77: Underfull \hbox (badness 1237) in paragraph at lines 76--77
+warning: main.tex:77: Underfull \hbox (badness 1237) in paragraph at lines 76--77
+warning: main.tex:77: Underfull \hbox (badness 1005) in paragraph at lines 76--77
+warning: main.tex:77: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.tex:95: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.tex:115: Underfull \hbox (badness 1527) in paragraph at lines 114--115
+warning: main.tex:123: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.tex:126: Underfull \hbox (badness 1019) in paragraph at lines 125--126
+warning: main.tex:126: Underfull \hbox (badness 5667) in paragraph at lines 125--126
+warning: main.tex:126: Underfull \hbox (badness 1033) in paragraph at lines 125--126
+warning: main.tex:131: Underfull \hbox (badness 2368) in paragraph at lines 130--131
+warning: main.tex:139: Underfull \hbox (badness 1728) in paragraph at lines 138--139
+warning: main.tex:142: Underfull \hbox (badness 10000) in paragraph at lines 141--142
+warning: main.tex:144: Underfull \hbox (badness 1748) in paragraph at lines 143--144
+warning: main.tex:144: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.tex:152: Underfull \hbox (badness 1515) in paragraph at lines 151--152
+warning: main.tex:152: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.tex:155: Underfull \hbox (badness 10000) in paragraph at lines 154--155
+warning: main.tex:155: Underfull \hbox (badness 1496) in paragraph at lines 154--155
+warning: main.tex:155: Underfull \hbox (badness 1337) in paragraph at lines 154--155
+warning: main.tex:155: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.tex:163: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.bbl:15: Underfull \hbox (badness 10000) in paragraph at lines 9--15
+warning: main.bbl:15: Underfull \hbox (badness 10000) in paragraph at lines 9--15
+warning: main.bbl:15: Underfull \hbox (badness 10000) in paragraph at lines 9--15
+warning: main.bbl:23: Underfull \hbox (badness 10000) in paragraph at lines 17--23
+warning: main.bbl:23: Underfull \hbox (badness 4193) in paragraph at lines 17--23
+warning: main.bbl:23: Underfull \hbox (badness 10000) in paragraph at lines 17--23
+warning: main.bbl:23: Underfull \hbox (badness 10000) in paragraph at lines 17--23
+warning: main.bbl:48: Underfull \hbox (badness 8075) in paragraph at lines 42--48
+warning: main.bbl:48: Underfull \hbox (badness 10000) in paragraph at lines 42--48
+warning: main.bbl:55: Underfull \hbox (badness 2922) in paragraph at lines 50--55
+warning: main.bbl:62: Underfull \hbox (badness 2521) in paragraph at lines 57--62
+warning: main.bbl:69: Underfull \hbox (badness 5771) in paragraph at lines 64--69
+warning: main.bbl:69: Underfull \hbox (badness 10000) in paragraph at lines 64--69
+warning: main.bbl:76: Underfull \hbox (badness 10000) in paragraph at lines 71--76
+warning: main.bbl:93: Underfull \hbox (badness 10000) in paragraph at lines 87--93
+warning: main.bbl:101: Underfull \hbox (badness 1466) in paragraph at lines 96--101
+warning: main.bbl:101: Underfull \hbox (badness 1189) in paragraph at lines 96--101
+warning: main.tex:277: Underfull \hbox (badness 1028) in paragraph at lines 276--277
+warning: main.tex:277: Underfull \vbox (badness 10000) has occurred while \output is active
+note: Running BibTeX on main.aux ...
+note: warnings were issued by BibTeX; use --print and/or --keep-logs for details.
+note: Rerunning TeX because bibtex was run ...
+warning: main.tex:39: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.tex:45: Underfull \hbox (badness 2626) in paragraph at lines 44--45
+warning: main.tex:45: Underfull \hbox (badness 1460) in paragraph at lines 44--45
+warning: main.tex:45: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.tex:66: Underfull \hbox (badness 1286) in paragraph at lines 65--66
+warning: main.tex:69: Underfull \hbox (badness 1052) in paragraph at lines 68--69
+warning: main.tex:75: Underfull \hbox (badness 4181) in paragraph at lines 74--75
+warning: main.tex:77: Underfull \hbox (badness 5331) in paragraph at lines 76--77
+warning: main.tex:77: Underfull \hbox (badness 1237) in paragraph at lines 76--77
+warning: main.tex:77: Underfull \hbox (badness 1237) in paragraph at lines 76--77
+warning: main.tex:77: Underfull \hbox (badness 1005) in paragraph at lines 76--77
+warning: main.tex:77: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.tex:95: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.tex:115: Underfull \hbox (badness 1527) in paragraph at lines 114--115
+warning: main.tex:123: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.tex:126: Underfull \hbox (badness 1019) in paragraph at lines 125--126
+warning: main.tex:126: Underfull \hbox (badness 5667) in paragraph at lines 125--126
+warning: main.tex:126: Underfull \hbox (badness 1033) in paragraph at lines 125--126
+warning: main.tex:131: Underfull \hbox (badness 2368) in paragraph at lines 130--131
+warning: main.tex:139: Underfull \hbox (badness 1728) in paragraph at lines 138--139
+warning: main.tex:142: Underfull \hbox (badness 10000) in paragraph at lines 141--142
+warning: main.tex:144: Underfull \hbox (badness 1748) in paragraph at lines 143--144
+warning: main.tex:144: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.tex:152: Underfull \hbox (badness 1515) in paragraph at lines 151--152
+warning: main.tex:152: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.tex:155: Underfull \hbox (badness 10000) in paragraph at lines 154--155
+warning: main.tex:155: Underfull \hbox (badness 1496) in paragraph at lines 154--155
+warning: main.tex:155: Underfull \hbox (badness 1337) in paragraph at lines 154--155
+warning: main.tex:155: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.tex:163: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.bbl:15: Underfull \hbox (badness 10000) in paragraph at lines 9--15
+warning: main.bbl:15: Underfull \hbox (badness 10000) in paragraph at lines 9--15
+warning: main.bbl:15: Underfull \hbox (badness 10000) in paragraph at lines 9--15
+warning: main.bbl:23: Underfull \hbox (badness 10000) in paragraph at lines 17--23
+warning: main.bbl:23: Underfull \hbox (badness 4193) in paragraph at lines 17--23
+warning: main.bbl:23: Underfull \hbox (badness 10000) in paragraph at lines 17--23
+warning: main.bbl:23: Underfull \hbox (badness 10000) in paragraph at lines 17--23
+warning: main.bbl:48: Underfull \hbox (badness 8075) in paragraph at lines 42--48
+warning: main.bbl:48: Underfull \hbox (badness 10000) in paragraph at lines 42--48
+warning: main.bbl:55: Underfull \hbox (badness 2922) in paragraph at lines 50--55
+warning: main.bbl:62: Underfull \hbox (badness 2521) in paragraph at lines 57--62
+warning: main.bbl:69: Underfull \hbox (badness 5771) in paragraph at lines 64--69
+warning: main.bbl:69: Underfull \hbox (badness 10000) in paragraph at lines 64--69
+warning: main.bbl:76: Underfull \hbox (badness 10000) in paragraph at lines 71--76
+warning: main.bbl:93: Underfull \hbox (badness 10000) in paragraph at lines 87--93
+warning: main.bbl:101: Underfull \hbox (badness 1466) in paragraph at lines 96--101
+warning: main.bbl:101: Underfull \hbox (badness 1189) in paragraph at lines 96--101
+warning: main.tex:277: Underfull \hbox (badness 1028) in paragraph at lines 276--277
+warning: main.tex:277: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
+note: Running xdvipdfmx ...
+note: Writing `work/review-vllm/deliverables/final-2026-11-24/report/main.aux` (3.3515625 KiB)
+note: Writing `work/review-vllm/deliverables/final-2026-11-24/report/main.pdf` (325.556640625 KiB)
+note: Writing `work/review-vllm/deliverables/final-2026-11-24/report/main.bbl` (3.7626953125 KiB)
+note: Not writing `main.out`: it would be empty.
+note: Writing `work/review-vllm/deliverables/final-2026-11-24/report/main.blg` (443 B)
+note: Writing `work/review-vllm/deliverables/final-2026-11-24/report/main.log` (21.4921875 KiB)

@@ -1,0 +1,3 @@
+mixture,best_observed,strongest_baseline,best_fraction,baseline_fraction,gain_pp,relative_gain_percent,n,sd
+skewed,rfifo,fifo,0.602514667499286,0.49119265489818603,11.132201260109992,22.663615078726014,1,
+equal-token,rfifo,lru,0.41175807363915595,0.3584692483001686,5.328882533898738,14.865661585109061,1,

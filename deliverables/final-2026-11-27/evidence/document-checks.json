@@ -1,0 +1,26 @@
+{
+  "pptx_zip_crc_and_xml": "passed",
+  "pptx_author": "Thomas Lin; Yu-Ting Chung; Patrick Chiou; Yu-Xin Lai",
+  "editable_text_shapes": 766,
+  "documents": {
+    "report": {
+      "pages": 15,
+      "main_pages": 6,
+      "first_reference_page": 7
+    },
+    "slides": {
+      "pages": 28,
+      "creator": "Impress"
+    }
+  },
+  "timing": {
+    "main_slides": 15,
+    "backup_slides": 13,
+    "seconds": 810,
+    "spoken_words": 1589,
+    "planned_words_per_minute": 117.70370370370371,
+    "native_pptx_render": "Native LibreOffice export is run separately; see presentation/VALIDATION.md. Shared-source layout companion retained for comparison."
+  },
+  "layout_estimates": [],
+  "scope": "All pages rendered; human-visible contact sheets and detailed page images require visual inspection."
+}

@@ -1,0 +1,36 @@
+commit ad1d8265420c2515882300710d1cdf5d375515ba
+Author:     Thomas Lin <thomaslintexan@gmail.com>
+AuthorDate: Wed Nov 25 22:07:35 2026 -0600
+Commit:     Thomas Lin <thomaslintexan@gmail.com>
+CommitDate: Wed Nov 25 22:07:35 2026 -0600
+
+    add more experiment
+
+ docs/assets/m3-task2/hold_balanced.pdf             | Bin 0 -> 15466 bytes
+ docs/assets/m3-task2/hold_balanced.png             | Bin 0 -> 73889 bytes
+ docs/assets/m3-task2/hold_chat_heavy.pdf           | Bin 0 -> 15466 bytes
+ docs/assets/m3-task2/hold_chat_heavy.png           | Bin 0 -> 73956 bytes
+ docs/assets/m3-task2/hold_protected_heavy.pdf      | Bin 0 -> 15476 bytes
+ docs/assets/m3-task2/hold_protected_heavy.png      | Bin 0 -> 73903 bytes
+ docs/assets/m3-task2/hold_template_heavy.pdf       | Bin 0 -> 15460 bytes
+ docs/assets/m3-task2/hold_template_heavy.png       | Bin 0 -> 73948 bytes
+ docs/assets/m3-task2/hold_trace_heavy.pdf          | Bin 0 -> 15470 bytes
+ docs/assets/m3-task2/hold_trace_heavy.png          | Bin 0 -> 73991 bytes
+ docs/milestone3-task2.md                           | 188 +++++++-
+ tests/simulator/test_eviction_policies.py          |  10 +
+ tests/simulator/test_hold_grid.py                  |  33 ++
+ tests/simulator/test_trace_builder.py              |  17 +
+ vllm/config.py                                     |   9 +
+ vllm/core/block/cpu_gpu_block_allocator.py         |  12 +-
+ vllm/core/block/prefix_caching_block.py            |   7 +-
+ vllm/core/block_manager.py                         |  10 +-
+ vllm/core/evictor.py                               |  25 +-
+ vllm/core/scheduler.py                             |   4 +-
+ vllm/engine/arg_utils.py                           |  12 +
+ vllm/executor/sim_executor.py                      |   2 +
+ .../experiments/m3-task2/prepared/agent.jsonl      |   0
+ vllm/simulator/hold_grid.py                        | 535 +++++++++++++++++++++
+ vllm/simulator/replay.py                           |   6 +-
+ vllm/simulator/study.py                            |   8 +-
+ vllm/simulator/trace_builder.py                    |  34 +-
+ 27 files changed, 878 insertions(+), 34 deletions(-)

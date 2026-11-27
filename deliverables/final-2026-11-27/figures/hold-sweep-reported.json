@@ -1,0 +1,561 @@
+{
+  "source_commit": "ad1d8265420c2515882300710d1cdf5d375515ba",
+  "source": "docs/milestone3-task2.md, Hold and admission sweep, larger m3-hold-grid3 table",
+  "source_sha256": "885b01ac2225665fc9682cf9702afb5b4df28ce8d8ba97b0bbb0d6be70e283ca",
+  "evidence_level": "repository-reported rounded aggregates; original requests/prepared inputs/manifests unavailable locally and not independently raw-validated",
+  "precision": "one decimal percentage; differences/rankings approximate, sub-0.1pp margins unresolved by rounding",
+  "reported_runs": 125,
+  "settings_per_mix": 25,
+  "mixtures": [
+    "chat-heavy",
+    "protected-heavy",
+    "trace-heavy",
+    "template-heavy",
+    "balanced"
+  ],
+  "seeds_per_cell": 1,
+  "reported_failures": 0,
+  "reported_clamping": false,
+  "rows": [
+    {
+      "setting": "lru",
+      "chat-heavy": 13.7,
+      "protected-heavy": 37.7,
+      "trace-heavy": 25.4,
+      "template-heavy": 33.2,
+      "balanced": 37.9
+    },
+    {
+      "setting": "lfu",
+      "chat-heavy": 12.3,
+      "protected-heavy": 30.1,
+      "trace-heavy": 27.7,
+      "template-heavy": 47.6,
+      "balanced": 37.3
+    },
+    {
+      "setting": "fifo",
+      "chat-heavy": 13.1,
+      "protected-heavy": 36.5,
+      "trace-heavy": 23.1,
+      "template-heavy": 32.2,
+      "balanced": 35.9
+    },
+    {
+      "setting": "tfifo",
+      "chat-heavy": 8.4,
+      "protected-heavy": 34.8,
+      "trace-heavy": 20.3,
+      "template-heavy": 24.5,
+      "balanced": 25.5
+    },
+    {
+      "setting": "rfifo-w20-t0.02",
+      "chat-heavy": 18.0,
+      "protected-heavy": 30.5,
+      "trace-heavy": 19.7,
+      "template-heavy": 37.5,
+      "balanced": 31.4
+    },
+    {
+      "setting": "rfifo-w20-t0.05",
+      "chat-heavy": 8.9,
+      "protected-heavy": 31.1,
+      "trace-heavy": 19.6,
+      "template-heavy": 40.3,
+      "balanced": 34.3
+    },
+    {
+      "setting": "rfifo-w20-t0.2",
+      "chat-heavy": 13.7,
+      "protected-heavy": 23.6,
+      "trace-heavy": 16.7,
+      "template-heavy": 40.7,
+      "balanced": 37.3
+    },
+    {
+      "setting": "rfifo-w100-t0.02",
+      "chat-heavy": 21.5,
+      "protected-heavy": 35.0,
+      "trace-heavy": 21.1,
+      "template-heavy": 40.7,
+      "balanced": 35.9
+    },
+    {
+      "setting": "rfifo-w100-t0.05",
+      "chat-heavy": 22.6,
+      "protected-heavy": 30.0,
+      "trace-heavy": 17.8,
+      "template-heavy": 44.0,
+      "balanced": 36.2
+    },
+    {
+      "setting": "rfifo-w100-t0.2",
+      "chat-heavy": 22.7,
+      "protected-heavy": 21.3,
+      "trace-heavy": 18.0,
+      "template-heavy": 45.6,
+      "balanced": 36.8
+    },
+    {
+      "setting": "rfifo-w500-t0.02",
+      "chat-heavy": 21.3,
+      "protected-heavy": 31.0,
+      "trace-heavy": 16.9,
+      "template-heavy": 42.5,
+      "balanced": 30.1
+    },
+    {
+      "setting": "rfifo-w500-t0.05",
+      "chat-heavy": 23.6,
+      "protected-heavy": 28.0,
+      "trace-heavy": 18.7,
+      "template-heavy": 42.0,
+      "balanced": 38.3
+    },
+    {
+      "setting": "rfifo-w500-t0.2",
+      "chat-heavy": 15.2,
+      "protected-heavy": 21.7,
+      "trace-heavy": 21.5,
+      "template-heavy": 47.4,
+      "balanced": 36.6
+    },
+    {
+      "setting": "tlru-h3-b0.25",
+      "chat-heavy": 13.1,
+      "protected-heavy": 37.5,
+      "trace-heavy": 25.3,
+      "template-heavy": 33.6,
+      "balanced": 37.9
+    },
+    {
+      "setting": "tlru-h3-b1",
+      "chat-heavy": 13.0,
+      "protected-heavy": 37.4,
+      "trace-heavy": 25.5,
+      "template-heavy": 33.7,
+      "balanced": 37.9
+    },
+    {
+      "setting": "tlru-h8-b0.25",
+      "chat-heavy": 12.6,
+      "protected-heavy": 37.7,
+      "trace-heavy": 25.5,
+      "template-heavy": 33.6,
+      "balanced": 37.9
+    },
+    {
+      "setting": "tlru-h8-b1",
+      "chat-heavy": 12.9,
+      "protected-heavy": 39.1,
+      "trace-heavy": 22.8,
+      "template-heavy": 33.6,
+      "balanced": 37.9
+    },
+    {
+      "setting": "tlru-h30-b0.25",
+      "chat-heavy": 12.8,
+      "protected-heavy": 37.6,
+      "trace-heavy": 25.4,
+      "template-heavy": 32.5,
+      "balanced": 38.0
+    },
+    {
+      "setting": "tlru-h30-b1",
+      "chat-heavy": 12.7,
+      "protected-heavy": 37.3,
+      "trace-heavy": 22.0,
+      "template-heavy": 31.7,
+      "balanced": 36.6
+    },
+    {
+      "setting": "hlru-h3-b0.25",
+      "chat-heavy": 13.3,
+      "protected-heavy": 37.6,
+      "trace-heavy": 25.4,
+      "template-heavy": 33.6,
+      "balanced": 37.8
+    },
+    {
+      "setting": "hlru-h3-b1",
+      "chat-heavy": 12.9,
+      "protected-heavy": 37.7,
+      "trace-heavy": 25.4,
+      "template-heavy": 33.6,
+      "balanced": 37.8
+    },
+    {
+      "setting": "hlru-h8-b0.25",
+      "chat-heavy": 13.2,
+      "protected-heavy": 39.1,
+      "trace-heavy": 26.3,
+      "template-heavy": 33.4,
+      "balanced": 37.8
+    },
+    {
+      "setting": "hlru-h8-b1",
+      "chat-heavy": 13.3,
+      "protected-heavy": 39.3,
+      "trace-heavy": 26.5,
+      "template-heavy": 33.6,
+      "balanced": 37.7
+    },
+    {
+      "setting": "hlru-h30-b0.25",
+      "chat-heavy": 13.2,
+      "protected-heavy": 36.2,
+      "trace-heavy": 27.7,
+      "template-heavy": 39.6,
+      "balanced": 40.0
+    },
+    {
+      "setting": "hlru-h30-b1",
+      "chat-heavy": 13.4,
+      "protected-heavy": 35.8,
+      "trace-heavy": 27.8,
+      "template-heavy": 45.0,
+      "balanced": 40.1
+    }
+  ],
+  "cohorts": [
+    {
+      "mixture": "chat-heavy",
+      "requests": 4682,
+      "prompt_tokens": 3235776,
+      "cache_blocks": 11474,
+      "working_set_blocks": 114738,
+      "composition": "chat 86.5% (limit 1200; code 600)"
+    },
+    {
+      "mixture": "protected-heavy",
+      "requests": 1958,
+      "prompt_tokens": 2040836,
+      "cache_blocks": 7289,
+      "working_set_blocks": 72888,
+      "composition": "bailian-coder 28.6%, bailian-chat 24.9%, agent 22.7%, coding-agent 13.1%"
+    },
+    {
+      "mixture": "trace-heavy",
+      "requests": 1874,
+      "prompt_tokens": 3733235,
+      "cache_blocks": 15287,
+      "working_set_blocks": 152868,
+      "composition": "bailian-coder 43.3%, bailian-chat 35.4%, mooncake-agent 12.9%"
+    },
+    {
+      "mixture": "template-heavy",
+      "requests": 10248,
+      "prompt_tokens": 1469927,
+      "cache_blocks": 7284,
+      "working_set_blocks": 72832,
+      "composition": "code 36.0%, quality 35.1%"
+    },
+    {
+      "mixture": "balanced",
+      "requests": 12029,
+      "prompt_tokens": 3849896,
+      "cache_blocks": 15686,
+      "working_set_blocks": 156854,
+      "composition": "6.9\u201315.2% per label; coding-agent is the 6.9%"
+    }
+  ],
+  "maxima": {
+    "chat-heavy": 23.6,
+    "protected-heavy": 39.3,
+    "trace-heavy": 27.8,
+    "template-heavy": 47.6,
+    "balanced": 40.1
+  },
+  "derived_from_rounded_table": [
+    {
+      "setting": "hlru-h30-b1",
+      "macro_mean_percent": 32.42,
+      "mean_regret_pp": 3.26,
+      "worst_regret_pp": 10.2
+    },
+    {
+      "setting": "hlru-h30-b0.25",
+      "macro_mean_percent": 31.34,
+      "mean_regret_pp": 4.34,
+      "worst_regret_pp": 10.4
+    },
+    {
+      "setting": "lfu",
+      "macro_mean_percent": 31.0,
+      "mean_regret_pp": 4.68,
+      "worst_regret_pp": 11.3
+    },
+    {
+      "setting": "rfifo-w100-t0.02",
+      "macro_mean_percent": 30.84,
+      "mean_regret_pp": 4.84,
+      "worst_regret_pp": 6.9
+    },
+    {
+      "setting": "rfifo-w100-t0.05",
+      "macro_mean_percent": 30.12,
+      "mean_regret_pp": 5.56,
+      "worst_regret_pp": 10.0
+    },
+    {
+      "setting": "rfifo-w500-t0.05",
+      "macro_mean_percent": 30.12,
+      "mean_regret_pp": 5.56,
+      "worst_regret_pp": 11.3
+    },
+    {
+      "setting": "hlru-h8-b1",
+      "macro_mean_percent": 30.08,
+      "mean_regret_pp": 5.6,
+      "worst_regret_pp": 14.0
+    },
+    {
+      "setting": "hlru-h8-b0.25",
+      "macro_mean_percent": 29.96,
+      "mean_regret_pp": 5.72,
+      "worst_regret_pp": 14.2
+    },
+    {
+      "setting": "lru",
+      "macro_mean_percent": 29.58,
+      "mean_regret_pp": 6.1,
+      "worst_regret_pp": 14.4
+    },
+    {
+      "setting": "hlru-h3-b0.25",
+      "macro_mean_percent": 29.54,
+      "mean_regret_pp": 6.14,
+      "worst_regret_pp": 14.0
+    },
+    {
+      "setting": "tlru-h3-b1",
+      "macro_mean_percent": 29.5,
+      "mean_regret_pp": 6.18,
+      "worst_regret_pp": 13.9
+    },
+    {
+      "setting": "tlru-h3-b0.25",
+      "macro_mean_percent": 29.48,
+      "mean_regret_pp": 6.2,
+      "worst_regret_pp": 14.0
+    },
+    {
+      "setting": "hlru-h3-b1",
+      "macro_mean_percent": 29.48,
+      "mean_regret_pp": 6.2,
+      "worst_regret_pp": 14.0
+    },
+    {
+      "setting": "tlru-h8-b0.25",
+      "macro_mean_percent": 29.46,
+      "mean_regret_pp": 6.22,
+      "worst_regret_pp": 14.0
+    },
+    {
+      "setting": "tlru-h8-b1",
+      "macro_mean_percent": 29.26,
+      "mean_regret_pp": 6.42,
+      "worst_regret_pp": 14.0
+    },
+    {
+      "setting": "tlru-h30-b0.25",
+      "macro_mean_percent": 29.26,
+      "mean_regret_pp": 6.42,
+      "worst_regret_pp": 15.1
+    },
+    {
+      "setting": "rfifo-w100-t0.2",
+      "macro_mean_percent": 28.88,
+      "mean_regret_pp": 6.8,
+      "worst_regret_pp": 18.0
+    },
+    {
+      "setting": "rfifo-w500-t0.2",
+      "macro_mean_percent": 28.48,
+      "mean_regret_pp": 7.2,
+      "worst_regret_pp": 17.6
+    },
+    {
+      "setting": "rfifo-w500-t0.02",
+      "macro_mean_percent": 28.36,
+      "mean_regret_pp": 7.32,
+      "worst_regret_pp": 10.9
+    },
+    {
+      "setting": "fifo",
+      "macro_mean_percent": 28.16,
+      "mean_regret_pp": 7.52,
+      "worst_regret_pp": 15.4
+    },
+    {
+      "setting": "tlru-h30-b1",
+      "macro_mean_percent": 28.06,
+      "mean_regret_pp": 7.62,
+      "worst_regret_pp": 15.9
+    },
+    {
+      "setting": "rfifo-w20-t0.02",
+      "macro_mean_percent": 27.42,
+      "mean_regret_pp": 8.26,
+      "worst_regret_pp": 10.1
+    },
+    {
+      "setting": "rfifo-w20-t0.05",
+      "macro_mean_percent": 26.84,
+      "mean_regret_pp": 8.84,
+      "worst_regret_pp": 14.7
+    },
+    {
+      "setting": "rfifo-w20-t0.2",
+      "macro_mean_percent": 26.4,
+      "mean_regret_pp": 9.28,
+      "worst_regret_pp": 15.7
+    },
+    {
+      "setting": "tfifo",
+      "macro_mean_percent": 22.7,
+      "mean_regret_pp": 12.98,
+      "worst_regret_pp": 23.1
+    }
+  ],
+  "selected_label_rows": [
+    [
+      "chat-heavy",
+      "chat",
+      "86.5",
+      "13.3",
+      "11.7",
+      "4.3",
+      "12.9",
+      "12.9",
+      "12.1",
+      "26.1"
+    ],
+    [
+      "protected-heavy",
+      "coding-agent",
+      "13.1",
+      "94.2",
+      "67.0",
+      "94.4",
+      "94.0",
+      "86.6",
+      "94.2",
+      "48.7"
+    ],
+    [
+      "protected-heavy",
+      "agent",
+      "22.7",
+      "61.3",
+      "42.0",
+      "65.8",
+      "61.5",
+      "53.5",
+      "60.8",
+      "56.7"
+    ],
+    [
+      "protected-heavy",
+      "bailian-coder",
+      "28.6",
+      "11.4",
+      "15.6",
+      "8.7",
+      "14.9",
+      "14.5",
+      "11.6",
+      "10.2"
+    ],
+    [
+      "trace-heavy",
+      "bailian-coder",
+      "43.3",
+      "20.8",
+      "24.4",
+      "20.1",
+      "22.6",
+      "24.6",
+      "20.8",
+      "19.0"
+    ],
+    [
+      "trace-heavy",
+      "mooncake-agent",
+      "12.9",
+      "24.2",
+      "28.5",
+      "1.5",
+      "26.2",
+      "28.5",
+      "24.2",
+      "19.5"
+    ],
+    [
+      "template-heavy",
+      "quality",
+      "35.1",
+      "35.7",
+      "76.1",
+      "12.4",
+      "35.7",
+      "68.7",
+      "35.6",
+      "79.2"
+    ],
+    [
+      "template-heavy",
+      "code",
+      "36.0",
+      "29.9",
+      "30.0",
+      "29.7",
+      "29.9",
+      "29.9",
+      "29.9",
+      "29.7"
+    ],
+    [
+      "balanced",
+      "quality",
+      "13.4",
+      "37.3",
+      "69.2",
+      "3.5",
+      "37.3",
+      "47.4",
+      "37.3",
+      "58.8"
+    ],
+    [
+      "balanced",
+      "chat",
+      "12.9",
+      "55.8",
+      "28.5",
+      "3.0",
+      "55.1",
+      "54.8",
+      "55.6",
+      "62.9"
+    ],
+    [
+      "balanced",
+      "coding-agent",
+      "6.9",
+      "86.6",
+      "74.4",
+      "87.7",
+      "85.4",
+      "86.9",
+      "86.6",
+      "50.6"
+    ]
+  ],
+  "derived_replayed_requests": 769775,
+  "do_not_pool_with_historical": true,
+  "execution_order": "fixed order in hold_grid.run_specs(), not randomized",
+  "hfifo": "not included in this sweep",
+  "test_evidence": "run separately on ad1d826542; see full-tests.log"
+}

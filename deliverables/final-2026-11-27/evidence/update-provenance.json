@@ -1,0 +1,31 @@
+{
+  "source_commit": "ad1d8265420c2515882300710d1cdf5d375515ba",
+  "source": "docs/milestone3-task2.md, Hold and admission sweep, larger m3-hold-grid3 table",
+  "source_sha256": "885b01ac2225665fc9682cf9702afb5b4df28ce8d8ba97b0bbb0d6be70e283ca",
+  "evidence_level": "repository-reported rounded aggregates; original requests/prepared inputs/manifests unavailable locally and not independently raw-validated",
+  "precision": "one decimal percentage; differences/rankings approximate, sub-0.1pp margins unresolved by rounding",
+  "reported_runs": 125,
+  "settings_per_mix": 25,
+  "mixtures": [
+    "chat-heavy",
+    "protected-heavy",
+    "trace-heavy",
+    "template-heavy",
+    "balanced"
+  ],
+  "seeds_per_cell": 1,
+  "reported_failures": 0,
+  "reported_clamping": false,
+  "maxima": {
+    "chat-heavy": 23.6,
+    "protected-heavy": 39.3,
+    "trace-heavy": 27.8,
+    "template-heavy": 47.6,
+    "balanced": 40.1
+  },
+  "derived_replayed_requests": 769775,
+  "do_not_pool_with_historical": true,
+  "execution_order": "fixed order in hold_grid.run_specs(), not randomized",
+  "hfifo": "not included in this sweep",
+  "test_evidence": "run separately on ad1d826542; see full-tests.log"
+}

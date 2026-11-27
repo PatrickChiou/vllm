@@ -1,0 +1,2 @@
+API health/startup passed; no inference requests submitted.
+Normal API shutdown flushed final counter: {'cache_evictions': 0, 'definition': 'successful evictor allocations of unused cached blocks', 'measurement': 'opt-in allocator wrapper; not inferred from misses'}
